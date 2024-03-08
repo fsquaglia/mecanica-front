@@ -1,0 +1,16 @@
+.cards {
+    background-image: url("../../images/background01.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    display: flex;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; /* Posición del fondo */
+}
+.carousel {
+   margin-top: 3rem;
+    position: center;
+    z-index: 2; /* Posición del carrusel sobre el fondo */
+  }

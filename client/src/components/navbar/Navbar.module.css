@@ -1,0 +1,36 @@
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100; /* Posiciona la navbar sobre el contenido */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(255, 255, 254);
+    width: 100vw;
+    height: 5rem;
+    margin-bottom: 0.25rem;
+    border: 1px solid grey;
+    padding: 0 1.25rem; /* Añadido para dar espacio en los lados */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .userDetails {
+    display: flex;
+    align-items: center;
+    font-size: medium;
+  }
+  
+  .userDetails h4 {
+    margin-right: 0.20rem;
+    font-size: medium;
+  }
+  
+  .userDetails img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
