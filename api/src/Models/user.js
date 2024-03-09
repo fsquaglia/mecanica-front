@@ -12,10 +12,9 @@ export default (sequelize)=>{
         email: { type: DataTypes.STRING, allowNull: false },
         password: {type:DataTypes.STRING, allowNull: false},
         nickname:{type: DataTypes.STRING, allowNull: true},
-        name: { type: DataTypes.STRING, allowNull: true },
-        surname: { type: DataTypes.STRING, allowNull: true },
-        dni:{type:DataTypes.STRING, allowNull: true},
-        cuit:{type:DataTypes.STRING, allowNull: true},
+        name: { type: DataTypes.STRING, allowNull: true},
+        typeId:{type:DataTypes.STRING, allowNull: true},
+        numberId:{type:DataTypes.STRING, allowNull: true},
         picture: { type: DataTypes.STRING, allowNull: false},
         role:{type: DataTypes.SMALLINT, allowNull: false,defaultValue: 1,
           validate: {

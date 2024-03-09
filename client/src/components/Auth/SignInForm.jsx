@@ -6,17 +6,21 @@ import { createUser } from './Auth';
 import GenericButton from '../GenericButton/GenericButton';
 
 const SignInForm = ({auth}) => {
-  const {login} = auth;
+  //const {login} = auth;
   const [input, setInput] = useState({
     email: "",
-    password: "",
-    confirmPassword: "",
-  });
+    name: "",
+    typeId: "",
+    numberId: "",
+    country: "",
+    });
 
   const [error, setError] = useState({
     email: "",
-    password: "",
-    confirmPassword: "",
+    name: "",
+    typeId: "",
+    numberId: "",
+    country: "",
   });
 
   const navigate = useNavigate();
@@ -28,13 +32,10 @@ const SignInForm = ({auth}) => {
       [name]: value,
     }));
 
-    setError((prevError) => ({
-      ...prevError,
-      [name]:
-          name === "confirmPassword" && value !== input.password
-        ? "Las contraseñas no coinciden"
-        : ValidCreate({ ...input, [name]: value })[name],
-    }));
+    setError({
+      ...error,
+      [name]: ValidCreate({ ...input, [name]: value })[name],
+    });
   };
 
   const handleSubmit = async (event) => {
@@ -44,11 +45,13 @@ const SignInForm = ({auth}) => {
     setError(validationErrors);
 
     if (Object.values(validationErrors).every((error) => error === "")) {
-      await createUser(input, login);
+      await createUser(input);
       setInput({
         email: "",
-        password: "",
-        confirmPassword: "",
+        name: "",
+        typeId: "",
+        numberId: "",
+        country: "",
       });
       navigate("/home");
     }
@@ -58,7 +61,7 @@ const SignInForm = ({auth}) => {
     <div>
       <form onSubmit={handleSubmit}>
        <div>
-         </div>
+         </div>   
          <div >
            <input
              type="text"
@@ -73,34 +76,60 @@ const SignInForm = ({auth}) => {
            {error.email && <p className={style.errorMessage}>{error.email}</p>}
          </div>
          <br/>
-         <div>
+         <div >
            <input
-             type="password"
-             placeholder="password"
-             value={input.password}
-             name="password"
+             type="text"
+             placeholder="name"
+             value={input.name}
+             name="name"
              autoComplete="off"
              onChange={(event) => handleChange(event)}
              className=''
            />
-           <label > Password: </label>
-           {error.password && <p className={style.errorMessage}>{error.password}</p>}
+           <label > Nombre, Apellido o Razón social: </label>
+           {error.name && <p className={style.errorMessage}>{error.name}</p>}
          </div>
          <br/>
          <div>
-      <input
-        type="password"
-        placeholder="confirm password"
-        value={input.confirmPassword}
-        name="confirmPassword"
-        autoComplete="off"
-        onChange={(event) => handleChange(event)}
-        className=''
-      />
-      <label > Confirm Password: </label>
-      {error.confirmPassword && <p className={style.errorMessage}>{error.confirmPassword}</p>}
-    </div> 
+      <label htmlFor="typeId">Tipo documento:</label>
+      <select 
+      id="typeId" 
+      name="typeId" 
+      value={input.typeId} 
+      onChange={(event) => handleChange(event)}>
+        <option value="">Selecciona un tipo</option>
+        <option value="DNI">DNI</option>
+        <option value="CUIT">CUIT</option>
+        <option value="CDI">CDI</option>
+        <option value="PASSPORT">PASAPORTE</option>
+        <option value="CI_EXTRANGE">CI extranjera.</option>
+      </select>
+      {error.typeId && <p className={style.errorMessage}>{error.typeId}</p>}
+      <br />
+      <label htmlFor="numberId">Número documento:</label>
+      <input 
+      type="text" 
+      id="numberId" 
+      name="numberId" 
+      value={input.numberId} 
+      onChange={(event) => handleChange(event)} />
+       {error.numberId && <p className={style.errorMessage}>{error.numberId}</p>}
+    </div>
     <br/>
+    <div >
+           <input
+             type="text"
+             placeholder="country"
+             value={input.country}
+             name="country"
+             autoComplete="off"
+             onChange={(event) => handleChange(event)}
+             className=''
+           />
+           <label > Pais: </label>
+           {error.country && <p className={style.errorMessage}>{error.country}</p>}
+         </div>
+         <br/>
     <GenericButton type='submit' buttonText={'Crear Usuario'}/>
       </form>
     </div>
@@ -109,13 +138,8 @@ const SignInForm = ({auth}) => {
 
 export default SignInForm;
 
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { NavLink } from "react-router-dom";
-// import {ValidCreate} from '../utils/Validate'
-// import {createUser}from './Auth'
-
-// const SignInForm = () => {
+// const SignInForm = ({auth}) => {
+//   const {login} = auth;
 //   const [input, setInput] = useState({
 //     email: "",
 //     password: "",
@@ -130,104 +154,88 @@ export default SignInForm;
 
 //   const navigate = useNavigate();
 
-//   function handleChange(event) {
+//   const handleChange = (event) => {
 //     const { name, value } = event.target;
-//     setInput({
-//       ...input,
+//     setInput((prevInput) => ({
+//       ...prevInput,
 //       [name]: value,
-//     });
-  
+//     }));
+
 //     setError((prevError) => ({
 //       ...prevError,
 //       [name]:
-//         name === "confirmPassword" && input.confirmPassword !== value
-//           ? "Passwords do not match"
-//           : ValidCreate({ ...input, [name]: value })[name],
+//           name === "confirmPassword" && value !== input.password
+//         ? "Las contraseñas no coinciden"
+//         : ValidCreate({ ...input, [name]: value })[name],
 //     }));
-//   }
-   
+//   };
 
-// //  const handleSubmit = async(event)=>{
-// //     event.preventDefault();
+//   const handleSubmit = async (event) => {
+//     event.preventDefault();
 
-// //     if (Object.keys(error).every(key => error[key] === "")) {
-// //       await createUser(input);
-// //       setInput({
-// //         email: "",
-// //         password: "",
-// //         confirmPassword: "",
-// //       });
-// //       navigate("/home");
-// //       alert("User logged successfully");
-// //     }
-// //   }
-// const handleSubmit = async (event) => {
-//   event.preventDefault();
+//     const validationErrors = ValidCreate(input);
+//     setError(validationErrors);
 
-//   const validationErrors = ValidCreate(input);
-//   setError(validationErrors);
+//     if (Object.values(validationErrors).every((error) => error === "")) {
+//       await createUser(input, login);
+//       setInput({
+//         email: "",
+//         password: "",
+//         confirmPassword: "",
+//       });
+//       navigate("/home");
+//     }
+//   };
 
-//   if (Object.values(validationErrors).every((error) => error === "")) {
-//     await createUser(input);
-//     setInput({
-//       email: "",
-//       password: "",
-//       confirmPassword: "",
-//     });
-//     navigate("/home");
-//     alert("User logged successfully");
-//   }
-// };
 //   return (
 //     <div>
-//       <form onSubmit={(event) => handleSubmit(event)}>
-//         <div>
-//           <NavLink to="/home">
-//             <button> Cancel </button>
-//           </NavLink>
-//         </div>
-//         <div >
-//           <input
-//             type="text"
-//             placeholder="email"
-//             value={input.email}
-//             name="email"
-//             autoComplete="off"
-//             onChange={(event) => handleChange(event)}
-//             className=''
-//           />
-//           <label > Email: </label>
-//           {error.email && <p className=''>{error.email}</p>}
-//         </div>
-//         <div>
-//           <input
-//             type="password"
-//             placeholder="password"
-//             value={input.password}
-//             name="password"
-//             autoComplete="off"
-//             onChange={(event) => handleChange(event)}
-//             className=''
-//           />
-//           <label > Password: </label>
-//           {error.password && <p className=''>{error.password}</p>}
-//         </div>
-//         <div>
-//   <input
-//     type="password"
-//     placeholder="confirm password"
-//     value={input.confirmPassword}
-//     name="confirmPassword"
-//     autoComplete="off"
-//     onChange={(event) => handleChange(event)}
-//     className=''
-//   />
-//   <label > Confirm Password: </label>
-//   {error.confirmPassword && <p className=''>{error.confirmPassword}</p>}
-// </div>
-//         <button type="submit">Iniciar Sesión</button>
+//       <form onSubmit={handleSubmit}>
+//        <div>
+//          </div>
+//          <div >
+//            <input
+//              type="text"
+//              placeholder="email"
+//              value={input.email}
+//              name="email"
+//              autoComplete="off"
+//              onChange={(event) => handleChange(event)}
+//              className=''
+//            />
+//            <label > Email: </label>
+//            {error.email && <p className={style.errorMessage}>{error.email}</p>}
+//          </div>
+//          <br/>
+//          <div>
+//            <input
+//              type="password"
+//              placeholder="password"
+//              value={input.password}
+//              name="password"
+//              autoComplete="off"
+//              onChange={(event) => handleChange(event)}
+//              className=''
+//            />
+//            <label > Password: </label>
+//            {error.password && <p className={style.errorMessage}>{error.password}</p>}
+//          </div>
+//          <br/>
+//          <div>
+//       <input
+//         type="password"
+//         placeholder="confirm password"
+//         value={input.confirmPassword}
+//         name="confirmPassword"
+//         autoComplete="off"
+//         onChange={(event) => handleChange(event)}
+//         className=''
+//       />
+//       <label > Confirm Password: </label>
+//       {error.confirmPassword && <p className={style.errorMessage}>{error.confirmPassword}</p>}
+//     </div> 
+//     <br/>
+//     <GenericButton type='submit' buttonText={'Crear Usuario'}/>
 //       </form>
 //     </div>
 //   );
 // };
-// export default SignInForm;
