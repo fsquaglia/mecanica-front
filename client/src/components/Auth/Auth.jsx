@@ -3,31 +3,30 @@ import {HandlError,showSuccess, showError } from './HandlerError';
 
 
 
-const createUser = async(userData, login)=>{
+const createUser = async(userData)=>{
     const email = userData.email;
-  const password = userData.password;
-  const nickname = userData.nickname ?? null;
-  const name = userData.name ?? null;
-  const picture = userData.picture ?? null;
+  const name = userData.name;
+  const typeId = userData.typeId;
+  const numberId = userData.numberId;
+  const country = userData.country;
   try {
     const response = await axios.post(`/user/create`, {
         email,
-        password,
-        nickname,
         name,
-        picture
+        typeId,
+        numberId,
+        country
     })
     if (response.status === 201) {
-      const token = response.data.token;
+      //const token = response.data.token;
       const user = response.data.data;
-      login(token, user);
+      //login(token, user);
        showSuccess('User created successfully')
         //console.log(user)
         return user;
       }
   } catch (error) {
     HandlError(error);
-    alert('algo pasó en la creacion')
     throw error;
   }
 }
@@ -49,7 +48,6 @@ const loginUser = async(userData,login)=>{
       
           
             showSuccess('Login sucessfully')
-            alert('login succesfully')
             console.log(token)
             console.log(user)
             
@@ -58,7 +56,6 @@ const loginUser = async(userData,login)=>{
        
         } catch (error) {
           showError('Login fallido')
-          alert('login fallido')
           //HandlError(error);
           throw error;
         }

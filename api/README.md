@@ -12,7 +12,11 @@ Estas son las rutas y sus respectivas caracteristicas:
 - Descripción: Crea un nuevo usuario.
 - Parámetros:
   - `email` (string): Correo electrónico del usuario.
-  - `password` (string): Contraseña del usuario.
+  - `name` (string): Nombre y apellido del usuario o razón social.
+  - `typeId` (string): Tipo de identificacion (DNI, CUIT, etc).
+  - `numberId` (string): Número de documento.
+  - `country` (string): País del usuario.
+> Nota: Tanto el password como la imagen de usuario son colocados por default en el momento de la creación (Variables de entorno en el backend)
 
 ### Inicio de Sesión de Usuario
 
@@ -35,15 +39,15 @@ Estas son las rutas y sus respectivas caracteristicas:
  - Ruta: `/user/:id`
 - Descripción: Edita cualquier usuario, cambia sus permisos y puede bloquearlo y desbloquearlo.
 - Parámetros:
-  - Password: `string`
-  - Imagen: `string`
-  - Nombre: `string`
-  - Apellido: `string`
-  - dni: `string`
-  - cuit: `string`
-  - Country: `string`
-  - Role (selecciona)
-  - Enable (selecciona) 
+  - email: `string`
+  - password: `string`
+  - pictuer: `string`
+  - name: `string`
+  - typeId: `string`
+  - numberId: `string`
+  - country: `string`
+  - role (selecciona)
+  - enable (selecciona)
 
 > Nota: Cada usuario en particular puede editar su propio perfil desde la sección "configuración".
 
