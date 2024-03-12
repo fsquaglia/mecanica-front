@@ -13,7 +13,7 @@ const getCar = async () => {
                           }]
         });
         const data = response;
-        if(data.length===0){throw new Error('Cars not found')};
+        if(data.length===0){throw new Error('The table Car is empty')};
         return data;
     } catch (error) {
         throw error;

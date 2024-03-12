@@ -11,7 +11,7 @@ import Province from "./Province.js";
 export default {
   CreateUser,
   CreateCar,
-  CreateService
+  CreateService,
   Category,
   CategoryPost,
   Post,
