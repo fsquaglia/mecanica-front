@@ -1,7 +1,6 @@
 import {Sequelize} from 'sequelize';
 import models from './Models/index.js'
 
-
 import dotenv from 'dotenv'
 dotenv.config();
 const {DB_USER, DB_PASS, DB_HOST, DB_NAME, DB_DEPLOY}=process.env;
@@ -22,19 +21,25 @@ native:false}
 //        }    
 //      }
 //    });
-// Iterar sobre los modelos y crearlos con Sequelize
+//* Iterar sobre los modelos y crearlos con Sequelize
 Object.values(models).forEach((model) => model(sequelize));
 
 
 
-const {User}= sequelize.models;
+const {User, Car, Service}= sequelize.models;
 
 //Asociations:
+User.belongsToMany(Car, { through: 'user_car'});
+Car.belongsToMany(User, {through: 'user_car'})
 
+Car.hasMany(Service),
+Service.belongsTo(Car)
 
 
 
 export {
     User,
+    Car,
+    Service,
     sequelize
 }

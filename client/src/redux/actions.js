@@ -4,7 +4,12 @@ export const LOGIN_USER= 'LOGIN_USER';
 export const ISN_AUTH= 'ISN_AUTH';
 export const ALL_USERS= 'ALL_USERS';
 export const USER_BY_ID='USER_BY_ID';
- 
+export const ALL_CARS='ALL_CARS';
+export const CAR_PAT= 'CAR_PAT';
+export const CAR_BY_ID = 'CAR_BY_ID';
+export const SEARCH_START = 'SEARCH_START';
+export const SEARCH_END = 'SEARCH_END';
+
 
 export const loginUser = (payload) => (dispatch)=>{
     return dispatch({
@@ -29,7 +34,7 @@ export const getAllUsers = ()=>{
         })
       } catch (error) {
         HandlError(error)
-        //alert("Could not get the users");
+    
       }
     }
   }
@@ -42,6 +47,59 @@ export const getAllUsers = ()=>{
       });
     } catch (error) {
       HandlError(error)
-      //console.error('Error fetching game', error);
+      
     }
   };
+
+//?%%%%%%%%%%% cars & services %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+export const getAllCars = ()=>{
+  return async (dispatch)=>{
+    try {
+      const data = await axios("/car");
+      return dispatch({
+        type:ALL_CARS,
+        payload: data.data,
+      })
+    } catch (error) {
+      HandlError(error)
+    }
+  }
+}
+
+export const carById = (id, token) => async (dispatch) => {
+  try {
+    const data = await axios(`/car/${id}`);
+    return dispatch({
+      type: CAR_BY_ID,
+      payload:data.data,
+    });
+  } catch (error) {
+    HandlError(error)
+    
+  }
+};
+
+export const carByPat = (patent, token) => async (dispatch) => {
+  try {
+    const data = await axios(`/car?patent=${patent}`);
+    return dispatch({
+      type: CAR_PAT,
+      payload:data.data,
+    });
+  } catch (error) {
+    HandlError(error)
+    
+  }
+};
+
+export const searchStart = (handleSearchStart) => ({
+  type: SEARCH_START,
+  payload: handleSearchStart,
+});
+
+export const searchEnd = (handleSearchEnd) => ({
+  type: SEARCH_END,
+  payload: handleSearchEnd,
+});
+ 

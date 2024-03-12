@@ -72,5 +72,3 @@ const updateUser = async(id, newData)=>{
 const deleteUser= async (id)=>{
     console.log('Todavia no estoy lista (deberia borrar)')
 }
-
-export {getUsers, userById, updateUser, deleteUser }

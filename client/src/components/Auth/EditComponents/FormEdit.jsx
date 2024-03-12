@@ -6,7 +6,7 @@ import CloudinaryUpload from './CloudinaryUpload';
 //import { showSuccess, showError } from '../../Auth/HandlerError';
 
 
- const uplPreset= import.meta.env.VITE_PRESET
+
 
 const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
   const [imageUrl, setImageUrl] = useState(editedUser.picture);
@@ -26,37 +26,7 @@ const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
     e.preventDefault();
     onSaveChanges();
   };
-  // const handleImageUpload = async (event) => {
-  //   const image = event.currentTarget.files[0];
-   
-  //   if (image) {
-  //     const formData = new FormData();
-  //     formData.append('file', image);
-  //     formData.append('upload_preset', uplPreset);
 
-  //     try {
-  //       const response = await axios.post(
-  //         "https://api.cloudinary.com/v1_1/dt1lpgumr/image/upload",
-  //         formData
-  //       );
-
-  //       if (!response.status === 200) {
-  //         console.error('Error al cargar la imagen');
-  //         showError("No fue posible cargar la imagen");
-  //       } else {
-  //         console.log('Imagen nueva:', response.data.secure_url);
-  //         let newImage=response.data.secure_url
-  //         onImageChange(newImage);
-  //         console.log(newImage)
-  //         showSuccess("Imagen cargada con éxito");
-  //       }
-  //     } catch (error) {
-  //       console.error('Error al cargar la imagen:', error);
-  //       showError("No fue posible cargar la imagen");
-  //     }
-  //     console.log(onImageChange);
-  //   }
-  // };
   return (
     <div className={style.formContainer}>
       <form onSubmit={handleSubmit}>
@@ -64,18 +34,27 @@ const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
           {imageUrl && <img src={imageUrl} alt="Current User" />}
         </label>
         <CloudinaryUpload onImageChange={onImageChange}/>
-        {/* <div>
-        <label>
-      <input type="file" onChange={handleImageUpload} />
-        </label>
-        </div> */}
         <label>
           Nombre:
           <input type="text" name="name" value={editedUser.name} onChange={handleInputChange} />
         </label>
         <label>
-          Apellido:
-          <input type="text" name="surname" value={editedUser.surname} onChange={handleInputChange} />
+          Email:
+          <input type="text" name="surname" value={editedUser.email} onChange={handleInputChange} />
+        </label>
+        <label>
+          Tipo documento:
+          <select name="typeId" value={editedUser.typeId} onChange={handleInputChange}>
+            <option value={DNI}>DNI</option>
+            <option value={CUIT/CUIL}>CUIT/CUIL</option>
+            <option value={CDI}>CDI</option>
+            <option value={PASSPORT}>PASAPORTE</option>
+            <option value={CI_EXTRANGE}>CI-extranjera</option>
+          </select>
+        </label>
+        <label>
+          Número:
+          <input type="text" name="numberId" value={editedUser.numberId} onChange={handleInputChange} />
         </label>
         <label>
           País:
@@ -86,8 +65,7 @@ const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
           <select name="role" value={editedUser.role} onChange={handleInputChange}>
             <option value={0}>Admin</option>
             <option value={1}>Usuario</option>
-            <option value={2}>Moderador</option>
-            <option value ={3}>Proveedor</option>
+            <option value={2}>Mecanico</option>
           </select>
         </label>
         <label>

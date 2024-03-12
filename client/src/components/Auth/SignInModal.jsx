@@ -6,7 +6,7 @@ import GenericButton from '../GenericButton/GenericButton';
 
 const SignWindow = ({ onClose, auth}) => {
  
- 
+
 
   return (
     <div className={style.modal}>

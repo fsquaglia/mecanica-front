@@ -1,23 +1,21 @@
 import style from './Navbar.module.css'
-import {Link} from 'react-router-dom'
 import {useAuth} from '../Auth/AuthContext/AuthContext'
+import LoginLinks from './Links/LoginLinks'
+import AdminLink from './Links/AdminLink'
+import ShowUser from './ShowUser/ShowUser'
 
 const Navbar = () => {
-  const {authenticated, user, logout}=useAuth()
+  const {logout}=useAuth()
+
   const handleClick = ()=>{
     logout();
   }
   return (
     <div className={style.nav}>
         Navbar
-    <Link to='/login'>Ingresar</Link>
-    {authenticated?<>
-     <div className={style.userDetails}>
-        <h4>Bienvenido: {user.nickname&& user.nickname}</h4>
-        <img src={user.picture} alt="Nor Found" />
-      </div>
-     </> : null
-    }
+    <LoginLinks/>
+    <AdminLink/>
+    <ShowUser/>
     <a href='/' onClick={handleClick}>Salir</a>
     <br/>
     </div>
