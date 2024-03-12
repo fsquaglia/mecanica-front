@@ -3,6 +3,7 @@
 Proyecto con Base de datos PostgresSQL. Iniciado el día 06/03/2024
 
 Estas son las rutas y sus respectivas caracteristicas:
+
 ## Usuarios
 
 ### Creación de Usuario
@@ -16,7 +17,7 @@ Estas son las rutas y sus respectivas caracteristicas:
   - `typeId` (string): Tipo de identificacion (DNI, CUIT, etc).
   - `numberId` (string): Número de documento.
   - `country` (string): País del usuario.
-> Nota: Tanto el password como la imagen de usuario son colocados por default en el momento de la creación (Variables de entorno en el backend)
+    > Nota: Tanto el password como la imagen de usuario son colocados por default en el momento de la creación (Variables de entorno en el backend)
 
 ### Inicio de Sesión de Usuario
 
@@ -36,7 +37,7 @@ Estas son las rutas y sus respectivas caracteristicas:
 ### Editar usuarios:(Necesita validacion)
 
 - Método: `PUT`
- - Ruta: `/user/:id`
+- Ruta: `/user/:id`
 - Descripción: Edita cualquier usuario, cambia sus permisos y puede bloquearlo y desbloquearlo.
 - Parámetros:
   - email: `string`
@@ -159,3 +160,26 @@ A cada tabla corresponde una ruta, a fin de separar las responsabilidades; de mo
   - `Observations` (TEXT): Observaciones (detalles del trabajo)
   - `picture` (string): Una imagen del vehículo servicio etc.
 
+### BREVE RESUMEN, SEGUIRÉ AMPLIANDO...
+
+Posteriormente se verá la posibilidad de que en la web se muestren los productos
+que se vendern el el taller, como aceites, correas, etc... se agruparán en categorías
+Por lo que existe un `Modelo Category, y otro Modelo Product`
+También podrán llevar un Modelo de sus proveedores, es decir los mayoristas a donde
+ellos compran los productos que utilizan y venden en el taller
+Por lo que existe un `Modelo Provider y otro modelo Province` el proveedor tiene sus datos
+como ser su nro de TE, localidad, y la provincia.
+
+### Ruta /reinit
+
+Lo que hace esta ruta, es cargar las provincias en la tabla correspondiente, agregar
+algunas categorías, algunos productos, y Proveedores. Cuando necesitemos hacer un
+`force:true` luego desde, por ejemplo, Insomnia, podremos darle a esta ruta para que
+realice estas cargas para tener de ejemplo.
+
+
+### Post y CategoryPost
+
+Son los modelos y rutas para el blog, las estoy editando...
+
+### Sigue editando...
