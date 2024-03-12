@@ -4,7 +4,8 @@ import {generateToken} from '../../Utils/validation/index.js'
 import parsedUser from '../../Helpers/parsedUser.js'
 import dotenv from 'dotenv';
 dotenv.config();
-const {USER_IMAGE} = process.env;
+const {DEFAULT_PASS, USER_IMAGE} = process.env;
+console.log(DEFAULT_PASS)
 
 //!>>>>>>>>>>>>> Funcion de login de usuario <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -43,7 +44,7 @@ const userLogin = async(email, password)=>{
       }
 };
 //? >>>>>>>>>>>>>>>>> Funcion de creacion de usuario <<<<<<<<<<<<<<<<<<<<<<<<<<<<
-const userCreate = async(email, password)=>{
+const userCreate = async(email, name, typeId, numberId, country)=>{
     // Método para registrar un nuevo usuario
 
     try {
@@ -57,10 +58,11 @@ const userCreate = async(email, password)=>{
     
         if (!user) {
             const nickname = email.split('@')[0];
+            const hashedPassword = await bcrypt.hash(`${DEFAULT_PASS}`, 10);
           try {
             // Crear el nuevo usuario en la base de datos con la contraseña hasheada
-            const newUser = await User.create({email: email, password: password, nickname: nickname, picture:`${USER_IMAGE}`,});
-            const data = parsedUser(newUser);
+            const newUser = await User.create({email: email, password: hashedPassword, nickname: nickname, name:name, typeId:typeId, numberId:numberId, picture:`${USER_IMAGE}`,country:country,});
+            const data = parsedUser(newUser); 
             console.log('data'+data)
             //const token = generateToken(newUser);
             return {data};

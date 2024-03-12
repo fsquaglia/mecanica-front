@@ -54,9 +54,11 @@ const userInits = async (email, password, nickname, IMG) => {
       password: hashedPassword,
       nickname: nickname,
       name: null,
-      surname:null,
+      typeId:null,
+      numberId:null,
       picture: IMG, 
       role: 0,
+      country:null,
       enable: true,
       deleteAt: false,
     });
