@@ -1,6 +1,7 @@
 import style from './styles/Admin.module.css'
 import {useEffect} from 'react'
 import Navbar from '../../components/navbar/Navbar'
+import SideBar from '../../components/sideBar/SideBar'
 import {UserGrid, CarGrid} from '../../components/StaffComponent/Index'
 import { getAllCars, getAllUsers } from '../../redux/actions'
 import {useDispatch, useSelector} from 'react-redux'
@@ -19,9 +20,11 @@ const Admin = () => {
   return (
     <div >
     <Navbar/>
-    <h1>Estamos en el panel de Admin</h1>
+    <br></br>
+    <h2>Panel de Administrador:</h2>
     <div className={style.cardList}>
-    <UserGrid data={users}/>
+    <SideBar/>
+    <UserGrid/>
     <CarGrid />
     </div>
     </div>

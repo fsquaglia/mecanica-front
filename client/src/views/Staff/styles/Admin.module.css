@@ -1,8 +1,9 @@
 .cardList {
     width: 50vw;
     margin: 0;
+    margin-left: 20rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 1.25rem;
     /* display: flex;

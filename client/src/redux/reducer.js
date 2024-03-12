@@ -2,6 +2,7 @@ import {
  LOGIN_USER,
   ISN_AUTH,
   ALL_USERS,
+  USER_BY_IDFY,
   USER_BY_ID,
   ALL_CARS,
   CAR_PAT,
@@ -12,6 +13,7 @@ import {
 
 const initialState = {
     allUsers: [],
+    userBynumId:[],
     detailUsers: [],
     LogIn: [],
     info: [],
@@ -44,6 +46,11 @@ const reducer = (state = initialState, { type, payload })=>{
         ...state,
         allUsers: payload,
       };
+      case  USER_BY_IDFY:
+        return{
+          ...state,
+          userBynumId: payload,
+        }
     case USER_BY_ID:
       return {
         ...state,

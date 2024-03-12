@@ -25,7 +25,12 @@ const getByQuery = async(patent)=>{
             where:{
                 patent:patent,
                 deletedAt:false,
-            },
+            }, include: [
+                {
+                  model: User,
+                  attributes: ["name" , "id"],
+                  through: { attributes: [] },
+                 }]
         });
         const data = response;
         if(!data){throw new Error('Car not found')};

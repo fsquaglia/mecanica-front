@@ -3,6 +3,7 @@ import axios from 'axios'
 export const LOGIN_USER= 'LOGIN_USER';
 export const ISN_AUTH= 'ISN_AUTH';
 export const ALL_USERS= 'ALL_USERS';
+export const  USER_BY_IDFY= ' USER_BY_IDFY';
 export const USER_BY_ID='USER_BY_ID';
 export const ALL_CARS='ALL_CARS';
 export const CAR_PAT= 'CAR_PAT';
@@ -36,6 +37,17 @@ export const getAllUsers = ()=>{
         HandlError(error)
     
       }
+    }
+  }
+  export const userBynumId = (numberId, )=> async (dispatch)=>{
+    try {
+      const data = await axios(`/user?numberId=${numberId}`)
+      return dispatch({
+        type:  USER_BY_IDFY,
+        payload: data.data,
+      })
+    } catch (error) {
+      HandlError(error)
     }
   }
   export const getById = (id, token) => async (dispatch) => {

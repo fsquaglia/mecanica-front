@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
+// import { useDispatch } from "react-redux";
+// import {carByPat} from '../../../../redux/actions'
 import style from "./GenericSearch.module.css";
 
-const GenericSearch = ({ onSearch, setSearching, place = 'Search by name...', className }) => {
+const CarSearch = ({  searcher, direction,  place = 'Search by name...', className }) => {
+  //const dispatch = useDispatch()
+  const navigate= useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const customClass = className ? className : style.search;
-
-  const handleSearch = () => {
+ 
+  const handleSearch =  () => {
     if (searchTerm.trim() !== '') {
-      onSearch(searchTerm);
-      setSearching=true
-      setSearchTerm("");
+      try {
+       searcher(searchTerm);
+       
+       navigate(`/${direction}/${searchTerm}`);
+       setSearchTerm("");
+      } catch (error) {
+       alert('Algo anda mal')
+       console.log('algo anda mal en la search')
+      }
+      
     }else{
-      setSearching=false
+      navigate(`/admin`);
+      
     }
   };
-
+ 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       handleSearch();
@@ -39,4 +52,4 @@ const GenericSearch = ({ onSearch, setSearching, place = 'Search by name...', cl
   );
 };
 
-export default GenericSearch;
+export default CarSearch;
