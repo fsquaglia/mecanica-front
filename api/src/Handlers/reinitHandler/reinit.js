@@ -1,4 +1,10 @@
-import { Province, Category, Product, Provider } from "../../db.js";
+import {
+  Province,
+  Category,
+  Product,
+  Provider,
+  CategoryPost,
+} from "../../db.js";
 
 const reinit = async (req, res) => {
   const provincesArray = [
@@ -130,6 +136,14 @@ const reinit = async (req, res) => {
     //vaciar y crear Proveedores
     await Provider.destroy({ where: {} });
     await Provider.bulkCreate(providersArray);
+
+    //vaciar y crear Categorias de Post, y Posts
+    await CategoryPost.destroy({ where: {} });
+    await CategoryPost.bulkCreate([
+      { descCategory: "Aceites" },
+      { descCategory: "Sevice periódico" },
+      { descCategory: "Refrigerantes" },
+    ]);
 
     console.log("okey bien");
     res.status(200).json({ message: "Todo ok" });
