@@ -5,11 +5,11 @@ import Landing from './Landing'
 import Login from './Login';
 import Admin from './Staff/Admin'
 import DetailAd from './Staff/DetailAd'
-//import Error from '../components/error/Error';
+import Error from '../components/error/Error';
 
 export {
     About,
-   
+    Error,
     Home,
     Landing,
     Login,

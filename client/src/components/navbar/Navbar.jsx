@@ -8,7 +8,8 @@ const Navbar = () => {
   const {logout}=useAuth()
 
   const handleClick = ()=>{
-    logout();
+      logout();
+    
   }
   return (
     <div className={style.nav}>

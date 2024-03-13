@@ -37,6 +37,7 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     // Aquí podrías limpiar el token almacenado.
     localStorage.clear()
+
   };
   
   return (

@@ -6,6 +6,7 @@ import CreateModal from '../../components/StaffComponent/Cars&ServiceEdit/EditCa
 
 const Home = () => {
   const navigate = useNavigate()
+  
   function closer(){
     setTimeout(()=>{navigate(-1)},3000)
   }
