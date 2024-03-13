@@ -1,4 +1,5 @@
 import style from './styles/Car.module.css'
+import {Link} from 'react-router-dom'
 
 const Car = ({data}) => {
   const {idUser, id, patent, mark, model, year, motorNum, chassisNum, observations, picture}=data;
@@ -9,8 +10,9 @@ const Car = ({data}) => {
   return (
     <div className={style.cardContainer}>
     <p>Propietario: {propietario}</p>
-    <p>Id: {id}</p>
+    <Link to= {`/admin/detail/${id}?type=car`}>Ver mas:</Link>
     <p>Patente: {patent}</p>
+
     <p>Marca: {mark}</p>
     <p>Modelo: {model}</p>
     <img src= {picture}/>

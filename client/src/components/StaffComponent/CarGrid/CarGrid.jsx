@@ -26,7 +26,7 @@ const CarGrid = ({}) => {
 };
   return (
     <div className={style.cardList}>
-      <CarSearch  direction={'admin'} place={'patente...'} searcher={handleCarSearch}/>
+      {/* <CarSearch  direction={'admin'} place={'patente...'} searcher={handleCarSearch}/> */}
     {name? (
       <Car key={found.id} data={found}/>
     ) :(allCars&& allCars.map((frag)=>

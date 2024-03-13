@@ -4,6 +4,7 @@ import {
   ALL_USERS,
   USER_BY_IDFY,
   USER_BY_ID,
+  CLEAN_DETAILS,
   ALL_CARS,
   CAR_PAT,
   CAR_BY_ID,
@@ -56,6 +57,12 @@ const reducer = (state = initialState, { type, payload })=>{
         ...state,
         detailUsers: payload,
       };
+    case CLEAN_DETAILS:
+      return {
+        ...state,
+        detailUsers: payload,
+        carById: payload,
+      }
 //? %%%%%%%% Vehiculos (car & service) %%%%%%%%%%%%%%%%%%%%%%%%
        case SEARCH_START:
          return {

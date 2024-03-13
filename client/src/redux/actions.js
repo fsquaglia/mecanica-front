@@ -3,8 +3,9 @@ import axios from 'axios'
 export const LOGIN_USER= 'LOGIN_USER';
 export const ISN_AUTH= 'ISN_AUTH';
 export const ALL_USERS= 'ALL_USERS';
-export const  USER_BY_IDFY= ' USER_BY_IDFY';
+export const USER_BY_IDFY= ' USER_BY_IDFY';
 export const USER_BY_ID='USER_BY_ID';
+export const CLEAN_DETAILS = 'CLEAN_DETAILS';
 export const ALL_CARS='ALL_CARS';
 export const CAR_PAT= 'CAR_PAT';
 export const CAR_BY_ID = 'CAR_BY_ID';
@@ -62,6 +63,12 @@ export const getAllUsers = ()=>{
       
     }
   };
+  export const cleanDetails =()=>(dispatch)=>{
+    return dispatch({
+    type:CLEAN_DETAILS,
+    payload: [],
+    })
+    }
 
 //?%%%%%%%%%%% cars & services %%%%%%%%%%%%%%%%%%%%%%%%%%
 

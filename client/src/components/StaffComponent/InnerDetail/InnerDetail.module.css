@@ -1,0 +1,15 @@
+.container{
+    
+ width: 50rem;
+display: flex;  
+flex-direction: column;
+ background-color:white;
+border: 1px solid grey;
+border-radius: 1rem;
+padding: 1.6rem;
+cursor: pointer;
+margin: 0.7rem; 
+text-decoration:none;
+overflow: auto; /* Agrega esta línea para permitir el desplazamiento (scroll) */
+    
+}
