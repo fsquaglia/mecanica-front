@@ -53,6 +53,13 @@ const userById = async (id) => {
       where: {
         deletedAt: false,
       },
+      include: [
+        {
+          model: Car,
+          attributes: ["patent", "id"],
+          through: { attributes: [] },
+        },
+      ],
     });
     const data = response;
     if (!data) {

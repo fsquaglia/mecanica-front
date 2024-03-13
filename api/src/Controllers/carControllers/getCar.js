@@ -46,7 +46,13 @@ const carById = async (id)=>{
         const response = await Car.findByPk(id,{
             where:{
                 deletedAt:false,
-            }
+            },
+            include: [
+                {
+                  model: User,
+                  attributes: ["name" , "id"],
+                  through: { attributes: [] },
+                 }]
         });
         const data = response;
         if(!data){throw new Error('Car not found!')}
