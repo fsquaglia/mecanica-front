@@ -28,6 +28,7 @@ const postCar = async(carData)=>{
     if (response.status === 201) {
       const car = response.data.data;
        showSuccess('Vehiculo creado exitosamente')
+       sessionStorage.clear()
         return car;
       }
   } catch (error) {

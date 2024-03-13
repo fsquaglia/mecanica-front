@@ -48,7 +48,7 @@ const ValidCar = (input) => {
       }  else if (input.observations.length < 40) {
         errors.observations = "Este campo debe tener al menos 40 caracteres";
       }else if (input.observations.length > 500){
-      errors.observations = "La marca debe tener no mas de 500 caracters";
+      errors.observations = "Este campo no debe tener mas de 500 caracters";
       }
   return errors;
 };

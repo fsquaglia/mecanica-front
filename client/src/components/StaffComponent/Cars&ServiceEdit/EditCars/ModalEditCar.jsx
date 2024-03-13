@@ -6,14 +6,14 @@ import GenericButton from '../Buttons/GenericButton';
 import {showError, showSuccess,HandlError}from '../../Auth/HandlerError';
 
 
-const EditWindow = ({ onClose, userEdit}) => {
-  const {id, email,name, typeId, numberId, role, enable, country, picture}= userEdit;
+const ModalEditCar = ({ onClose, userEdit}) => {
+  const {patente, mark, model, year, motorNum, chassisNum, observations,picture, enable, deletedAt,idUser}= userEdit;
  
   const [editedCar, setEditedCar] = useState({
     patente,
-    marca,
-    modelo,
-    año,
+    mark,
+    model,
+    year,
     motorNum,
     chassisNum,
     observations,
@@ -59,11 +59,11 @@ const EditWindow = ({ onClose, userEdit}) => {
 
   return (
     <div className={style.modal}>
-      <h2>Editar Usuario</h2>
-      <FormEdit id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} />
+      <h2>Editar Vehiculo</h2>
+      <FormEditCar id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} />
       <GenericButton onClick= {onClose} buttonText='Cancelar'/>
     </div>
   );
 };
 
-export default EditWindow;
+export default ModalEditCar;

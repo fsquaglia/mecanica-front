@@ -1,12 +1,13 @@
-import style from './styles/Modal.module.css'
+import style from '../styles/Modal.module.css'
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { ValidCar } from './internalUtils/Validate';
-import { postCar } from './SendPosts';
-import GenericButton from '../../../GenericButton/GenericButton';
+import { useNavigate} from "react-router-dom";
+import  ValidCar  from '../CarServValidate';
+import { postCar } from '../SendPosts';
+import GenericButton from '../../../../GenericButton/GenericButton';
 
 const CreateCar = () => {
-    const {id : idUser}=useParams();
+    const idUser= sessionStorage.getItem('idUser')
+    //const {id : idUser}=useParams();
  
   const [input, setInput] = useState({
     patent: "",
@@ -64,7 +65,7 @@ const CreateCar = () => {
         picture: "",
         idUser:idUser,
       });
-      navigate("/home");
+      navigate("/admin");
     }
   };
   

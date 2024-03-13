@@ -5,7 +5,7 @@ import { ValidCreate } from './internalUtils/Validate';
 import { createUser } from './Auth';
 import GenericButton from '../GenericButton/GenericButton';
 
-const SignInForm = ({auth}) => {
+const SignInForm = ({openCreateCar}) => {
   //const {login} = auth;
   const [input, setInput] = useState({
     email: "",
@@ -45,7 +45,7 @@ const SignInForm = ({auth}) => {
     setError(validationErrors);
 
     if (Object.values(validationErrors).every((error) => error === "")) {
-      await createUser(input);
+      await createUser(input, openCreateCar);
       setInput({
         email: "",
         name: "",
@@ -53,7 +53,7 @@ const SignInForm = ({auth}) => {
         numberId: "",
         country: "",
       });
-      navigate("/home");
+      //navigate("/home");
     }
   };
 
