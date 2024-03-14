@@ -5,7 +5,7 @@ import { ValidCreate } from './internalUtils/Validate';
 import { createUser } from './Auth';
 import GenericButton from '../GenericButton/GenericButton';
 
-const SignInForm = ({auth}) => {
+const SignInForm = ({openCreateCar}) => {
   //const {login} = auth;
   const [input, setInput] = useState({
     email: "",
@@ -45,7 +45,7 @@ const SignInForm = ({auth}) => {
     setError(validationErrors);
 
     if (Object.values(validationErrors).every((error) => error === "")) {
-      await createUser(input);
+      await createUser(input, openCreateCar);
       setInput({
         email: "",
         name: "",
@@ -53,7 +53,7 @@ const SignInForm = ({auth}) => {
         numberId: "",
         country: "",
       });
-      navigate("/home");
+      //navigate("/home");
     }
   };
 
@@ -138,104 +138,3 @@ const SignInForm = ({auth}) => {
 
 export default SignInForm;
 
-// const SignInForm = ({auth}) => {
-//   const {login} = auth;
-//   const [input, setInput] = useState({
-//     email: "",
-//     password: "",
-//     confirmPassword: "",
-//   });
-
-//   const [error, setError] = useState({
-//     email: "",
-//     password: "",
-//     confirmPassword: "",
-//   });
-
-//   const navigate = useNavigate();
-
-//   const handleChange = (event) => {
-//     const { name, value } = event.target;
-//     setInput((prevInput) => ({
-//       ...prevInput,
-//       [name]: value,
-//     }));
-
-//     setError((prevError) => ({
-//       ...prevError,
-//       [name]:
-//           name === "confirmPassword" && value !== input.password
-//         ? "Las contraseñas no coinciden"
-//         : ValidCreate({ ...input, [name]: value })[name],
-//     }));
-//   };
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-
-//     const validationErrors = ValidCreate(input);
-//     setError(validationErrors);
-
-//     if (Object.values(validationErrors).every((error) => error === "")) {
-//       await createUser(input, login);
-//       setInput({
-//         email: "",
-//         password: "",
-//         confirmPassword: "",
-//       });
-//       navigate("/home");
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <form onSubmit={handleSubmit}>
-//        <div>
-//          </div>
-//          <div >
-//            <input
-//              type="text"
-//              placeholder="email"
-//              value={input.email}
-//              name="email"
-//              autoComplete="off"
-//              onChange={(event) => handleChange(event)}
-//              className=''
-//            />
-//            <label > Email: </label>
-//            {error.email && <p className={style.errorMessage}>{error.email}</p>}
-//          </div>
-//          <br/>
-//          <div>
-//            <input
-//              type="password"
-//              placeholder="password"
-//              value={input.password}
-//              name="password"
-//              autoComplete="off"
-//              onChange={(event) => handleChange(event)}
-//              className=''
-//            />
-//            <label > Password: </label>
-//            {error.password && <p className={style.errorMessage}>{error.password}</p>}
-//          </div>
-//          <br/>
-//          <div>
-//       <input
-//         type="password"
-//         placeholder="confirm password"
-//         value={input.confirmPassword}
-//         name="confirmPassword"
-//         autoComplete="off"
-//         onChange={(event) => handleChange(event)}
-//         className=''
-//       />
-//       <label > Confirm Password: </label>
-//       {error.confirmPassword && <p className={style.errorMessage}>{error.confirmPassword}</p>}
-//     </div> 
-//     <br/>
-//     <GenericButton type='submit' buttonText={'Crear Usuario'}/>
-//       </form>
-//     </div>
-//   );
-// };

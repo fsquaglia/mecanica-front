@@ -3,7 +3,7 @@ import {HandlError,showSuccess, showError } from './HandlerError';
 
 
 
-const createUser = async(userData)=>{
+const createUser = async(userData,openCreateCar)=>{
     const email = userData.email;
   const name = userData.name;
   const typeId = userData.typeId;
@@ -20,8 +20,10 @@ const createUser = async(userData)=>{
     if (response.status === 201) {
       //const token = response.data.token;
       const user = response.data.data;
-      //login(token, user);
+      const idUser =user.id
+      sessionStorage.setItem('idUser',idUser)
        showSuccess('User created successfully')
+       openCreateCar();
         //console.log(user)
         return user;
       }
