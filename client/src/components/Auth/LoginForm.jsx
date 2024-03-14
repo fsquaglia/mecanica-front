@@ -1,5 +1,5 @@
 import style from './styles/LoginForm.module.css'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GenericButton from '../GenericButton/GenericButton';
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,19 @@ const LoginForm = ({handleSignClick, auth}) => {
   
   const {login, authenticated, user}=auth;
   const navigate = useNavigate();
+  //----------------------------------------
+  const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    if (!authenticated) {
+      setShowForm(true);
+    } else {
+      handleSignClick();
+    }
+  }, [authenticated, handleSignClick]);
+
+  //-------------------------------------------------
+
   const onClose= ()=>{
     navigate("/")
   }
@@ -39,8 +52,7 @@ const LoginForm = ({handleSignClick, auth}) => {
 
  const handleSubmit = async(event)=>{
     event.preventDefault();
-    //if (Object.keys(error).every(key => error[key] === "")) {
-      //console.log(event)
+  
       const user = await loginUser(input,login);
       setInput({
         email: "",
@@ -56,10 +68,11 @@ const LoginForm = ({handleSignClick, auth}) => {
 
   return (
     <div className={style.form}>
-      <form onSubmit={(event) => handleSubmit(event)}>
         <div>
         <GenericButton onClick={onClose} buttonText={'Cancelar'}/>
         </div>
+        {showForm && (
+      <form onSubmit={(event) => handleSubmit(event)}>
         <br/>
         <div >
           <label > Email: </label>
@@ -91,12 +104,16 @@ const LoginForm = ({handleSignClick, auth}) => {
         <br/>
         <GenericButton type='submit' buttonText={'Iniciar Sesion'}/>
       </form>
-      {(authenticated && user.role === 0) || (authenticated && user.role === 2) ? <>
-      <h4>¿No tiene cuenta? Registrar:</h4>
-      <GenericButton onClick={handleSignClick} buttonText={'Registro'} /> </>
-      : null }
+        )}
+     
     </div>
   );
 };
 
 export default LoginForm
+
+
+ // {(authenticated && user.role === 0) || (authenticated && user.role === 2) ? <>
+      // <h4>¿No tiene cuenta? Registrar:</h4>
+      // <GenericButton onClick={handleSignClick} buttonText={'Registro'} /> </>
+      // : null }

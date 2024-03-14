@@ -4,8 +4,7 @@ import style from './Cards.module.css'
 const Cards = ({info}) => {
   return (
     <div >
-    <br/>
-    <br/> 
+    Cards
     </div>
   )
 }

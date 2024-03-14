@@ -1,4 +1,5 @@
 .nav {
+
   position: fixed;
   top: 0;
   left: 0;
@@ -79,3 +80,4 @@
   font-size: 1.5em;
   color: white;
 }
+

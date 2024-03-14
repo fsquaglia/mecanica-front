@@ -1,4 +1,6 @@
-import CreateUser from "./user.js";
+import CreateUser from './user.js'
+import CreateCar from './car.js'
+import CreateService from './service.js'
 import Category from "./Category.js";
 import CategoryPost from "./CategoryPost.js";
 import Post from "./Post.js";
@@ -8,6 +10,8 @@ import Province from "./Province.js";
 
 export default {
   CreateUser,
+  CreateCar,
+  CreateService,
   Category,
   CategoryPost,
   Post,
@@ -15,3 +19,4 @@ export default {
   Provider,
   Province,
 };
+

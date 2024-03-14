@@ -5,7 +5,6 @@ import parsedUser from '../../Helpers/parsedUser.js'
 import dotenv from 'dotenv';
 dotenv.config();
 const {DEFAULT_PASS, USER_IMAGE} = process.env;
-console.log(DEFAULT_PASS)
 
 //!>>>>>>>>>>>>> Funcion de login de usuario <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -17,9 +16,7 @@ const userLogin = async(email, password)=>{
           //enable: true,
         },
       });
-    // console.log(email);
-    // console.log(password);
-    // console.log(user);
+    
       try {
         if (userf && userf.enable === false){
           throw new Error("Usuario bloqueado");

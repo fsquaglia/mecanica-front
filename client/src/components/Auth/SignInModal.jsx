@@ -4,9 +4,9 @@ import SignInForm from './SignInForm';
 import GenericButton from '../GenericButton/GenericButton';
 
 
-const SignWindow = ({ onClose, auth}) => {
+const SignWindow = ({ onClose, openCreateCar}) => {
  
- 
+
 
   return (
     <div className={style.modal}>
@@ -14,7 +14,7 @@ const SignWindow = ({ onClose, auth}) => {
       <GenericButton onClick={onClose} buttonText={'Cancelar'} />
       <br/>
       <br/>
-      <SignInForm auth = {auth}/>
+      <SignInForm openCreateCar = {openCreateCar}/>
     </div>
   );
 };

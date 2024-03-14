@@ -1,12 +1,17 @@
 import style from './Navbar.module.css'
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import { useAuth } from '../Auth/AuthContext/AuthContext'
+
+import {useAuth} from '../Auth/AuthContext/AuthContext'
+import LoginLinks from './Links/LoginLinks'
+import AdminLink from './Links/AdminLink'
+import ShowUser from './ShowUser/ShowUser'
 
 const Navbar = () => {
-  const { authenticated, user, logout } = useAuth()
-  const handleClick = () => {
-    logout();
+  const {logout}=useAuth()
+
+  const handleClick = ()=>{
+      logout();
+    
+
   }
 
 
@@ -20,15 +25,16 @@ const Navbar = () => {
 
   return (
     <div className={style.nav}>
+
       <div className={style.logo}>
         <h3 className={style.logoTitle}>Boscarol hnos.</h3>
       </div>
 
       <div className={style.login}>
-        <h4 className={style.botones}>Blog</h4>
-        <h4 className={style.botones}>Repuestos</h4>
-        <h4 className={style.botones}>Turnos</h4>
-
+        <LoginLinks/>
+        <AdminLink/>
+         <ShowUser/>
+  
 
         {/* <Link to='/login'>
           <h4 className={style.botones}>Ingresar</h4>
@@ -91,6 +97,7 @@ const Navbar = () => {
           </div>
         </> : null
       } */}
+
 
     </div>
   )
