@@ -1,16 +1,17 @@
 import style from './Navbar.module.css'
+import { Link } from 'react-router-dom'
 
-import {useAuth} from '../Auth/AuthContext/AuthContext'
+import { useAuth } from '../Auth/AuthContext/AuthContext'
 import LoginLinks from './Links/LoginLinks'
 import AdminLink from './Links/AdminLink'
 import ShowUser from './ShowUser/ShowUser'
 
 const Navbar = () => {
-  const {logout}=useAuth()
+  const { authenticated, user, logout } = useAuth()
 
-  const handleClick = ()=>{
-      logout();
-    
+  const handleClick = () => {
+    logout();
+
 
   }
 
@@ -31,10 +32,10 @@ const Navbar = () => {
       </div>
 
       <div className={style.login}>
-        <LoginLinks/>
-        <AdminLink/>
-         <ShowUser/>
-  
+        <LoginLinks />
+        <AdminLink />
+        <ShowUser />
+
 
         {/* <Link to='/login'>
           <h4 className={style.botones}>Ingresar</h4>
