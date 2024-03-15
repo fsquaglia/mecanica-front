@@ -5,6 +5,7 @@ import Post from "./Post.js";
 import Product from "./Product.js";
 import Provider from "./Provider.js";
 import Province from "./Province.js";
+import CategoryProvider from "./CategoryProvider.js";
 
 export default {
   CreateUser,
@@ -14,4 +15,5 @@ export default {
   Product,
   Provider,
   Province,
+  CategoryProvider,
 };

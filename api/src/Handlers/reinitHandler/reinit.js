@@ -4,6 +4,8 @@ import {
   Product,
   Provider,
   CategoryPost,
+  Post,
+  CategoryProvider,
 } from "../../db.js";
 
 const reinit = async (req, res) => {
@@ -43,6 +45,7 @@ const reinit = async (req, res) => {
       telefono: "5434100000",
       email: "idrogeno@idgn.com",
       idProvince: 21,
+      idCategory: 1,
     },
     {
       razonsocial: "Batuk algo SA",
@@ -52,6 +55,7 @@ const reinit = async (req, res) => {
       telefono: "5411000000",
       email: "batuk@batuk.com",
       idProvince: 2,
+      idCategory: 2,
     },
   ];
   try {
@@ -133,7 +137,9 @@ const reinit = async (req, res) => {
       stock: 1,
     });
 
-    //vaciar y crear Proveedores
+    //vaciar y crear Proveedores y sus Categorías
+    await CategoryProvider.create({ descCategory: "Genéricos" });
+    await CategoryProvider.create({ descCategory: "Aceites" });
     await Provider.destroy({ where: {} });
     await Provider.bulkCreate(providersArray);
 
@@ -144,6 +150,21 @@ const reinit = async (req, res) => {
       { descCategory: "Sevice periódico" },
       { descCategory: "Refrigerantes" },
     ]);
+
+    await Post.create({
+      titlePost: "El mantenimiento",
+      textPost: "lorem ipsun",
+      idCategory: 2,
+      published: false,
+      viewFavPost: true,
+    });
+    await Post.create({
+      titlePost: "Los aceites",
+      textPost: "lorem ipsun",
+      idCategory: 1,
+      published: true,
+      viewFavPost: false,
+    });
 
     console.log("okey bien");
     res.status(200).json({ message: "Todo ok" });

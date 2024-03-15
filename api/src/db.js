@@ -22,10 +22,18 @@ const sequelize = new Sequelize(
 // Iterar sobre los modelos y crearlos con Sequelize
 Object.values(models).forEach((model) => model(sequelize));
 
-const { User, Category, CategoryPost, Post, Product, Provider, Province } =
-  sequelize.models;
+const {
+  User,
+  Category,
+  CategoryPost,
+  Post,
+  Product,
+  Provider,
+  Province,
+  CategoryProvider,
+} = sequelize.models;
 
-//Asociations:
+//!Asociations:
 //Commerce.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
 //Client.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
 Provider.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
@@ -37,6 +45,10 @@ Category.belongsTo(Category, {
 Category.hasMany(Category, { as: "subcategories", foreignKey: "parentId" });
 Product.belongsTo(Category, { as: "subCategory", foreignKey: "subcategoryId" });
 Post.belongsTo(CategoryPost, { foreignKey: "idCategory", allowNull: false });
+Provider.belongsTo(CategoryProvider, {
+  foreignKey: "idCategory",
+  allowNull: false,
+});
 
 export {
   User,
@@ -46,5 +58,6 @@ export {
   Product,
   Provider,
   Province,
+  CategoryProvider,
   sequelize,
 };
