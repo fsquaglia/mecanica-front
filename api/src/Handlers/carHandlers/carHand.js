@@ -4,6 +4,10 @@ import {getCar, getByQuery, carById}from '../../Controllers/carControllers/getCa
 
 const createCarHand = async (req, res)=>{
     const {idUser, patent, mark, model, year, motorNum, chassisNum, observations, picture}= req.body;
+    console.log(idUser)
+    console.log(patent)
+    console.log(picture)
+    console.log(year)
     try {
        const response = await createCar(idUser, patent, mark, model, year, motorNum, chassisNum, observations, picture)
        res.status(201).json(response) 

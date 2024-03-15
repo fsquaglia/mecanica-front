@@ -10,12 +10,12 @@ import {useParams} from 'react-router-dom'
 const UserGrid = ({data}) => {
   const dispatch = useDispatch();
   const {name}=useParams();
-  console.log(name)
+  //console.log(name)
   
  const user = useSelector((state)=>state.userBynumId)
  const allUsers = useSelector((state)=>state.allUsers)
- console.log( allUsers)
- console.log(user)
+ //console.log( allUsers)
+ //console.log(user)
  useEffect(()=>{
   if(name){
     dispatch(userBynumId(name))

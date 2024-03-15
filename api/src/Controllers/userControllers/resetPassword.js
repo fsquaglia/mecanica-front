@@ -1,4 +1,5 @@
 import {User} from '../../db.js'
+import bcrypt from 'bcrypt'
 import dotenv from 'dotenv';
 dotenv.config();
 const {DEFAULT_PASS} = process.env;

@@ -1,12 +1,14 @@
 .cardList {
-    width: 50vw;
-    margin: 0;
-    margin-left: 20rem;
+    width: 80vw;
+    margin: 5px;
+    margin-left: 10rem;
+    margin-right: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 1.25rem;
-    /* display: flex;
+   background-image: url('../../../../public/images/background01.jpg');
+    /* display: flex; */
     flex-wrap:wrap;
-    justify-content: center; */
+    justify-content: space-evenly;
 }

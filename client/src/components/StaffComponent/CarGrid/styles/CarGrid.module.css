@@ -1,6 +1,6 @@
 .cardList {
     width: 25vw;
-    margin: 0;
+    margin:10px;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.144); /* Opacidad al 80% */
     backdrop-filter: blur(5px); /* Difuminado de 5px */
