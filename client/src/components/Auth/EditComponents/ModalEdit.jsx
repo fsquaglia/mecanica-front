@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import style from '../styles/ModalEdit.module.css'
+import style from '../styles/Modal.module.css'
 import FormEdit from './FormEdit';
 import axios from 'axios'
-import GenericButton from '../Buttons/GenericButton';
-import {showError, showSuccess,HandlError}from '../../Auth/HandlerError';
+import GenericButton from '../../GenericButton/GenericButton';
+import Confirmation from '../../Confirmation/Confirmation';
+import {showError, showSuccess, HandlError}from '../HandlerError';
 
 
 const EditWindow = ({ onClose, userEdit}) => {
@@ -33,7 +34,7 @@ const EditWindow = ({ onClose, userEdit}) => {
     //Lógica para guardar los cambios (puedes conectarlo a tus acciones de Redux)
     try {
       // Realiza la solicitud PUT con Axios
-      const response = await axios.put(`/user/update/${id}`,editedUser);
+      const response = await axios.put(`/user/${id}`,editedUser);
       
       if (response.status === 200) {
         showSuccess('Usuario actualizado con éxito')
@@ -49,14 +50,47 @@ const EditWindow = ({ onClose, userEdit}) => {
       //alert('Error al actualizar el usuario');
     }
   };
-  
- 
+  //---------------Funciones de blanqueo de password y confirmacion
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const resetPassword = () => {
+
+    setShowConfirmation(true); 
+  };
+  const handleConfirmation = () => {
+    onResetPass();
+    setShowConfirmation(false); // oculta el componente de confirmación
+  };
+  const onCancel=()=>{
+    setShowConfirmation(false);
+  }
+
+ const onResetPass = async()=>{
+  try {
+    const response = await axios.patch(`/user/${id}`);
+    if (response.status === 200) {
+      showSuccess('Contraseña actualizada con exito')
+     onClose(); // Cierra el modal después de guardar los cambios
+    } else if (response.status ===400){
+      showError('Error al actualizar la contraseña')
+    }
+  } catch (error) {
+    if (error.response) {// Si hay una respuesta del servidor, muestra el mensaje de error correspondiente
+      HandlError(error);
+    } else {// Si no hay respuesta del servidor, muestra un mensaje de error genérico
+      showError('Error al actualizar la contraseña');
+    }
+  }
+ }
 
   return (
     <div className={style.modal}>
       <h2>Editar Usuario</h2>
       <FormEdit id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} />
       <GenericButton onClick= {onClose} buttonText='Cancelar'/>
+      <GenericButton onClick= {resetPassword} buttonText='Reset Password'/>
+      {showConfirmation && (
+        <Confirmation onConfirm={handleConfirmation} close={onCancel} message={'¿Está seguro resetear la contraseña?'} />
+      )}
     </div>
   );
 };

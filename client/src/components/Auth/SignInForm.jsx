@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { ValidCreate } from './internalUtils/Validate';
 import { createUser } from './Auth';
 import GenericButton from '../GenericButton/GenericButton';
+import Confirmation from '../Confirmation/Confirmation';
 
 const SignInForm = ({openCreateCar}) => {
-  //const {login} = auth;
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [input, setInput] = useState({
     email: "",
     name: "",
@@ -37,9 +38,7 @@ const SignInForm = ({openCreateCar}) => {
       [name]: ValidCreate({ ...input, [name]: value })[name],
     });
   };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleConfirmation = async (e) => {
 
     const validationErrors = ValidCreate(input);
     setError(validationErrors);
@@ -53,9 +52,33 @@ const SignInForm = ({openCreateCar}) => {
         numberId: "",
         country: "",
       });
-      //navigate("/home");
+      
     }
+    setShowConfirmation(false); // Muestra el componente de confirmación
   };
+
+  const handleSubmit =  (event) => {
+    event.preventDefault();
+    setShowConfirmation(true);
+  };
+
+  // const permit= (error.email|| error.name||error.typeId||error.numberId||error.country)? true :false;
+  const permit =
+  !input.email.trim() ||
+  !input.name.trim() ||
+  !input.typeId.trim() ||
+  !input.numberId.trim() ||
+  !input.country.trim() ||
+  error.email ||
+  error.name ||
+  error.typeId ||
+  error.numberId ||
+  error.country;
+
+  
+  const onCancel=()=>{
+    setShowConfirmation(false);
+  }
 
   return (
     <div>
@@ -130,8 +153,11 @@ const SignInForm = ({openCreateCar}) => {
            {error.country && <p className={style.errorMessage}>{error.country}</p>}
          </div>
          <br/>
-    <GenericButton type='submit' buttonText={'Crear Usuario'}/>
+    <GenericButton type='submit' buttonText={'Crear Usuario'} disabled={permit}/>
       </form>
+      {showConfirmation && (
+        <Confirmation onConfirm={ handleConfirmation} close={onCancel} message={'¿Está seguro de crear el usuario?'} />
+      )}
     </div>
   );
 };

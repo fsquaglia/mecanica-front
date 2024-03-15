@@ -1,8 +1,19 @@
 import {Link, useNavigate} from 'react-router-dom'
 import style from './InnerDetail.module.css'
+import {useState} from 'react'
+import GenericButton from '../../GenericButton/GenericButton'
+import Edition from '../AdminHelpers/Edition/Edition';
+import EditWindow from '../../Auth/EditComponents/ModalEdit';
 
 const InnerDetail = ({ type, data }) => {
     const navigate= useNavigate()
+    const [userEdition, setUserEdition] = useState(false);
+    const onClose=()=>{
+      navigate(-1)
+    }
+  const handlerUser = ()=>{
+    setUserEdition(true);
+  }
     return (
       <div className={style.container}>
         <h2>{type === 'car' ? 'Vehiculo:' : 'Usuario:'}</h2>
@@ -22,6 +33,10 @@ const InnerDetail = ({ type, data }) => {
               </ul>
               <img src={data.picture} style={{ maxWidth: '150px' }}/>
               <label>Observaciones: {data.observations}</label>
+              <div>
+              <GenericButton buttonText={'Ver Servicios'}/>
+              <Edition allowedRoles={[0, 2]} />
+              </div>
             </>
           )}
           {type === 'user' && (
@@ -39,10 +54,15 @@ const InnerDetail = ({ type, data }) => {
               <li>Actualizado: {data.updatedAt}</li>
               </ul>
               <img src={data.picture} style={{maxWidth:'150px'}}/>
+              <div>
+              <Edition allowedRoles={[0]} onClick={handlerUser}/>
+              </div>
             </>
           )}
-          <button onClick={()=>{navigate(-1)}}><h3>Volver:</h3></button>
-         
+          <button style={{maxWidth:'10rem'}} onClick={()=>{navigate(-1)}}><h3>Volver:</h3 ></button>
+         {userEdition?
+         <EditWindow userEdit={data} onClose={onClose}/>:
+         null}
         
       </div>
     );

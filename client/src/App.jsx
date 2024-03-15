@@ -35,8 +35,8 @@ function App() {
     <Route path= '/about' element={<About/>}/>
     <Route path= '/login' element={<Login/>}/>
     <Route path= {'/error'} element={<Error/>}/> 
-    <Route path="/home" element= {(authenticated) ? <Home/>: <Navigate to = '/error'/>} />
-    <Route exact path="/admin" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? <Admin/>: <Navigate to = '/error'/>} />
+    <Route path="/home" element= {(authenticated) ? <Home/>: <Navigate to = '/'/>} />
+    <Route exact path="/admin" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? <Admin/>: <Navigate to = '/home'/>} />
     <Route path="/admin/:name" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? <Admin/>: <Navigate to = '/error'/>} />
     <Route path="/admin/detail/:id" element= {(authenticated && allow === 0) || (authenticated && allow === 2) ? <DetailAd/>: <Navigate to = '/error'/>} /> 
     {/* <Route path= {'/home/:id'} element={<Detail/>}/> */}
