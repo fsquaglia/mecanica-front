@@ -52,6 +52,114 @@ Estas son las rutas y sus respectivas caracteristicas:
 
 > Nota: Cada usuario en particular puede editar su propio perfil desde la sección "configuración".
 
+# Rutas de vehículos
+### ('car' y 'service')
+Estas dos rutas corresponden a las tablas Car y Service de la base de datos.
+
+La tabla Car tiene una relación de `muchos a muchos` con la tabla User, de manera que un usuario puede tener varios vehículos y un vehículo puede tener varios usuarios (como por ejemplo el caso de una empresa, que es la propietaria, pero tiene un chofer que es el responsable del vehículo).
+
+La tabla Service tiene una relación de `uno a muchos` con la tala Car, dado que un vehiculo puede tener muchos services pero cada service corresponde solo a un vehículo.
+
+A cada tabla corresponde una ruta, a fin de separar las responsabilidades; de modo que tendremos las rutas de `car` y `service`.
+<br>
+
+### Creación de vehículo
+
+- Método: `POST`
+- Ruta: `/car`
+- Descripción: Crea un nuevo registro para un vehículo.
+- Parámetros:
+  - `idUser` (string): Id del usuario al que se le asigna el vehiculo.
+  - `patent` (string): Patente del vehículo.
+  - `mark` (string): Marca del automotor.
+  - `model` (string): Modelo (esto incluye también el tipo).
+  - `year` (DATE): Formato de fecha.
+  - `motorNum` (string): Numero o código de identidad del motor.
+  - `chassisNum` (string): Numero o código de identidad del chasis.
+  - `observations` (text): Detalles relevantes a tener en cuenta en la descripción del vehiculo.
+  - `picture` (string): Una imagen del vehiculo.
+
+### Obtener Todos los Vehículos (necesita permiso de admin)
+
+- Método: `GET`
+- Ruta: `/car`
+- Descripción: Obtiene la lista de todos los vehículos.
+
+### Obtener Vehículos por patente (query)
+
+- Método: `GET`
+- Ruta: `/car?patent=xxxxx`
+- Descripción: Obtiene el vehículo.
+### Obtener Vehículos por Id 
+
+- Método: `GET`
+- Ruta: `/car/:id`
+- Descripción: Obtiene uno o varios vehículos.
+
+> Esta ruta se puede utilizar tanto en user como en los demás roles.
+
+
+### Editar vehículo: (Necesita validacion)
+
+- Método: `PUT`
+ - Ruta: `/car/:id`
+- Descripción: Edita cualquier usuario, cambia sus permisos y puede bloquearlo y desbloquearlo.
+- Parámetros:
+  - patente: `string`
+  - marca: `string`
+  - modelo: `string`
+  - año: `string`
+  - motorNum: `string`
+  - chassisNum: `string`
+  - observations: `string`
+  - picture (selecciona)
+  - enable (selecciona)
+  - deletedAt (selecciona)
+
+
+<br>
+
+### Creación de servicio
+
+- Método: `POST`
+- Ruta: `/service`
+- Descripción: Crea un nuevo registro para un vehículo.
+- Parámetros:
+  - `type` (string): Tipo de servicio prestado.
+  - `detail` (text): Detalle del servicio.
+  - `dateIn` (string): Fecha de ingreso.
+  - `dateOut` (string): Fecha de entrega.
+  - `Observations` (TEXT): Observaciones (detalles del trabajo)
+  - `picture` (string): Una imagen del vehículo servicio etc.
+
+### Obtener Todos los Servicios (necesita permiso de admin)
+
+- Método: `GET`
+- Ruta: `/service`
+- Descripción: Obtiene la lista de todos los vehículos.
+
+### Obtener Servicio por Id 
+
+- Método: `GET`
+- Ruta: `/service/:id`
+- Descripción: Obtiene uno o varios vehículos.
+
+> Esta ruta se puede utilizar tanto en user como en los demás roles.
+
+
+### Editar Servicio:(Necesita validacion)
+
+- Método: `PUT`
+ - Ruta: `/service/:id`
+- Descripción: Edita los servicios añade o corrige detalles.
+- Parámetros:
+  - `type` (string): Tipo de servicio prestado.
+  - `detail` (text): Detalle del servicio.
+  - `dateIn` (string): Fecha de ingreso.
+  - `dateOut` (string): Fecha de entrega.
+  - `Observations` (TEXT): Observaciones (detalles del trabajo)
+  - `picture` (string): Una imagen del vehículo servicio etc.
+
 ### BREVE RESUMEN, SEGUIRÉ AMPLIANDO...
 
 Posteriormente se verá la posibilidad de que en la web se muestren los productos
@@ -68,6 +176,7 @@ Lo que hace esta ruta, es cargar las provincias en la tabla correspondiente, agr
 algunas categorías, algunos productos, y Proveedores. Cuando necesitemos hacer un
 `force:true` luego desde, por ejemplo, Insomnia, podremos darle a esta ruta para que
 realice estas cargas para tener de ejemplo.
+
 
 ### Post y CategoryPost
 

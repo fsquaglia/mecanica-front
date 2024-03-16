@@ -1,5 +1,5 @@
 import style from './styles/LoginForm.module.css'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GenericButton from '../GenericButton/GenericButton';
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,19 @@ const LoginForm = ({handleSignClick, auth}) => {
   
   const {login, authenticated, user}=auth;
   const navigate = useNavigate();
+  //----------------------------------------
+  const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    if (!authenticated) {
+      setShowForm(true);
+    } else {
+      handleSignClick();
+    }
+  }, [authenticated, handleSignClick]);
+
+  //-------------------------------------------------
+
   const onClose= ()=>{
     navigate("/")
   }
@@ -24,7 +37,6 @@ const LoginForm = ({handleSignClick, auth}) => {
     password: "",
   });
 
-
   function handleChange(event) {
     const { name, value } = event.target;
     setInput({
@@ -36,30 +48,31 @@ const LoginForm = ({handleSignClick, auth}) => {
       [name]: ValidLogin({ ...input, [name]: value })[name],
     });
   }
-
- const handleSubmit = async(event)=>{
-    event.preventDefault();
-    //if (Object.keys(error).every(key => error[key] === "")) {
-      //console.log(event)
-      const user = await loginUser(input,login);
-      setInput({
-        email: "",
-        password: "",
-      });
-      if(user){
-      navigate("/home");
   
-      }
+  const handleSubmit = async(event)=>{
+    event.preventDefault();
+    
+    const user = await loginUser(input,login);
+    setInput({
+      email: "",
+      password: "",
+    });
+    if(user){
+      navigate("/home");
+      
+    }
     //}
   }
-
-
+  const permit= (error.email|| error.password)? true :null;
+ 
+  
   return (
     <div className={style.form}>
-      <form onSubmit={(event) => handleSubmit(event)}>
         <div>
         <GenericButton onClick={onClose} buttonText={'Cancelar'}/>
         </div>
+        {showForm && (
+      <form onSubmit={(event) => handleSubmit(event)}>
         <br/>
         <div >
           <label > Email: </label>
@@ -89,14 +102,14 @@ const LoginForm = ({handleSignClick, auth}) => {
           {error.password && <p className={style.errorMessage}>{error.password}</p>}
         </div>
         <br/>
-        <GenericButton type='submit' buttonText={'Iniciar Sesion'}/>
+        <GenericButton type='submit' buttonText={'Iniciar Sesion'} disabled={null}/>
       </form>
-      {(authenticated && user.role === 0) || (authenticated && user.role === 2) ? <>
-      <h4>¿No tiene cuenta? Registrar:</h4>
-      <GenericButton onClick={handleSignClick} buttonText={'Registro'} /> </>
-      : null }
+        )}
+     
     </div>
   );
 };
 
 export default LoginForm
+
+

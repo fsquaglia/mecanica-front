@@ -7,27 +7,20 @@ import {showError, showSuccess,HandlError}from '../../Auth/HandlerError';
 
 
 const EditWindow = ({ onClose, userEdit}) => {
-  const {id, name,surname, country, role, enable, picture}= userEdit;
-  //console.log('A: '+id)
-  //console.log ('A: '+name)
-  //console.log ('A: '+surname)
-  console.log (picture)
-  //console.log (role)
-  //console.log (enable)
-
+  const {id, email,name, typeId, numberId, role, enable, country, picture}= userEdit;
+ 
   const [editedUser, setEditedUser] = useState({
+    email,
     name,
-    picture,
-    surname,
+    typeId,
+    numberId,
     country,
+    picture,
     role,
     enable,
   });
 
   const handleInputChange = (name, value) => {
-    // console.log('name: ', name);
-    // console.log('value: ', value);
-    // console.log('picture: ', picture)
     const processedValue = name === 'enable' ? value === 'true' : value;
     setEditedUser((prevUser) => ({
       ...prevUser,
@@ -36,13 +29,7 @@ const EditWindow = ({ onClose, userEdit}) => {
   };
 
   const handleSaveChanges = async () => {
-    // console.log('B id: '+id)
-    // console.log('B user: '+editedUser.name)
-    // console.log('B user: '+editedUser.surname)
-    // console.log(editedUser.country)
-    // console.log(editedUser.role)
-    // console.log(editedUser.enable)
-    console.log(editedUser.picture)
+  
     //Lógica para guardar los cambios (puedes conectarlo a tus acciones de Redux)
     try {
       // Realiza la solicitud PUT con Axios

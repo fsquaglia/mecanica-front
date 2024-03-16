@@ -1,13 +1,22 @@
-import {getUsers, userById, updateUser, deleteUser }from '../../Controllers/userControllers/userControllers.js'
+import {getUsers,userByQuery, userById, updateUser, deleteUser }from '../../Controllers/userControllers/userControllers.js'
+import resetPassword from '../../Controllers/userControllers/resetPassword.js'
 
 const getUserHand = async (req, res)=>{
+    const {numberId}=req.query;
     try {
-       const response = await getUsers()
-       res.status(200).json(response) 
+        if(numberId){
+            const response = await userByQuery(numberId)
+            res.status(200).json(response)   
+        }else{
+            const response = await getUsers()
+            res.status(200).json(response) 
+        }
     } catch (error) {
         res.status(400).json({error: error.message})
     }
 }
+
+
 const getDetailUserHand = async (req, res)=>{
     const {id} = req.params;
     try {
@@ -38,6 +47,14 @@ const delUserHand = async (req, res)=>{
         res.status(400).json({error: error.message})
     }
 }
+const resetUserhand = async(req,res)=>{
+    const {id}= req.params;
+    try {
+        const response = await resetPassword(id)
+        res.status(200).json(response) 
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
 
-
-export {getUserHand, getDetailUserHand, updateUserHand, delUserHand}
+export {getUserHand, getDetailUserHand, updateUserHand, resetUserhand, delUserHand}

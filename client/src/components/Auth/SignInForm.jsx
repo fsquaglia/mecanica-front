@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { ValidCreate } from './internalUtils/Validate';
 import { createUser } from './Auth';
 import GenericButton from '../GenericButton/GenericButton';
+import Confirmation from '../Confirmation/Confirmation';
 
-const SignInForm = ({auth}) => {
-  //const {login} = auth;
+const SignInForm = ({openCreateCar}) => {
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [input, setInput] = useState({
     email: "",
     name: "",
@@ -37,15 +38,13 @@ const SignInForm = ({auth}) => {
       [name]: ValidCreate({ ...input, [name]: value })[name],
     });
   };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleConfirmation = async (e) => {
 
     const validationErrors = ValidCreate(input);
     setError(validationErrors);
 
     if (Object.values(validationErrors).every((error) => error === "")) {
-      await createUser(input);
+      await createUser(input, openCreateCar);
       setInput({
         email: "",
         name: "",
@@ -53,9 +52,33 @@ const SignInForm = ({auth}) => {
         numberId: "",
         country: "",
       });
-      navigate("/home");
+      
     }
+    setShowConfirmation(false); // Muestra el componente de confirmación
   };
+
+  const handleSubmit =  (event) => {
+    event.preventDefault();
+    setShowConfirmation(true);
+  };
+
+  // const permit= (error.email|| error.name||error.typeId||error.numberId||error.country)? true :false;
+  const permit =
+  !input.email.trim() ||
+  !input.name.trim() ||
+  !input.typeId.trim() ||
+  !input.numberId.trim() ||
+  !input.country.trim() ||
+  error.email ||
+  error.name ||
+  error.typeId ||
+  error.numberId ||
+  error.country;
+
+  
+  const onCancel=()=>{
+    setShowConfirmation(false);
+  }
 
   return (
     <div>
@@ -130,112 +153,14 @@ const SignInForm = ({auth}) => {
            {error.country && <p className={style.errorMessage}>{error.country}</p>}
          </div>
          <br/>
-    <GenericButton type='submit' buttonText={'Crear Usuario'}/>
+    <GenericButton type='submit' buttonText={'Crear Usuario'} disabled={permit}/>
       </form>
+      {showConfirmation && (
+        <Confirmation onConfirm={ handleConfirmation} close={onCancel} message={'¿Está seguro de crear el usuario?'} />
+      )}
     </div>
   );
 };
 
 export default SignInForm;
 
-// const SignInForm = ({auth}) => {
-//   const {login} = auth;
-//   const [input, setInput] = useState({
-//     email: "",
-//     password: "",
-//     confirmPassword: "",
-//   });
-
-//   const [error, setError] = useState({
-//     email: "",
-//     password: "",
-//     confirmPassword: "",
-//   });
-
-//   const navigate = useNavigate();
-
-//   const handleChange = (event) => {
-//     const { name, value } = event.target;
-//     setInput((prevInput) => ({
-//       ...prevInput,
-//       [name]: value,
-//     }));
-
-//     setError((prevError) => ({
-//       ...prevError,
-//       [name]:
-//           name === "confirmPassword" && value !== input.password
-//         ? "Las contraseñas no coinciden"
-//         : ValidCreate({ ...input, [name]: value })[name],
-//     }));
-//   };
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-
-//     const validationErrors = ValidCreate(input);
-//     setError(validationErrors);
-
-//     if (Object.values(validationErrors).every((error) => error === "")) {
-//       await createUser(input, login);
-//       setInput({
-//         email: "",
-//         password: "",
-//         confirmPassword: "",
-//       });
-//       navigate("/home");
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <form onSubmit={handleSubmit}>
-//        <div>
-//          </div>
-//          <div >
-//            <input
-//              type="text"
-//              placeholder="email"
-//              value={input.email}
-//              name="email"
-//              autoComplete="off"
-//              onChange={(event) => handleChange(event)}
-//              className=''
-//            />
-//            <label > Email: </label>
-//            {error.email && <p className={style.errorMessage}>{error.email}</p>}
-//          </div>
-//          <br/>
-//          <div>
-//            <input
-//              type="password"
-//              placeholder="password"
-//              value={input.password}
-//              name="password"
-//              autoComplete="off"
-//              onChange={(event) => handleChange(event)}
-//              className=''
-//            />
-//            <label > Password: </label>
-//            {error.password && <p className={style.errorMessage}>{error.password}</p>}
-//          </div>
-//          <br/>
-//          <div>
-//       <input
-//         type="password"
-//         placeholder="confirm password"
-//         value={input.confirmPassword}
-//         name="confirmPassword"
-//         autoComplete="off"
-//         onChange={(event) => handleChange(event)}
-//         className=''
-//       />
-//       <label > Confirm Password: </label>
-//       {error.confirmPassword && <p className={style.errorMessage}>{error.confirmPassword}</p>}
-//     </div> 
-//     <br/>
-//     <GenericButton type='submit' buttonText={'Crear Usuario'}/>
-//       </form>
-//     </div>
-//   );
-// };

@@ -4,13 +4,13 @@ import mocks from '../../public/mocks'
 import { useEffect } from 'react'
 
 const Landing = () => {
-  useEffect(()=>{
+  useEffect(() => {
 
-  },[])
+  }, [])
   return (
     <div>
-      <Navbar/>
-      <Carousel info={mocks}/>
+      <Navbar />
+      {/* <Carousel info={mocks}/> */}
     </div>
   )
 }
