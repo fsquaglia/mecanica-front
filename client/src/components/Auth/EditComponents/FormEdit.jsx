@@ -4,18 +4,19 @@ import style from '../styles/Form.module.css';
 import GenericButton from '../../GenericButton/GenericButton';
 import CloudinaryUpload from './CloudinaryUpload';
 import Confirmation from '../../Confirmation/Confirmation'
-//import { showSuccess, showError } from '../../Auth/HandlerError';
+import {useAuth} from '../AuthContext/AuthContext'
+import EditPass from './EditPass';
 
 
 
-
-const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
+const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose}) => {
   const [imageUrl, setImageUrl] = useState(editedUser.picture);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const { authenticated, user}= useAuth()
  
   const onImageChange = (url) => {
     setImageUrl(url);
-    console.log(setImageUrl)
+    //console.log(setImageUrl)
     onInputChange("picture", url);
   };
 
@@ -69,6 +70,8 @@ const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
           País:
           <input type="text" name="country" value={editedUser.country} onChange={handleInputChange} />
         </label>
+        {authenticated && user.role === 2 ? null : (
+        <>
         <label>
           Rol:
           <select name="role" value={editedUser.role} onChange={handleInputChange}>
@@ -84,13 +87,17 @@ const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
             <option value={false}>Bloqueado</option>
           </select>
         </label>
+        </>)}
         <GenericButton type="submit" buttonText="Guardar cambios" />
       </form>
       {showConfirmation && (
         <Confirmation onConfirm={ handleConfirmation} close={onCancel} message={'¿Está seguro de actualizar el usuario?'} />
       )}
-    </div>
+      <hr></hr>
+      <EditPass id={id} onClose={onClose}/>
+     </div>
   );
 };
 
 export default FormEdit;
+ 

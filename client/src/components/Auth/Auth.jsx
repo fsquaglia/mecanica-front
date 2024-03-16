@@ -62,11 +62,55 @@ const loginUser = async(userData,login)=>{
           throw error;
         }
                
-            }
+            }  
+
+            const verifyPassword = async(userData, setVerify)=>{
+              const id = userData.id;
+              const password = userData.password;
+              try {
+                  const response = await axios.post(`/user/set`,{
+                      id,
+                      password,
+                  });
+                  if (response.status === 200) {
+                    //console.log(response.data)
+                    const user = response.data;
+                      showSuccess('Verificacion exitosa')
+                      console.log(user)
+                      setVerify(false)
+                        return user;
+                  }
+                  } catch (error) {
+                    showError('Verificacion fallida')
+                    HandlError(error);
+                    throw error;
+                  }  
+                  }
+          
+                      const changePassword  = async (id, passChange,setVerify, onClose) => {
+                        //Lógica para guardar los cambios (puedes conectarlo a tus acciones de Redux)
+                        try {
+                          // Realiza la solicitud PUT con Axios
+                          const response = await axios.put(`/user/${id}`,passChange);
+                          
+                          if (response.status === 200) {
+                            showSuccess('Usuario actualizado con éxito')
+                            setVerify(true)
+                           onClose(); // Cierra el modal después de guardar los cambios
+                          } else {
+                            showError('Error al actualizar el usuario')
+                          }
+                        } catch (error) {
+                          HandlError({error:error.message})
+                          console.error('Error al actualizar el usuario:', error);
+                        }
+                      };
 
 
 export {
     createUser,
-    loginUser
+    loginUser,
+    verifyPassword,
+    changePassword 
 }
 
