@@ -1,4 +1,5 @@
 import {userLogin, userCreate}from '../../Controllers/userControllers/userLogin.js'
+import compare from '../../Controllers/userControllers/compare.js'
 
 const userLogHand = async (req, res)=>{
     const {email, password}=req.body;
@@ -20,4 +21,14 @@ const userCreateHand = async (req, res)=>{
     }
 };
 
-export {userLogHand, userCreateHand}
+const userPassHand = async (req, res)=>{
+    const {id, password}= req.body;
+    try {
+        const response = await compare(id, password);
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(404).json({error:error.message})
+    }
+}
+
+export {userLogHand, userCreateHand, userPassHand}

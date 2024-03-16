@@ -2,12 +2,14 @@ import { useState } from 'react';
 import style from '../styles/Modal.module.css'
 import FormEdit from './FormEdit';
 import axios from 'axios'
+import {useAuth} from '../AuthContext/AuthContext'
 import GenericButton from '../../GenericButton/GenericButton';
 import Confirmation from '../../Confirmation/Confirmation';
 import {showError, showSuccess, HandlError}from '../HandlerError';
 
 
 const EditWindow = ({ onClose, userEdit}) => {
+  const {authenticated, user}= useAuth()
   const {id, email,name, typeId, numberId, role, enable, country, picture}= userEdit;
  
   const [editedUser, setEditedUser] = useState({
@@ -85,11 +87,12 @@ const EditWindow = ({ onClose, userEdit}) => {
   return (
     <div className={style.modal}>
       <h2>Editar Usuario</h2>
-      <FormEdit id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} />
+      <FormEdit id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} onClose={onClose}/>
       <GenericButton onClick= {onClose} buttonText='Cancelar'/>
-      <GenericButton onClick= {resetPassword} buttonText='Reset Password'/>
+      {authenticated && user.role===0? (
+      <GenericButton onClick= {resetPassword} buttonText='Reset Password'/>) : null}
       {showConfirmation && (
-        <Confirmation onConfirm={handleConfirmation} close={onCancel} message={'¿Está seguro resetear la contraseña?'} />
+      <Confirmation onConfirm={handleConfirmation} close={onCancel} message={'¿Está seguro de resetear la contraseña?'} />
       )}
     </div>
   );

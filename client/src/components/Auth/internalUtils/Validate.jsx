@@ -68,9 +68,28 @@ const ValidCreate = (input) => {
   return errors;
 };
 
+const ValidPass = (input)=>{
+    let errors = {};
+
+    const validatePassword = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+   
+    // Validaciones para el campo de contraseña
+    if (!input.newPassword.trim()) {
+      errors.newPassword = "Este campo no puede estar vacio";
+    } else if (!validatePassword.test(input.newPassword.trim())) {
+      errors.newPassword = "La contraseña debe contener al menos una mayuscula y un numero";
+    } else if (input.newPassword.length < 8) {
+      errors.newPassword = "La contraseña debe tener mas de 8 letras";
+    } else if (input.newPassword !== input.confirmPassword) {
+      errors.confirmPassword = "Las contraseñas no coinciden";
+    }
+    return errors;
+}
+
 export {
   ValidLogin,
-  ValidCreate
+  ValidCreate,
+  ValidPass
 }; 
 // const ValidCreate = (input) => {
 //   //   const allUsers = useSelector((state) => state.allUsers)
