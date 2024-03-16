@@ -23,10 +23,21 @@ const sequelize = new Sequelize(
 Object.values(models).forEach((model) => model(sequelize));
 
 
+const {
+  User,
+  Car, 
+  Service,
+  Category,
+  CategoryPost,
+  Post,
+  Product,
+  Provider,
+  Province,
+  CategoryProvider,
+} = sequelize.models;
 
-const { User, Car, Service, Category, CategoryPost, Post, Product, Provider, Province } = sequelize.models;
+//!Asociations:
 
-//Asociations:
 User.belongsToMany(Car, { through: 'user_car'});
 Car.belongsToMany(User, {through: 'user_car'})
 
@@ -44,6 +55,10 @@ Category.belongsTo(Category, {
 Category.hasMany(Category, { as: "subcategories", foreignKey: "parentId" });
 Product.belongsTo(Category, { as: "subCategory", foreignKey: "subcategoryId" });
 Post.belongsTo(CategoryPost, { foreignKey: "idCategory", allowNull: false });
+Provider.belongsTo(CategoryProvider, {
+  foreignKey: "idCategory",
+  allowNull: false,
+});
 
 export {
   User,
@@ -55,5 +70,6 @@ export {
   Product,
   Provider,
   Province,
+  CategoryProvider,
   sequelize,
 };
