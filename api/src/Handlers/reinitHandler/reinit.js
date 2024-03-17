@@ -6,6 +6,7 @@ import {
   CategoryPost,
   Post,
   CategoryProvider,
+  Commerce,
 } from "../../db.js";
 
 const reinit = async (req, res) => {
@@ -85,17 +86,20 @@ const reinit = async (req, res) => {
     // });
 
     //vaciar y rellenar Comemrce
-    // await Commerce.destroy({ where: {}, truncate: true });
-    // await Commerce.create({
-    //   razonsocial: "Boscarol Ariel",
-    //   fantasia: "Boscarol Hermanos",
-    //   direccion: "Güemes 853",
-    //   ciudad: "San Cristóbal",
-    //   idProvince: 21,
-    //   telefono: "543408427110",
-    //   instagram: "",
-    //   facebook: "",
-    // });
+    await Commerce.destroy({ where: {} });
+    await Commerce.create({
+      razonsocial: "Boscarol Ariel",
+      fantasia: "Boscarol Hnos.",
+      direccion: "Güemes 853",
+      ciudad: "San Cristóbal",
+      idProvince: 21,
+      telefono: "543408427110",
+      email: "boscarol@boscarol.com.ar",
+      instagram: "",
+      facebook: "",
+      otro: "",
+      isMyCommerce: true,
+    });
 
     //crear categorías y subcategorías
     await Category.destroy({ where: {} });
