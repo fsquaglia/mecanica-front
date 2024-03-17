@@ -55,7 +55,7 @@ const InnerDetail = ({ type, data }) => {
               </ul>
               <img src={data.picture} style={{maxWidth:'150px'}}/>
               <div>
-              <Edition allowedRoles={[0]} onClick={handlerUser}/>
+              <Edition allowedRoles={[0,1, 2]} onClick={handlerUser}/>
               </div>
             </>
           )}

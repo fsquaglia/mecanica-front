@@ -12,15 +12,14 @@ const Confirmation = ({onConfirm, message, close}) => {
     const onClose = close? close : onCancel;
 
   return (
-     <>
-    
-      <div className={style.confirm}>
+     <div className={style.confirmOverlay}>
+      <div className={style.confirmBox}>
         <h2>¡Confirmar acción!</h2>
         <p>{message}</p>
         <GenericButton  onClick={onClose} buttonText={'Cancelar'}/>
         <GenericButton  onClick={onConfirm} buttonText={'Enviar'}/>
       </div>
-    </>
+      </div>
   );
 };
 

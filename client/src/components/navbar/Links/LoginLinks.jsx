@@ -13,6 +13,9 @@ const LoginLinks = () => {
       ) : (
         <Link to="/login">Ingresar</Link>
       )}
+      <br></br>
+      {authenticated? 
+      <Link to={`/home/user/${user.id}?type=user`}>Perfil:</Link>:null}
     </div>
     
   )

@@ -1,18 +1,20 @@
 import GenericButton from "../../GenericButton/GenericButton";
 import style from '../styles/Modal.module.css'
 import { ValidPass } from "../internalUtils/Validate";
-import { verifyPassword, changePassword } from "../Auth";
+import { verifyPassword} from "../Auth";
 import {useState}from 'react'
-import Confirmation from '../../Confirmation/Confirmation'
 
-const EditPass = ({id, onClose}) => {
-    //estado para mostrar confirmacion
-    const [showConfirmation, setShowConfirmation] = useState(false);
+const EditPass = ({id, userUpdater, handlePasswordChange}) => {
+    
+    const { setShowConfPass}=userUpdater;
+
+
     const [verify, setVerify]= useState(true)
     const [inputPass, setInputPass]= useState({
         id : id, 
         password: "",
     })
+
     const [input, setInput] = useState({
         newPassword: "",
         confirmPassword: ""
@@ -51,7 +53,7 @@ const EditPass = ({id, onClose}) => {
     
     const handleSubmitVerify = (event) => {
         event.preventDefault();
-        // Aquí puedes agregar la lógica para verificar la contraseña actual
+        //  lógica para verificar la contraseña actual
         verifyPassword(userData, setVerify)
     };
     
@@ -61,15 +63,11 @@ const EditPass = ({id, onClose}) => {
 
     const handleSubmitChange = (event) => {
         event.preventDefault();
-        setShowConfirmation(true); 
+        setShowConfPass(true);
+        
     };
-    const handleConfirmation = (e) => {
-        changePassword(id, passChange, setVerify, onClose)
-        setShowConfirmation(false); // Muestra el componente de confirmación
-      };
-      const onCancel=()=>{
-        setShowConfirmation(false);
-      }
+    handlePasswordChange(id, passChange, setVerify)
+    
 
     const disabledInput = verify
     const disabledBy =
@@ -78,7 +76,7 @@ const EditPass = ({id, onClose}) => {
   error.newPassword ||
   error.confirmPassword ||
   disabledInput
-  
+
 
   return (
     <div>
@@ -96,6 +94,8 @@ const EditPass = ({id, onClose}) => {
                <GenericButton type="submit" onClick={handleSubmitVerify} buttonText={'Verificar contraseña'} disabled={!inputPass.password}/>
 
                 {/* Campos para el nuevo password */}
+                {!disabledInput? 
+                <label>¡Password confirmado! Puede continuar:</label>: null}
                 <label>Intoduzca su nueva contraseña:</label>
                 <input
                     type="password"
@@ -120,9 +120,7 @@ const EditPass = ({id, onClose}) => {
                  {error.confirmPassword && <p className={style.errorMessage}>{error.confirmPassword}</p>}
                 <GenericButton type="submit" onClick={handleSubmitChange} buttonText={'Cambiar contraseña'} disabled={disabledBy}/>
             </form>
-            {showConfirmation && (
-             <Confirmation onConfirm={ handleConfirmation} close={onCancel} message={'¿Está seguro de actualizar la contraseña?'} />
-      )}
+          
     </div>
   )
 }

@@ -9,10 +9,11 @@ import EditPass from './EditPass';
 
 
 
-const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose}) => {
+const FormEdit = ({ id, editedUser, onInputChange, onClose, userUpdater, handlePasswordChange}) => {
   const [imageUrl, setImageUrl] = useState(editedUser.picture);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+
   const { authenticated, user}= useAuth()
+  const {setShowConfUser}= userUpdater;
  
   const onImageChange = (url) => {
     setImageUrl(url);
@@ -27,15 +28,9 @@ const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowConfirmation(true); 
+    setShowConfUser(true); 
   };
-  const handleConfirmation = (e) => {
-    onSaveChanges();
-    setShowConfirmation(false); // Muestra el componente de confirmación
-  };
-  const onCancel=()=>{
-    setShowConfirmation(false);
-  }
+ 
 
   return (
     <div className={style.formContainer}>
@@ -90,11 +85,8 @@ const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose}) => {
         </>)}
         <GenericButton type="submit" buttonText="Guardar cambios" />
       </form>
-      {showConfirmation && (
-        <Confirmation onConfirm={ handleConfirmation} close={onCancel} message={'¿Está seguro de actualizar el usuario?'} />
-      )}
       <hr></hr>
-      <EditPass id={id} onClose={onClose}/>
+      <EditPass id={id} onClose={onClose} userUpdater={userUpdater} handlePasswordChange={handlePasswordChange}/>
      </div>
   );
 };
