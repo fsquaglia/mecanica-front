@@ -31,6 +31,14 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      celular: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       instagram: {
         type: DataTypes.STRING,
         allowNull: true,

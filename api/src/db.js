@@ -70,5 +70,6 @@ export {
   Provider,
   Province,
   CategoryProvider,
+  Commerce,
   sequelize,
 };
