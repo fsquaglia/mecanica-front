@@ -1,6 +1,6 @@
 
 import {Routes, Route, Navigate, useNavigate} from 'react-router-dom'
-import {About, Error, Home, Landing, Login} from './views/Index'
+import {About, Error, Home, Detail, Landing, Login, EditWindow} from './views/Index'
 import {Admin, DetailAd} from './views/Staff/AdminIndex'
 import {loginUser, isNotAuth} from './redux/actions'
 
@@ -36,6 +36,7 @@ function App() {
     <Route path= '/login' element={<Login/>}/>
     <Route path= {'/error'} element={<Error/>}/> 
     <Route path="/home" element= {(authenticated) ? <Home/>: <Navigate to = '/'/>} />
+    <Route path="/home/user/:id" element= {(authenticated) ? <DetailAd/>: <Navigate to = '/home'/>} />
     <Route exact path="/admin" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? <Admin/>: <Navigate to = '/home'/>} />
     <Route path="/admin/:name" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? <Admin/>: <Navigate to = '/error'/>} />
     <Route path="/admin/detail/:id" element= {(authenticated && allow === 0) || (authenticated && allow === 2) ? <DetailAd/>: <Navigate to = '/error'/>} /> 

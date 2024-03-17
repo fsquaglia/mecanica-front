@@ -99,6 +99,7 @@ const updateUser = async (id, newData) => {
       return userUp;
       //si tiene password lo encripta y luego actualiza el password de usuario:
     } else { 
+      
       const hashedPassword = await bcrypt.hash(newData.password, 10);
       const parsedData = {
         password: hashedPassword,
