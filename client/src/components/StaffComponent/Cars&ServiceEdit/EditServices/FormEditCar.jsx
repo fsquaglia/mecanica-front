@@ -8,7 +8,7 @@ import CloudinaryUpload from './CloudinaryUpload';
 
 
 
-const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
+const FormEditCar = ({ editedUser, onInputChange, onSaveChanges }) => {
   const [imageUrl, setImageUrl] = useState(editedUser.picture);
  
   const onImageChange = (url) => {
@@ -81,7 +81,7 @@ const FormEdit = ({ editedUser, onInputChange, onSaveChanges }) => {
   );
 };
 
-export default FormEdit;
+export default FormEditCar;
 
 // const FormEdit = ({ editedUser, onInputChange,onSaveChanges}) => {
 //     const handleInputChange = (e) => {

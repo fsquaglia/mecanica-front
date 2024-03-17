@@ -1,4 +1,4 @@
-
+import interceptor from './Interceptor'
 import {Routes, Route, Navigate, useNavigate} from 'react-router-dom'
 import {About, Error, Home, Detail, Landing, Login, EditWindow} from './views/Index'
 import {Admin, DetailAd} from './views/Staff/AdminIndex'
@@ -16,16 +16,23 @@ function App() {
   //console.log(authenticated)
   const allow = user? user.role : 1;
   //console.log(allow)
-  //const navigate = useNavigate()
+
+  
   useEffect(()=>{
     if(authenticated){
-
+      
       dispatch(loginUser(user))
+    
     } else {
       dispatch(isNotAuth())
     }
   }, [authenticated]);
-
+  
+   useEffect(() => {
+    // Configurar el interceptor cuando el componente se monta
+    interceptor(logout);
+  }, []);
+  
 
   return (
 

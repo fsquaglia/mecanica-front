@@ -1,5 +1,6 @@
 import { HandlError} from '../components/Auth/HandlerError'
 import axios from 'axios'
+import setAuthHeader from '../components/Auth/axiosUtils';
 export const LOGIN_USER= 'LOGIN_USER';
 export const ISN_AUTH= 'ISN_AUTH';
 export const ALL_USERS= 'ALL_USERS';
@@ -29,7 +30,7 @@ payload: [],
 export const getAllUsers = ()=>{
     return async (dispatch)=>{
       try {
-        const data = await axios("/user");
+        const data = await axios("/user", setAuthHeader());
         return dispatch({
           type:ALL_USERS,
           payload: data.data,
@@ -75,7 +76,7 @@ export const getAllUsers = ()=>{
 export const getAllCars = ()=>{
   return async (dispatch)=>{
     try {
-      const data = await axios("/car");
+      const data = await axios("/car", setAuthHeader());
       return dispatch({
         type:ALL_CARS,
         payload: data.data,

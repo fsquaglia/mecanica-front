@@ -10,6 +10,9 @@ const Admin = () => {
   const dispatch = useDispatch();
   const users = useSelector((state)=>state.allUsers)
  
+ 
+
+ 
   //console.log(users)
   useEffect(()=>{
     dispatch(getAllUsers())
