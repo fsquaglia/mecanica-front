@@ -25,7 +25,7 @@ const verifyToken =(req, res, next)=>{
         const userId= decoded.id;
         const userRole = decoded.role;
         req.userInfo={userId, userRole};
-        console.log(req.userInfo +' userInfo')
+        //console.log(req.userInfo +' userInfo')
         next();
     })
 }

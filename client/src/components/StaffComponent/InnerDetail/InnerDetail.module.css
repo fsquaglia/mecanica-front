@@ -3,8 +3,18 @@
  width: 50rem;
 display: flex;  
 flex-direction: column;
- background-color:white;
+justify-content: center;
+align-items: center;
 border: 1px solid grey;
+margin: 0;
+background-color: rgba(255, 255, 255, 0.144); /* Opacidad al 80% */
+backdrop-filter: blur(5px); /* Difuminado de 5px */
+display: grid;
+grid-template-columns: 1fr 1fr;
+grid-template-rows: 1fr 1fr 1fr 1fr 1fr  ;
+grid-gap: 1.25rem;
+max-height: 80vh;
+overflow: auto;
 border-radius: 1rem;
 padding: 1.6rem;
 cursor: pointer;

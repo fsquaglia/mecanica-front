@@ -10,6 +10,7 @@ import {useParams} from 'react-router-dom'
 const CarGrid = ({}) => {
   const dispatch = useDispatch();
   const {name}=useParams();
+  const token = localStorage.getItem('validToken')
   
  const found = useSelector((state)=>state.byPat)
  const allCars = useSelector((state)=>state.allCars)
@@ -17,7 +18,7 @@ const CarGrid = ({}) => {
   if(name){
     dispatch(carByPat(name))
   }else{
-    dispatch(getAllCars())
+    dispatch(getAllCars(token))
   }
  },[dispatch, name])
 

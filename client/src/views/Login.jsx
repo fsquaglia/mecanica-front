@@ -11,9 +11,9 @@ const Login = () => {
   const auth = useAuth();
   const navigate= useNavigate()
   const dispatch = useDispatch();
- useEffect(()=>{
-   dispatch(getAllUsers())
- },[])
+//  useEffect(()=>{
+//    dispatch(getAllUsers())
+//  },[])
  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateCarOpen, setIsCreateCarOpen] = useState(false);
