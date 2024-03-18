@@ -1,25 +1,27 @@
 .button {
-  background: linear-gradient(43deg, rgb(153, 166, 229) 0%, rgb(238, 196, 236) 46%, rgb(255, 204, 112) 100%);
-    padding: 0.10rem 1rem; /* Ajusta el padding según tu preferencia */
-    font-size: 1rem; /* Tamaño de la fuente */
-    font-weight: bold; /* Negrita */
-    color: rgb(50, 49, 50);
-    border: none;
-    border-radius: 1rem;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .button:hover {
-    /* background: rgb(211, 175, 147); Cambia el color en hover */
-    /* background: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
-    background: rgb(2,0,36);
-    background: rgb(230,138,18);
-background: linear-gradient(90deg, rgba(230,138,18,1) 0%, rgb(239, 193, 132) 30%, rgba(255,250,66,1) 100%);
-  }
-  
-  .button:active {
-    transform: translateY(2px); /* Efecto de hundimiento en click */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra ligera en click */
-  }
-  
+  background-color: #B18454;
+  outline: none;
+  background: accent;
+  width: 12em;
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 20px;
+  color: white;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: semibold;
+  line-height: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(177, 132, 84, 0.5);
+}
+
+.button:active {
+  transform: translateY(2px);
+  /* Efecto de hundimiento en click */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  /* Sombra ligera en click */
+}

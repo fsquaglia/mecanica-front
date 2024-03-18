@@ -5,7 +5,7 @@ import { ValidCreate } from './internalUtils/Validate';
 import { createUser } from './Auth';
 import GenericButton from '../GenericButton/GenericButton';
 
-const SignInForm = ({openCreateCar}) => {
+const SignInForm = ({ openCreateCar, onClose }) => {
   //const {login} = auth;
   const [input, setInput] = useState({
     email: "",
@@ -13,7 +13,7 @@ const SignInForm = ({openCreateCar}) => {
     typeId: "",
     numberId: "",
     country: "",
-    });
+  });
 
   const [error, setError] = useState({
     email: "",
@@ -58,79 +58,80 @@ const SignInForm = ({openCreateCar}) => {
   };
 
   return (
-    <div>
+    <div className={style.bigDiv}>
       <form onSubmit={handleSubmit}>
-       <div>
-         </div>   
-         <div >
-           <input
-             type="text"
-             placeholder="email"
-             value={input.email}
-             name="email"
-             autoComplete="off"
-             onChange={(event) => handleChange(event)}
-             className=''
-           />
-           <label > Email: </label>
-           {error.email && <p className={style.errorMessage}>{error.email}</p>}
-         </div>
-         <br/>
-         <div >
-           <input
-             type="text"
-             placeholder="name"
-             value={input.name}
-             name="name"
-             autoComplete="off"
-             onChange={(event) => handleChange(event)}
-             className=''
-           />
-           <label > Nombre, Apellido o Razón social: </label>
-           {error.name && <p className={style.errorMessage}>{error.name}</p>}
-         </div>
-         <br/>
-         <div>
-      <label htmlFor="typeId">Tipo documento:</label>
-      <select 
-      id="typeId" 
-      name="typeId" 
-      value={input.typeId} 
-      onChange={(event) => handleChange(event)}>
-        <option value="">Selecciona un tipo</option>
-        <option value="DNI">DNI</option>
-        <option value="CUIT">CUIT</option>
-        <option value="CDI">CDI</option>
-        <option value="PASSPORT">PASAPORTE</option>
-        <option value="CI_EXTRANGE">CI extranjera.</option>
-      </select>
-      {error.typeId && <p className={style.errorMessage}>{error.typeId}</p>}
-      <br />
-      <label htmlFor="numberId">Número documento:</label>
-      <input 
-      type="text" 
-      id="numberId" 
-      name="numberId" 
-      value={input.numberId} 
-      onChange={(event) => handleChange(event)} />
-       {error.numberId && <p className={style.errorMessage}>{error.numberId}</p>}
-    </div>
-    <br/>
-    <div >
-           <input
-             type="text"
-             placeholder="country"
-             value={input.country}
-             name="country"
-             autoComplete="off"
-             onChange={(event) => handleChange(event)}
-             className=''
-           />
-           <label > Pais: </label>
-           {error.country && <p className={style.errorMessage}>{error.country}</p>}
-         </div>
-         <br/>
-    <GenericButton type='submit' buttonText={'Crear Usuario'}/>
+
+        <div className={style.divInput}>
+          <label className={style.labelInput}> EMAIL </label>
+          <input
+            type="text"
+
+            value={input.email}
+            name="email"
+            autoComplete="off"
+            onChange={(event) => handleChange(event)}
+            className={style.theInputs}
+          />
+          {error.email && <p className={style.errorMessage}>{error.email}</p>}
+        </div>
+        <div className={style.divInput}>
+          <label className={style.labelInput}> Nombre, Apellido o Razón social: </label>
+          <input
+            type="text"
+            value={input.name}
+            name="name"
+            autoComplete="off"
+            onChange={(event) => handleChange(event)}
+            className={style.theInputs}
+          />
+          {error.name && <p className={style.errorMessage}>{error.name}</p>}
+        </div>
+        <div className={style.divInput}>
+          <label className={style.labelInput} htmlFor="typeId">Tipo documento:</label>
+          <select
+            id="typeId"
+            name="typeId"
+            value={input.typeId}
+            onChange={(event) => handleChange(event)}
+            className={style.theInputs}>
+            <option value="">Selecciona un tipo</option>
+            <option value="DNI">DNI</option>
+            <option value="CUIT">CUIT</option>
+            <option value="CDI">CDI</option>
+            <option value="PASSPORT">PASAPORTE</option>
+            <option value="CI_EXTRANGE">CI extranjera.</option>
+
+          </select>
+          {error.typeId && <p className={style.errorMessage}>{error.typeId}</p>}
+        </div>
+        <div className={style.divInput}>
+          <label className={style.labelInput} htmlFor="numberId">Número documento:</label>
+          <input
+            type="text"
+            id="numberId"
+            name="numberId"
+            value={input.numberId}
+            onChange={(event) => handleChange(event)}
+            className={style.theInputs} />
+          {error.numberId && <p className={style.errorMessage}>{error.numberId}</p>}
+        </div>
+        <div className={style.divInput}>
+          <label className={style.labelInput}> Pais: </label>
+          <input
+            type="text"
+            placeholder="country"
+            value={input.country}
+            name="country"
+            autoComplete="off"
+            onChange={(event) => handleChange(event)}
+            className={style.theInputs}
+          />
+          {error.country && <p className={style.errorMessage}>{error.country}</p>}
+        </div>
+        <div className={style.divButtons}>
+          <GenericButton type='submit' buttonText={'Crear Usuario'} />
+          <GenericButton onClick={onClose} buttonText={'Cancelar'} />
+        </div>
       </form>
     </div>
   );
