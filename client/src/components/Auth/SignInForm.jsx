@@ -75,7 +75,7 @@ const SignInForm = ({ openCreateCar, onClose }) => {
           {error.email && <p className={style.errorMessage}>{error.email}</p>}
         </div>
         <div className={style.divInput}>
-          <label className={style.labelInput}> Nombre, Apellido o Razón social: </label>
+          <label className={style.labelInput}> NOMBRE, APELLIDO O RAZON SOCIAL </label>
           <input
             type="text"
             value={input.name}
@@ -87,7 +87,7 @@ const SignInForm = ({ openCreateCar, onClose }) => {
           {error.name && <p className={style.errorMessage}>{error.name}</p>}
         </div>
         <div className={style.divInput}>
-          <label className={style.labelInput} htmlFor="typeId">Tipo documento:</label>
+          <label className={style.labelInput} htmlFor="typeId">TIPO DE DOCUMENTO</label>
           <select
             id="typeId"
             name="typeId"
@@ -105,7 +105,7 @@ const SignInForm = ({ openCreateCar, onClose }) => {
           {error.typeId && <p className={style.errorMessage}>{error.typeId}</p>}
         </div>
         <div className={style.divInput}>
-          <label className={style.labelInput} htmlFor="numberId">Número documento:</label>
+          <label className={style.labelInput} htmlFor="numberId">NUMERO DE DOCUMENTO</label>
           <input
             type="text"
             id="numberId"
@@ -116,10 +116,9 @@ const SignInForm = ({ openCreateCar, onClose }) => {
           {error.numberId && <p className={style.errorMessage}>{error.numberId}</p>}
         </div>
         <div className={style.divInput}>
-          <label className={style.labelInput}> Pais: </label>
+          <label className={style.labelInput}> PAIS </label>
           <input
             type="text"
-            placeholder="country"
             value={input.country}
             name="country"
             autoComplete="off"
@@ -129,8 +128,8 @@ const SignInForm = ({ openCreateCar, onClose }) => {
           {error.country && <p className={style.errorMessage}>{error.country}</p>}
         </div>
         <div className={style.divButtons}>
-          <GenericButton type='submit' buttonText={'Crear Usuario'} />
-          <GenericButton onClick={onClose} buttonText={'Cancelar'} />
+          <GenericButton type='submit' buttonText={'CREAR USUARIO'} />
+          <GenericButton onClick={onClose} buttonText={'CANCELAR'} />
         </div>
       </form>
     </div>
