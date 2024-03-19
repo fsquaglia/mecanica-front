@@ -77,7 +77,7 @@ export const getAllUsers = () => {
 };
 export const userBynumId = (numberId) => async (dispatch) => {
   try {
-    const data = await axios(`/user?numberId=${numberId}`);
+    const data = await axios(`/user?numberId=${numberId}`,setAuthHeader());
     return dispatch({
       type: USER_BY_IDFY,
       payload: data.data,
@@ -88,7 +88,7 @@ export const userBynumId = (numberId) => async (dispatch) => {
 };
 export const getById = (id, token) => async (dispatch) => {
   try {
-    const data = await axios(`/user/${id}`);
+    const data = await axios(`/user/${id}`,setAuthHeader());
     return dispatch({
       type: USER_BY_ID,
       payload: data.data,
@@ -120,9 +120,9 @@ export const getAllCars = () => {
   };
 };
 
-export const carById = (id, token) => async (dispatch) => {
+export const carById = (id) => async (dispatch) => {
   try {
-    const data = await axios(`/car/${id}`);
+    const data = await axios(`/car/${id}`,setAuthHeader());
     return dispatch({
       type: CAR_BY_ID,
       payload: data.data,
@@ -132,9 +132,9 @@ export const carById = (id, token) => async (dispatch) => {
   }
 };
 
-export const carByPat = (patent, token) => async (dispatch) => {
+export const carByPat = (patent) => async (dispatch) => {
   try {
-    const data = await axios(`/car?patent=${patent}`);
+    const data = await axios(`/car?patent=${patent}`, setAuthHeader());
     return dispatch({
       type: CAR_PAT,
       payload: data.data,
@@ -143,6 +143,9 @@ export const carByPat = (patent, token) => async (dispatch) => {
     HandlError(error);
   }
 };
+
+//*>>>>>>>>>> Filtros por dni y patente <<<<<<<<<<<<<<<<<<<<<<<<
+
 
 export const searchStart = (handleSearchStart) => ({
   type: SEARCH_START,

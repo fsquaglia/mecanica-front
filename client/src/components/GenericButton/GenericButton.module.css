@@ -9,6 +9,7 @@
     cursor: pointer;
     transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
     margin:3px;
+    max-width: 12rem;
   }
   
   .button:hover {
