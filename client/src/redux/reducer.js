@@ -14,12 +14,13 @@ import {
 
 const initialState = {
     allUsers: [],
-    userBynumId:[],
+    userByDni:[],
     detailUsers: [],
     LogIn: [],
     info: [],
     isAuthenticate: false,
     isSearching: false,
+    switchedState: false,
     allCars:[],
     byPat:[],
     carById:[],
