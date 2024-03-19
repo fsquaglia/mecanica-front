@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
   sequelize.define(
-    "Provider",
+    "Commerce",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -16,11 +16,8 @@ export default (sequelize) => {
       },
       fantasia: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
-      contacto: {
-        type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
+        unique: true,
       },
       direccion: {
         type: DataTypes.STRING,
@@ -34,17 +31,30 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      celular: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      otro: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      img: {
+      instagram: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      facebook: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      otro: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      isMyCommerce: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
     },
     { timestamps: false }
