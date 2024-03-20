@@ -14,6 +14,7 @@ const Login = () => {
 //  useEffect(()=>{
 //    dispatch(getAllUsers())
 //  },[])
+const idUser= sessionStorage.getItem('idUser')
  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateCarOpen, setIsCreateCarOpen] = useState(false);
@@ -44,7 +45,7 @@ const closer = () => {
       {isModalOpen && <SignWindow onClose={handleSignWindowClose} openCreateCar= {openCreateCar}/>}
       </div>
       <div>
-        {isCreateCarOpen && <CreateModal closer={closer}/>}
+        {isCreateCarOpen && <CreateModal closer={closer} idUser={idUser}/>}
       </div>
     </div>
   )

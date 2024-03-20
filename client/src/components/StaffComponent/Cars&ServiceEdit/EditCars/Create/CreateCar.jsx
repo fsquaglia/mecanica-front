@@ -6,8 +6,8 @@ import { postCar } from '../SendPosts';
 import GenericButton from '../../../../GenericButton/GenericButton';
 import Confirmation from '../../../../Confirmation/Confirmation';
 
-const CreateCar = () => {
-    const idUser= sessionStorage.getItem('idUser')
+const CreateCar = ({idUser}) => {
+    //const idUser= sessionStorage.getItem('idUser')
 
     const [showConfirmation, setShowConfirmation] = useState(false);
  

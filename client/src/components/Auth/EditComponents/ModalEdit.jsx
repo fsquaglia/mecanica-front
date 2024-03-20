@@ -7,6 +7,7 @@ import GenericButton from '../../GenericButton/GenericButton';
 import Confirmation from '../../Confirmation/Confirmation';
 import {showError, showSuccess, HandlError}from '../HandlerError';
 import {changePassword} from '../Auth'
+import setAuthHeader from '../axiosUtils'
 
 
 const EditWindow = ({ onClose, userEdit}) => {
@@ -39,7 +40,7 @@ const EditWindow = ({ onClose, userEdit}) => {
     //Lógica para guardar los cambios
     try {
       // Realiza la solicitud PUT con Axios
-      const response = await axios.put(`/user/${id}`,editedUser);
+      const response = await axios.put(`/user/${id}`,editedUser, setAuthHeader());
       
       if (response.status === 200) {
         showSuccess('Usuario actualizado con éxito')
@@ -99,7 +100,7 @@ const EditWindow = ({ onClose, userEdit}) => {
 
  const onResetPass = async()=>{
   try {
-    const response = await axios.patch(`/user/${id}`);
+    const response = await axios.patch(`/user/${id}`, setAuthHeader());
     if (response.status === 200) {
       showSuccess('Contraseña actualizada con exito')
      onClose(); // Cierra el modal después de guardar los cambios

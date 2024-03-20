@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import style from '../styles/Modal.module.css'
-import CreateCar from './CreateCar';
+import CreateService from './CreateService';
 import GenericButton from '../../../../GenericButton/GenericButton';
+import Confirmation from '../../../../Confirmation/Confirmation';
 
 
-const CreateModal = ({closer}) => {
+const CreateModal = ({closer, idCar}) => {
   const navigate = useNavigate()
  
  const onClose =()=>{
@@ -13,11 +14,12 @@ const CreateModal = ({closer}) => {
 
   return (
     <div className={style.modal}>
-      <h2>Registrar vehiculo:</h2>
+      <h2>Crear Servicio:</h2>
       <GenericButton onClick={onClose} buttonText={'Cancelar'} />
       <br/>
       <br/>
-      <CreateCar/>
+      <CreateService idCar= {idCar}/>
+      
     </div>
   );
 };

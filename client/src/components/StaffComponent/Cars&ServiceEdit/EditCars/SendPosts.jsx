@@ -1,5 +1,6 @@
 import axios from "axios";
 import {HandlError,showSuccess, showError } from '../../../Auth/HandlerError';
+import setAuthHeader from '../../../Auth/axiosUtils'
 
 
 
@@ -24,7 +25,7 @@ const postCar = async(carData)=>{
         observations,
         picture,
         idUser,
-    })
+    }, setAuthHeader())
     if (response.status === 201) {
       const car = response.data.data;
        showSuccess('Vehiculo creado exitosamente')
@@ -41,10 +42,10 @@ const postService = async(serviceData)=>{
     const email = userData.email;
     const password = userData.password;
     try {
-        const response = await axios.post(`/user/login`,{
+        const response = await axios.post(`/service`,{
             email,
             password,
-        });
+        }, setAuthHeader());
         if (response.status === 201) {
           const service = response.data.data;
         showSuccess('Servicio creado exitosamente')   

@@ -4,7 +4,7 @@ import CreateCar from './CreateCar';
 import GenericButton from '../../../../GenericButton/GenericButton';
 
 
-const CreateModal = ({closer}) => {
+const CreateModal = ({closer, idUser}) => {
   const navigate = useNavigate()
  
  const onClose =()=>{
@@ -17,7 +17,7 @@ const CreateModal = ({closer}) => {
       <GenericButton onClick={onClose} buttonText={'Cancelar'} />
       <br/>
       <br/>
-      <CreateCar/>
+      <CreateCar idUser={idUser}/>
     </div>
   );
 };

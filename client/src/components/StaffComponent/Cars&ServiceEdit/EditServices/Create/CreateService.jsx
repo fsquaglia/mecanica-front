@@ -1,36 +1,31 @@
 import style from '../styles/Modal.module.css'
 import { useState } from "react";
 import { useNavigate} from "react-router-dom";
-import  ValidCar  from '../CarServValidate';
-import { postCar } from '../SendPosts';
+import  ValidService from '../ServValidate';
+//import { postCar } from '../SendPosts';
 import GenericButton from '../../../../GenericButton/GenericButton';
 import Confirmation from '../../../../Confirmation/Confirmation';
 
-const CreateCar = () => {
-    const idUser= sessionStorage.getItem('idUser')
+const CreateService = ({idCar}) => {
+  
 
     const [showConfirmation, setShowConfirmation] = useState(false);
  
   const [input, setInput] = useState({
-    patent: "",
-    mark: "",
-    model: "",
-    year: "",
-    motorNum: "",
-    chassisNum: "",
-    observations: "",
-    picture: "",
-    idUser:idUser,
-    });
+         type: "",
+        detail: "",
+        date_in: "",
+        date_out: "",
+        observations: "",
+        picture: "",
+         idCar:idCar,
+       });
 
   const [error, setError] = useState({
-        patent: "",
-        mark: "",
-        model: "",
-        year: "",
-        motorNum: "",
-        chassisNum: "",
-        observations: "",
+    detail: "",
+    date_in: "",
+    date_out: "",
+    observations: "",
   });
 
   const navigate = useNavigate();
@@ -44,7 +39,7 @@ const CreateCar = () => {
 
     setError({
       ...error,
-      [name]: ValidCar({ ...input, [name]: value })[name],
+      [name]: ValidService({ ...input, [name]: value })[name],
     });
   };
 
@@ -60,15 +55,13 @@ const CreateCar = () => {
     if (Object.values(validationErrors).every((error) => error === "")) {
       await postCar(input);
       setInput({
-        patent: "",
-        mark: "",
-        model: "",
-        year: "",
-        motorNum: "",
-        chassisNum: "",
+        type: "",
+        detail: "",
+        date_in: "",
+        date_out: "",
         observations: "",
         picture: "",
-        idUser:idUser,
+        idCar:idCar,
       });
       navigate("/admin");
     }
@@ -79,19 +72,13 @@ const CreateCar = () => {
   }
 
   const permit =
-  !input.patent.trim() ||
-  !input.mark.trim() ||
-  !input.model.trim() ||
-  !input.year.trim() ||
-  !input.motorNum.trim() ||
-  !input.chassisNum.trim() ||
+  !input.detail.trim() ||
+  !input.date_in.trim() ||
+  !input.date_out.trim() ||
   !input.observations.trim() ||
-  error.patent ||
-  error.mark ||
-  error.model ||
-  error.year ||
-  error.motorNum ||
-  error.chassisNum ||
+  error.detail ||
+  error.date_in ||
+  error.date_out ||
   error.observations;
 
   return (
@@ -101,93 +88,60 @@ const CreateCar = () => {
       )}
       <form onSubmit={handleSubmit}>
        <div>
-         </div>   
+         </div> 
          <div >
-           <input
-             type="text"
-             placeholder="patente"
-             value={input.patent}
-             name="patent"
-             autoComplete="off"
-             onChange={(event) => handleChange(event)}
-             className=''
-           />
-           <label > Patente: </label>
-           {error.patent && <p className={style.errorMessage}>{error.patent}</p>}
-         </div>
-         <br/>
-         <div >
-           <input
-             type="text"
-             placeholder="marca"
-             value={input.mark}
-             name="mark"
-             autoComplete="off"
-             onChange={(event) => handleChange(event)}
-             className=''
-           />
-           <label > Marca: </label>
-           {error.mark && <p className={style.errorMessage}>{error.mark}</p>}
-         </div>
-         <br/>
-         <div >
-           <input
-             type="text"
-             placeholder="modelo"
-             value={input.model}
-             name="model"
-             autoComplete="off"
-             onChange={(event) => handleChange(event)}
-             className=''
-           />
-           <label > Modelo: </label>
-           {error.model && <p className={style.errorMessage}>{error.model}</p>}
+           <select name="type" value={input.type} onChange={(event) => handleChange(event)}>
+             <option value={'estimation'}>Presupuesto</option>
+             <option value={'reparation'}>Reparacion</option>
+             <option value={'service'}>Service</option>
+          </select>
+           <label >  Tipo de servicio: </label>
          </div>
     <br/>
     <div >
-           <input
+           <textarea
              type="text"
-             placeholder="año"
-             value={input.year}
-             name="year"
+             placeholder="Detalle"
+             value={input.detail}
+             name="detail"
              autoComplete="off"
              onChange={(event) => handleChange(event)}
              className=''
            />
-           <label > Año: </label>
-           {error.year && <p className={style.errorMessage}>{error.year}</p>}
+           <label > Detalle: </label>
+           {error.detail && <p className={style.errorMessage}>{error.detail}</p>}
          </div>
          <br/>
          <div >
            <input
-             type="text"
-             placeholder="motorNum"
-             value={input.motorNum}
-             name="motorNum"
+             type="date"
+             placeholder="Fecha entrada"
+             value={input.date_in}
+             name="date_in"
              autoComplete="off"
              onChange={(event) => handleChange(event)}
              className=''
            />
-           <label > Numero de Motor: </label>
-           {error.motorNum && <p className={style.errorMessage}>{error.motorNum}</p>}
+           <label > Fecha de entrada: </label>
+           {error.date_in && <p className={style.errorMessage}>{error.date_in}</p>}
          </div>
          <br/>
          <div >
            <input
-             type="text"
-             placeholder="chassisNum"
-             value={input.chassisNum}
-             name="chassisNum"
+             type="date"
+             placeholder="Fecha salida"
+             value={input.date_out}
+             name="date_out"
              autoComplete="off"
              onChange={(event) => handleChange(event)}
              className=''
            />
-           <label > Numero de chasis: </label>
-           {error.chassisNum && <p className={style.errorMessage}>{error.chassisNum}</p>}
+           <label > Fecha de salida: </label>
+           {error.date_out && <p className={style.errorMessage}>{error.date_out}</p>}
          </div>
          <br/>
          <div >
-           <input
+           <textarea
              type="text"
              placeholder="observaciones"
              value={input.observations}
@@ -213,10 +167,10 @@ const CreateCar = () => {
            <label > Imagen: </label>
          </div>
          <br/>
-    <GenericButton type='submit' buttonText={'Crear Vehiculo'} disabled={permit}/>
+    <GenericButton type='submit' buttonText={'Crear Servicio'} disabled={permit}/>
       </form>
     </div>
   );
 };
 
-export default CreateCar
+export default CreateService
