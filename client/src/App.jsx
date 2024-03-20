@@ -1,3 +1,4 @@
+
 import interceptor from "./Interceptor";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import {
@@ -15,6 +16,8 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useAuth } from "./components/Auth/AuthContext/AuthContext";
 import "./App.css";
+import Navbar from "./components/navbar/Navbar";
+
 
 function App() {
   const { authenticated, user, logout } = useAuth();
@@ -23,6 +26,7 @@ function App() {
   //console.log(authenticated)
   const allow = user ? user.role : 1;
   //console.log(allow)
+
 
   useEffect(() => {
     if (authenticated) {
@@ -38,7 +42,9 @@ function App() {
   }, []);
 
   return (
+
     <div>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
@@ -88,6 +94,7 @@ function App() {
       </Routes>
     </div>
   );
+
 }
 
 export default App;

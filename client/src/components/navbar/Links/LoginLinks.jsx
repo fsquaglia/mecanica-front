@@ -1,23 +1,24 @@
-import {Link} from 'react-router-dom'
-import {useAuth} from '../../Auth/AuthContext/AuthContext'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../Auth/AuthContext/AuthContext'
+import style from './LoginLinks.module.css'
 
 const LoginLinks = () => {
-    const {authenticated, user}=useAuth()
-  
+  const { authenticated, user } = useAuth()
+
   return (
     <div>
-           {authenticated ? (
+      {authenticated ? (
         user.role === 1 ? null : (
-          <Link to="/login">{user.role === 0 || user.role === 2 ? "Crear usuario" : "Ingresar"}</Link>
+          <Link to="/login">{user.role === 0 || user.role === 2 ? <a className={style.out} aria-current="page" href="#">Crear usuario</a> : <a className={style.out} aria-current="page" href="#">Ingresar</a>}</Link>
         )
       ) : (
-        <Link to="/login">Ingresar</Link>
+        <Link to="/login"><a className={style.in} aria-current="page" href="#">Ingresar</a></Link>
       )}
       <br></br>
       {authenticated? 
       <Link to={`/home/user/${user.id}?type=user`}>Perfil:</Link>:null}
     </div>
-    
+
   )
 }
 
