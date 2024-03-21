@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useAuth } from "./components/Auth/AuthContext/AuthContext";
 import "./App.css";
+import ImagesConfig from "./components/imagesConfig/ImagesConfig";
 
 function App() {
   const { authenticated, user, logout } = useAuth();
@@ -40,6 +41,7 @@ function App() {
   return (
     <div>
       <Routes>
+        <Route path="/fire" element={<ImagesConfig />} />
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />

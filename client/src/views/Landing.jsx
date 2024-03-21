@@ -1,18 +1,16 @@
-import Carousel from '../components/carousel/Carousel'
-import Navbar from '../components/navbar/Navbar'
-import mocks from '../../public/mocks'
-import { useEffect } from 'react'
+import Carousel from "../components/carousel/Carousel";
+import Navbar from "../components/navbar/Navbar";
+import mocks from "../../public/mocks";
+import { useEffect } from "react";
 
 const Landing = () => {
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => {}, []);
   return (
     <div>
       <Navbar />
       {/* <Carousel info={mocks}/> */}
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;
