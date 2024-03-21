@@ -1,5 +1,5 @@
 import style from './styles/Car.module.css'
-import infoSelect from '../AdminHelpers/Helpers/InfoMap';
+import {infoSelect} from '../AdminHelpers/Helpers/InfoMap';
 import {Link} from 'react-router-dom'
 
 const Car = ({data}) => {

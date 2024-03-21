@@ -7,4 +7,20 @@ const infoSelect = (info)=>{
 
 }
 
-export default infoSelect
+const roles = (role) => {
+  switch (role) {
+      case 0:
+          return 'Admin';
+      case 2:
+          return 'Mecanico';
+      case 9:
+          return 'Superadmin';
+      default:
+          return 'User';
+  }
+};
+
+export {
+  infoSelect,
+  roles
+}

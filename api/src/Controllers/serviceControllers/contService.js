@@ -1,36 +1,53 @@
-import {User} from '../../db.js'
+import { Car, Service } from '../../db.js';
+import { Op } from 'sequelize';
 
-
-const getUsers = async () => {
+const createService = async ( type, detail, date_in, date_out, observations, picture, carId) => {
     try {
-        const response = await User.findAll({
-            where:{
-                deletedAt:false,
+        // Buscar el automóvil
+        const carFound = await Car.findByPk(carId);
+        if (!carFound) {
+            throw new Error('Automóvil no encontrado');
+        }
+
+        // Verificar si ya existe un servicio para las fechas especificadas
+        const existingService = await Service.findOne({
+            where: {
+                 CarId: carId,
+                date_in: { [Op.lte]: date_out },
+                date_out: { [Op.gte]: date_in },
+                enable: true,
+                deletedAt: false
             }
         });
-        const data = response;
-        if(!data){throw new Error('Users not found')};
-        return data;
-    } catch (error) {
-        throw error;
-    }
-}
-const userById = async (id)=>{
-    try {
-        const response = await User.findByPk(id,{
-            where:{
-                deletedAt:false,
-            }
-        });
-        const data = response;
-        if(!data){throw new Error('User not found!')}
-        return data;
-    } catch (error) {
-        throw error;
-    }
-}
 
-const updateUser = async(id, newData)=>{
+        if (existingService) {
+            throw new Error('Ya existe un servicio para estas fechas');
+        }
+
+        // Crear el nuevo servicio
+        const newService = await Service.create({
+            type: type,
+            detail: detail,
+            date_in: date_in,
+            date_out: date_out,
+            observations: observations,
+            picture: picture
+        });
+
+        // Asociar el servicio al automóvil
+        await carFound.addService(newService);
+
+        return newService;
+    } catch (error) {
+        // Manejar errores
+        console.error('Error al crear el servicio:', error);
+        throw error;
+    }
+};
+
+
+
+const updateService = async(id, newData)=>{
     try {
         if(!id){
             throw new Error('No se encontró un id valido')
@@ -69,6 +86,12 @@ const updateUser = async(id, newData)=>{
       }
 }
 
-const deleteUser= async (id)=>{
+const deleteService= async (id)=>{
     console.log('Todavia no estoy lista (deberia borrar)')
+}
+
+export {
+    createService,
+    updateService,
+    deleteService
 }

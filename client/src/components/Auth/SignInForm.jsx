@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { ValidCreate } from './internalUtils/Validate';
 import { createUser } from './Auth';
 import GenericButton from '../GenericButton/GenericButton';
-import Confirmation from '../Confirmation/Confirmation';
+import showConfirmationDialog from '../utils/sweetAlert';
 
 
 const SignInForm = ({ openCreateCar, onClose }) => {
-  const [showConfirmation, setShowConfirmation] = useState(false);
+
 
   const [input, setInput] = useState({
     email: "",
@@ -40,11 +40,10 @@ const SignInForm = ({ openCreateCar, onClose }) => {
       [name]: ValidCreate({ ...input, [name]: value })[name],
     });
   };
-  const handleConfirmation = async (e) => {
 
+  const handleConfirmation = async (e) => {
     const validationErrors = ValidCreate(input);
     setError(validationErrors);
-
     if (Object.values(validationErrors).every((error) => error === "")) {
       await createUser(input, openCreateCar);
       setInput({
@@ -54,17 +53,19 @@ const SignInForm = ({ openCreateCar, onClose }) => {
         numberId: "",
         country: "",
       });
-
     }
-    setShowConfirmation(false); // Muestra el componente de confirmación
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    setShowConfirmation(true);
+    const confirmed = await showConfirmationDialog('¿Está seguro de crear el usuario?');
+    if (confirmed) {
+        // Si el usuario hace clic en "Aceptar", realizar la acción de cambiar la contraseña
+        handleConfirmation();
+        
+    }
   };
 
-  // const permit= (error.email|| error.name||error.typeId||error.numberId||error.country)? true :false;
   const permit =
     !input.email.trim() ||
     !input.name.trim() ||
@@ -78,20 +79,14 @@ const SignInForm = ({ openCreateCar, onClose }) => {
     error.country;
 
 
-  const onCancel = () => {
-    setShowConfirmation(false);
-  }
 
   return (
     <div className={style.bigDiv}>
       <form onSubmit={handleSubmit}>
-
-
         <div className={style.divInput}>
           <label className={style.labelInput}> EMAIL </label>
           <input
             type="text"
-
             value={input.email}
             name="email"
             autoComplete="off"
@@ -154,14 +149,10 @@ const SignInForm = ({ openCreateCar, onClose }) => {
           {error.country && <p className={style.errorMessage}>{error.country}</p>}
         </div>
         <div className={style.divButtons}>
-          <GenericButton type='submit' buttonText={'CREAR USUARIO'} />
+          <GenericButton type='submit' buttonText={'CREAR USUARIO'} disabled={permit}/>
           <GenericButton onClick={onClose} buttonText={'CANCELAR'} />
         </div>
-
       </form>
-      {showConfirmation && (
-        <Confirmation onConfirm={handleConfirmation} close={onCancel} message={'¿Está seguro de crear el usuario?'} />
-      )}
     </div>
   );
 };

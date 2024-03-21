@@ -22,7 +22,7 @@ const UserGrid = ({data}) => {
 
  useEffect(()=>{
   if(name){
-    dispatch(userBynumId(id))
+    dispatch(userBynumId(name))
   }else{
     dispatch(getAllUsers())
   }
