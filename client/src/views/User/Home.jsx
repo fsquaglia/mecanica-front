@@ -1,21 +1,25 @@
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../../components/navbar/Navbar'
-import CreateService from '../../components/StaffComponent/Cars&ServiceEdit/EditServices/Create/CreateService'
 
+import CreateModal from '../../components/StaffComponent/Cars&ServiceEdit/EditCars/Create/CreateModal'
+import style from '../styles/Home.module.css'
 
 
 
 const Home = () => {
   const navigate = useNavigate()
-  
-  
+
+
+  function closer() {
+    setTimeout(() => { navigate(-1) }, 3000)
+  }
+
   return (
-    <div>
-     <Navbar/>
-     <br></br>
-     <br></br>
+    <div className={style.bigDiv}>
+
+
       <h1>Soy Home y estoy sin hacer todavia</h1>
-      <CreateService/>
+
     </div>
   )
 }

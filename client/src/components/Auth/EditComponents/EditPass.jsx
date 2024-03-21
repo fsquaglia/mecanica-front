@@ -1,14 +1,12 @@
 import GenericButton from "../../GenericButton/GenericButton";
 import style from '../styles/Modal.module.css'
 import { ValidPass } from "../internalUtils/Validate";
-import { verifyPassword} from "../Auth";
+import { verifyPassword, changePassword} from "../Auth";
 import {useState}from 'react'
+import showConfirmationDialog from '../../utils/sweetAlert'
 
-const EditPass = ({id, userUpdater, handlePasswordChange}) => {
+const EditPass = ({id, onClose, logout}) => {
     
-    const { setShowConfPass}=userUpdater;
-
-
     const [verify, setVerify]= useState(true)
     const [inputPass, setInputPass]= useState({
         id : id, 
@@ -51,24 +49,31 @@ const EditPass = ({id, userUpdater, handlePasswordChange}) => {
         password: inputPass.password
     };
     
-    const handleSubmitVerify = (event) => {
+    const handleSubmitVerify = async (event) => {
         event.preventDefault();
         //  lógica para verificar la contraseña actual
-        verifyPassword(userData, setVerify)
+        const confirmed = await showConfirmationDialog('¿Quiere verificar su contraseña?');
+        if (confirmed) {
+            // Si el usuario hace clic en "Aceptar", ejecutar la funcion:
+            verifyPassword(userData, setVerify)
+        }
     };
+    
     
     const passChange = {
-        password: input.newPassword
+       password: input.newPassword,
     };
 
-    const handleSubmitChange = (event) => {
+    const handleSubmitChange = async (event) => {
         event.preventDefault();
-        setShowConfPass(true);
-        
+        const confirmed = await showConfirmationDialog('¿Está seguro cambiar la contraseña?');
+        if (confirmed) {
+            // Si el usuario hace clic en "Aceptar", ejecutar la funcion:
+            changePassword(id, passChange, setVerify, onClose, logout)
+        }
     };
-    handlePasswordChange(id, passChange, setVerify)
-    
-
+  
+   
     const disabledInput = verify
     const disabledBy =
   !input.newPassword.trim() ||

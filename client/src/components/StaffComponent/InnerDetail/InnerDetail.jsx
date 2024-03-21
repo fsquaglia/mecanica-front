@@ -4,21 +4,11 @@ import {useState} from 'react'
 import GenericButton from '../../GenericButton/GenericButton'
 import Edition from '../AdminHelpers/Edition/Edition';
 import EditWindow from '../../Auth/EditComponents/ModalEdit';
-import infoSelect from '../AdminHelpers/Helpers/InfoMap';
-import CreateModal from '../Cars&ServiceEdit/EditCars/Create/CreateModal'
+import {infoSelect, roles} from '../AdminHelpers/Helpers/InfoMap';
 
 const InnerDetail = ({ type, data }) => {
     const navigate= useNavigate()
     const [userEdition, setUserEdition] = useState(false);
-    const [carAdd, setCarAdd]= useState(false);
-    const addHandCar = ()=>{
-      setCarAdd(true)
-    }
-    const handleClose = ()=>{
-      setCarAdd(false)
-    }
-
-
     const onClose=()=>{
       navigate(-1)
     }
@@ -27,12 +17,12 @@ const InnerDetail = ({ type, data }) => {
   }
    const pars = (type === 'car')? data.Users : data.Cars
   const propietarios = infoSelect(pars)
-  
-
+   const info1 = (type==='user')? data.role: null;
+      const rol = roles(info1)
     return (
       <div className={style.container}>
         <h2>{type === 'car' ? 'Vehiculo:' : 'Usuario:'}</h2>
-        <Edition onClick={()=>{navigate("/admin")}} text={'...Admin'} allowedRoles={[0, 2]}/>
+        <Edition onClick={()=>{navigate("/admin")}} text={'Volver a Admin'} allowedRoles={[0, 2]}/>
           {type === 'car' && (
             <>
             <ul>
@@ -69,9 +59,9 @@ const InnerDetail = ({ type, data }) => {
               <li>Email: {data.email}</li>
               <li>Nombre: {data.name}</li>
               <li>Apodo: {data.nickname}</li>
-              <li>Tipo documento: {data.country}</li>
-              <li>Numero documento: {data.country}</li>
-              <li>Rol: {data.country}</li>
+              <li>Tipo documento: {data.typeId}</li>
+              <li>Numero documento: {data.numberId}</li>
+              <li>Rol: {rol}</li>
               <li>País: {data.country}</li>
               <li>Estado: {data.country}</li>
               <li>Creado: {data.createdAt}</li>
@@ -89,15 +79,11 @@ const InnerDetail = ({ type, data }) => {
               <img src={data.picture} style={{maxWidth:'150px'}}/>
               <div>
               <Edition allowedRoles={[0,1, 2]} onClick={handlerUser} text={'Editar'} />
-              <Edition allowedRoles={[0, 2]} onClick={addHandCar} text={'Agregar vehiculo'} />
-              {carAdd?
-              <CreateModal idUser= {data.id} closer= {handleClose}/> : null
-               }
               </div>
             </>
           )}
-
           <GenericButton onClick={()=>{navigate(-1)}} buttonText={'Volver'}/>
+          {/* <button style={{maxWidth:'10rem'}} onClick={()=>{navigate(-1)}}><h3>Volver:</h3 ></button> */}
          {userEdition?
          <EditWindow userEdit={data} onClose={onClose} />:
          null}

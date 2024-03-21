@@ -3,17 +3,17 @@ import axios from 'axios'
 import style from '../styles/Form.module.css';
 import GenericButton from '../../GenericButton/GenericButton';
 import CloudinaryUpload from './CloudinaryUpload';
-import Confirmation from '../../Confirmation/Confirmation'
 import {useAuth} from '../AuthContext/AuthContext'
 import EditPass from './EditPass';
+import showConfirmationDialog from '../../utils/sweetAlert'
 
 
 
-const FormEdit = ({ id, editedUser, onInputChange, onClose, userUpdater, handlePasswordChange}) => {
+const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose, logout}) => {
   const [imageUrl, setImageUrl] = useState(editedUser.picture);
 
   const { authenticated, user}= useAuth()
-  const {setShowConfUser}= userUpdater;
+  
  
   const onImageChange = (url) => {
     setImageUrl(url);
@@ -26,9 +26,14 @@ const FormEdit = ({ id, editedUser, onInputChange, onClose, userUpdater, handleP
     onInputChange(name, value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    setShowConfUser(true); 
+    const confirmed = await showConfirmationDialog('¿Está seguro de actualizar el usuario?');
+    if (confirmed) {
+        // Si el usuario hace clic en "Aceptar", ejecutar la funcion:
+        onSaveChanges() 
+    }
+    //setShowConfUser(true); 
   };
  
 
@@ -86,7 +91,7 @@ const FormEdit = ({ id, editedUser, onInputChange, onClose, userUpdater, handleP
         <GenericButton type="submit" buttonText="Guardar cambios" />
       </form>
       <hr></hr>
-      <EditPass id={id} onClose={onClose} userUpdater={userUpdater} handlePasswordChange={handlePasswordChange}/>
+      <EditPass id={id} onClose={onClose} logout= {logout} />
      </div>
   );
 };

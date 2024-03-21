@@ -2,7 +2,6 @@ import style from './styles/LoginForm.module.css'
 import { useState, useEffect } from "react";
 import GenericButton from '../GenericButton/GenericButton';
 import { useNavigate } from "react-router-dom";
-
 import {ValidLogin} from './internalUtils/Validate';
 import {loginUser}from './Auth'
 
@@ -102,7 +101,7 @@ const LoginForm = ({handleSignClick, auth}) => {
           {error.password && <p className={style.errorMessage}>{error.password}</p>}
         </div>
         <br/>
-        <GenericButton type='submit' buttonText={'Iniciar Sesion'} disabled={null}/>
+        <GenericButton type='submit' buttonText={'Iniciar Sesion'} disabled={null}/> {/*en lugar de null va permit*/}
       </form>
         )}
      

@@ -42,7 +42,7 @@ const postService = async(serviceData)=>{
     const email = userData.email;
     const password = userData.password;
     try {
-        const response = await axios.post(`/service`,{
+        const response = await axios.post(`/user/login`,{
             email,
             password,
         }, setAuthHeader());

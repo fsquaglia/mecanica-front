@@ -34,13 +34,19 @@ const Navbar = () => {
       <div className={style.login}>
         <LoginLinks />
         <AdminLink />
-        <ShowUser />
-
 
         {/* <Link to='/login'>
           <h4 className={style.botones}>Ingresar</h4>
         </Link> */}
 
+      </div>
+
+      <div className={style.userData}>
+        <ShowUser />
+        {
+          authenticated &&
+          <a className={style.out} href='/' onClick={handleClick}>Salir</a>
+        }
       </div>
 
 
@@ -72,6 +78,16 @@ const Navbar = () => {
                 <a className={style.out} aria-current="page" href="#">Ingresar</a>
               </Link>
             </li>
+            <li class="nav-item">
+              <LoginLinks />
+
+
+            </li>
+            <li class="nav-item">
+              <AdminLink />
+
+            </li>
+
             <br></br>
             <li class="nav-item">
               {
