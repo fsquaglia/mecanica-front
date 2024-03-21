@@ -9,6 +9,8 @@ import Provider from "./Provider.js";
 import Province from "./Province.js";
 import CategoryProvider from "./CategoryProvider.js";
 import Commerce from "./Commerce.js";
+import ImagesConfig from "./ImagesConfig.js";
+import CategoryImg from "./CategoryImg.js";
 
 export default {
   CreateUser,
@@ -22,4 +24,6 @@ export default {
   Province,
   CategoryProvider,
   Commerce,
+  ImagesConfig,
+  CategoryImg,
 };
