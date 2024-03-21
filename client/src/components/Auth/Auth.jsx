@@ -1,5 +1,7 @@
 import axios from "axios";
 import {HandlError,showSuccess, showError } from './HandlerError';
+import setAuthHeader from './axiosUtils'
+
 
 
 
@@ -16,7 +18,7 @@ const createUser = async(userData,openCreateCar)=>{
         typeId,
         numberId,
         country
-    })
+    }, setAuthHeader())
     if (response.status === 201) {
       //const token = response.data.token;
       const user = response.data.data;
@@ -71,7 +73,7 @@ const loginUser = async(userData,login)=>{
                   const response = await axios.post(`/user/set`,{
                       id,
                       password,
-                  });
+                  }, setAuthHeader());
                   if (response.status === 200) {
                     //console.log(response.data)
                     const user = response.data;
@@ -87,16 +89,19 @@ const loginUser = async(userData,login)=>{
                   }  
                   }
           
-                      const changePassword  = async (id, passChange,setVerify, onClose) => {
+                      const changePassword  = async (id, passChange,setVerify, onClose, logout) => {
                         //Lógica para guardar los cambios (puedes conectarlo a tus acciones de Redux)
                         try {
                           // Realiza la solicitud PUT con Axios
-                          const response = await axios.put(`/user/${id}`,passChange);
+                          const response = await axios.put(`/user/${id}`,passChange, setAuthHeader());
                           
                           if (response.status === 200) {
-                            showSuccess('Usuario actualizado con éxito')
+                            showSuccess('Usuario actualizado con éxito. Inicie sesion nuevamente')
                             setVerify(true)
                            onClose(); // Cierra el modal después de guardar los cambios
+                           setTimeout(()=>{
+                            logout()
+                           }, 5000)
                           } else {
                             showError('Error al actualizar el usuario')
                           }

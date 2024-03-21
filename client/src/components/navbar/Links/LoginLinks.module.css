@@ -1,0 +1,17 @@
+.out {
+    font-size: 1.5em;
+    color: white;
+}
+
+.in {
+    font-size: 1.5em;
+    color: white;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /* Estilos a aplicar para dispositivos con una pantalla de 768px o menos de ancho */
+    .in {
+        display: none;
+    }
+}

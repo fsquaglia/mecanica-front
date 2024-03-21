@@ -2,9 +2,9 @@ import {createService, updateService, deleteService} from '../../Controllers/ser
 import {getService,serviceById} from '../../Controllers/serviceControllers/getService.js'
 
 const createServiceHand = async (req, res)=>{
-    const {type, detail, dateIn, dateOut, observations, picture}= req.body;
+    const {type, detail, date_in, date_out, observations, picture, carId}= req.body;
     try {
-       const response = await createService(type, detail, dateIn, dateOut, observations, picture)
+       const response = await createService(type, detail, date_in, date_out, observations, picture, carId)
        res.status(201).json(response) 
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -66,5 +66,5 @@ export {
     getServiceIdHand, 
     updateServiceHand, 
     delServiceHand, 
-    delUserHand
+  
 };

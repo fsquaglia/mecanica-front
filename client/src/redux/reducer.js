@@ -15,7 +15,7 @@ import {
 
 const initialState = {
   allUsers: [],
-  userBynumId: [],
+  userByDni:[],
   detailUsers: [],
   LogIn: [],
   info: [],

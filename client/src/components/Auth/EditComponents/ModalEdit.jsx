@@ -4,13 +4,14 @@ import FormEdit from './FormEdit';
 import axios from 'axios'
 import {useAuth} from '../AuthContext/AuthContext'
 import GenericButton from '../../GenericButton/GenericButton';
-import Confirmation from '../../Confirmation/Confirmation';
 import {showError, showSuccess, HandlError}from '../HandlerError';
-import {changePassword} from '../Auth'
+import showConfirmationDialog from '../../utils/sweetAlert';
+import setAuthHeader from '../axiosUtils'
+
 
 
 const EditWindow = ({ onClose, userEdit}) => {
-  const {authenticated, user}= useAuth()
+  const {authenticated, user, logout}= useAuth()
   const {id, email,name, typeId, numberId, role, enable, country, picture}= userEdit;
  
   const [editedUser, setEditedUser] = useState({
@@ -39,7 +40,7 @@ const EditWindow = ({ onClose, userEdit}) => {
     //Lógica para guardar los cambios
     try {
       // Realiza la solicitud PUT con Axios
-      const response = await axios.put(`/user/${id}`,editedUser);
+      const response = await axios.put(`/user/${id}`,editedUser, setAuthHeader());
       
       if (response.status === 200) {
         showSuccess('Usuario actualizado con éxito')
@@ -52,54 +53,18 @@ const EditWindow = ({ onClose, userEdit}) => {
       console.error('Error al actualizar el usuario:', error);
     }
   };
-  //---------------Funciones de blanqueo de password y confirmacion
-  const [showConfirmation, setShowConfirmation] = useState(false);
   
-  const resetPassword = () => {
-    setShowConfirmation(true); 
+  const resetPassword = async () => {
+    const confirmed = await showConfirmationDialog('¿Está seguro de resetear la contraseña?');
+    if (confirmed) {
+      onResetPass()
+    }
   };
-  const handleConfirmation = () => {
-    onResetPass();
-    setShowConfirmation(false); // oculta el componente de confirmación
-  };
-  //%%%%%%%% Funciones de actualizacion de usuario
-  const [showConfUser, setShowConfUser] = useState(false);
-  const userConfirmation=()=>{
-    handleSaveChanges();
-    setShowConfUser(false);
-  }
-  //@@@@@@ Funciones de actualizacion de password
-  const [showConfPass, setShowConfPass] = useState(false);
-  const [isPasswordChangeConfirmed, setIsPasswordChangeConfirmed] = useState(false);
-
-   const handlePasswordChange = (id, passChange, setVerify) => {
-    if (isPasswordChangeConfirmed === true) {
-      // Lógica para cambiar la contraseña
-      changePassword(id, passChange, setVerify, onClose)
-      setShowConfPass(false); // Oculta el Confirmation después de ejecutar la lógica
-      setIsPasswordChangeConfirmed(false); // Reinicia el estado de confirmación
-     }
-  };
-
-  const handleConfirPass = () => {
-    setIsPasswordChangeConfirmed(true);
-};
-
-  const userUpdater = {
-    setShowConfUser,
-    setShowConfPass,
-    
-  }
   
-  const onCancel=()=>{
-    setShowConfirmation(false);
-    setShowConfUser(false)
-    setShowConfPass(false)
-  }
 
  const onResetPass = async()=>{
   try {
-    const response = await axios.patch(`/user/${id}`);
+    const response = await axios.patch(`/user/${id}`, setAuthHeader());
     if (response.status === 200) {
       showSuccess('Contraseña actualizada con exito')
      onClose(); // Cierra el modal después de guardar los cambios
@@ -119,20 +84,10 @@ const EditWindow = ({ onClose, userEdit}) => {
   return (
     <div className={style.modal}>
       <h2>Editar Usuario</h2>
-      <FormEdit id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} onClose={onClose} userUpdater={userUpdater} userConfirmation={userConfirmation} handlePasswordChange={handlePasswordChange}/>
+      <FormEdit id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} onClose={onClose} logout={logout}/>
       <GenericButton onClick= {onClose} buttonText='Cancelar'/>
       {authenticated && user.role===0? (
       <GenericButton onClick= {resetPassword} buttonText='Reset Password'/>) : null}
-      {showConfirmation && (
-      <Confirmation onConfirm={handleConfirmation} close={onCancel} message={'¿Está seguro de resetear la contraseña?'} />
-      )}
-      {showConfUser && (
-      <Confirmation onConfirm={userConfirmation} close={onCancel} message={'¿Está seguro de actualizar el usuario?'} />
-      )}
-      {showConfPass && (
-      <Confirmation onConfirm={handleConfirPass} close={onCancel} message={'¿Está seguro de actualizar la contraseña?'} />
-      )}
-     
     </div>
   );
 };

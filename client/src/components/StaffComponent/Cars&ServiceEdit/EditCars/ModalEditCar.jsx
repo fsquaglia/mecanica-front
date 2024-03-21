@@ -4,6 +4,7 @@ import FormEdit from './FormEditCar';
 import axios from 'axios'
 import GenericButton from '../Buttons/GenericButton';
 import {showError, showSuccess,HandlError}from '../../Auth/HandlerError';
+import setAuthHeader from '../../../Auth/axiosUtils'
 
 
 const ModalEditCar = ({ onClose, userEdit}) => {
@@ -38,7 +39,7 @@ const ModalEditCar = ({ onClose, userEdit}) => {
     //Lógica para guardar los cambios
     try {
       // Realiza la solicitud PUT con Axios
-      const response = await axios.put(`/car/${id}`,editedCar);
+      const response = await axios.put(`/car/${id}`,editedCar, setAuthHeader());
       
       if (response.status === 200) {
         showSuccess('Vehiculo actualizado con éxito')

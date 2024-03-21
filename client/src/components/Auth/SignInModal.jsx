@@ -4,17 +4,22 @@ import SignInForm from './SignInForm';
 import GenericButton from '../GenericButton/GenericButton';
 
 
-const SignWindow = ({ onClose, openCreateCar}) => {
- 
+const SignWindow = ({ onClose, openCreateCar }) => {
+
 
 
   return (
     <div className={style.modal}>
-      <h2>Registro:</h2>
-      <GenericButton onClick={onClose} buttonText={'Cancelar'} />
-      <br/>
-      <br/>
-      <SignInForm openCreateCar = {openCreateCar}/>
+      <div className={style.barraLateral}>
+      </div>
+      <div className={style.content}>
+        <h2 className={style.titulo}>REGISTRO</h2>
+        <br></br>
+
+        <SignInForm openCreateCar={openCreateCar} onClose={onClose} />
+        <br></br>
+      </div>
+
     </div>
   );
 };
