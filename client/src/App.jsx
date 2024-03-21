@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useAuth } from "./components/Auth/AuthContext/AuthContext";
 import "./App.css";
+import ImagesConfig from "./components/imagesConfig/ImagesConfig";
 import Navbar from "./components/navbar/Navbar";
 
 
@@ -46,6 +47,7 @@ function App() {
     <div>
       <Navbar />
       <Routes>
+        <Route path="/fire" element={<ImagesConfig />} />
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
