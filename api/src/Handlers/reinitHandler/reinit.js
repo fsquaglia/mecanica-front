@@ -7,6 +7,8 @@ import {
   Post,
   CategoryProvider,
   Commerce,
+  ImagesConfig,
+  CategoryImg,
 } from "../../db.js";
 
 const reinit = async (req, res) => {
@@ -59,10 +61,22 @@ const reinit = async (req, res) => {
       idCategory: 2,
     },
   ];
+  const categoriesImages = [
+    { descCategory: "blog" },
+    { descCategory: "carrusel" },
+    { descCategory: "principal" },
+    { descCategory: "servicios" },
+  ];
+
   try {
+    //vaciar y rellenar Modelo CategoryImg
+    await CategoryImg.destroy({ where: {} });
+    await CategoryImg.bulkCreate(categoriesImages);
+
     //vaciar y rellenar Modelo Province
     await Province.destroy({ where: {} });
     await Province.bulkCreate(provincesArray);
+
     //vaciar y rellenar Modelo Client
     // await Client.destroy({ where: {}, truncate: true });
     //carga de registros a Client

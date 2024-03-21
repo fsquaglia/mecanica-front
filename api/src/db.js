@@ -34,6 +34,8 @@ const {
   Province,
   CategoryProvider,
   Commerce,
+  ImagesConfig,
+  CategoryImg,
 } = sequelize.models;
 
 //!Asociations:
@@ -58,6 +60,10 @@ Provider.belongsTo(CategoryProvider, {
   foreignKey: "idCategory",
   allowNull: false,
 });
+ImagesConfig.belongsTo(CategoryImg, {
+  foreignKey: "idCategory",
+  allowNull: false,
+});
 
 export {
   User,
@@ -71,5 +77,7 @@ export {
   Province,
   CategoryProvider,
   Commerce,
+  ImagesConfig,
+  CategoryImg,
   sequelize,
 };
