@@ -1,9 +1,10 @@
 .nav {
-
-  position: absolute;
+/* Tuve que cambiar position a fixed y agregar el z-index en 1000 para que no se desaparezca al scrolear*/
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
+  z-index: 1000;
 
 
   /* Posiciona la navbar sobre el contenido */
@@ -73,8 +74,10 @@
 .linksH3:hover {
   color: #DB9144;
 }
-
-
+.linksH3:active {
+  color: red;
+}
+/*la idea de esto es que se active en rojo cuando estas posicionado en esa seccion*/
 
 
 .logo {
