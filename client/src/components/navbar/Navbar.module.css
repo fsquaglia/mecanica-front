@@ -8,7 +8,7 @@
 
   /* Posiciona la navbar sobre el contenido */
   display: grid;
-  grid-template-columns: 20% 50% 10% 20%;
+  grid-template-columns: 40% 30% 10% 20%;
   background-color: #332F2A;
   width: 100%;
   height: 5em;
@@ -29,6 +29,7 @@
   align-self: center;
   justify-self: right;
   margin-right: 2em;
+
 
 }
 
@@ -60,8 +61,21 @@
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: space-around;
+  justify-content: flex-end;
 }
+
+.linksH3 {
+  color: white;
+  font-size: 1em;
+  margin-left: 1.6em;
+}
+
+.linksH3:hover {
+  color: #DB9144;
+}
+
+
+
 
 .logo {
   grid-column-start: 1;
@@ -69,12 +83,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 0.5em;
 }
 
-.logoTitle {
-  color: red;
-  font-size: 1.5em;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+.logoImg {
+  height: 2.5em;
+  width: auto;
+  align-self: center;
+}
+
+.dropButtonUser {
+  background-color: rgb(177, 132, 84, 0.9);
+}
+
+.dropButtonUser:hover {
+  background-color: rgb(177, 132, 84, 0.7);
+
+}
+
+.dropdownMenu {
+  background-color: rgb(177, 132, 84);
 }
 
 .out {
@@ -101,7 +129,7 @@
 @media only screen and (min-width: 768px) {
 
   .nav {
-    grid-template-columns: 20% 40% 10% 30%;
+    grid-template-columns: 40% 30% 10% 20%;
   }
 
   .userDetails {
