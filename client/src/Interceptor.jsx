@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { HandlError } from './components/Auth/HandlerError';
 
 
 const interceptor = (logout) => {
@@ -9,6 +10,7 @@ const interceptor = (logout) => {
         // Acceso no autorizado, redirigir al inicio de sesión
         redirectToLogin(logout)
       }
+      HandlError(error);
       return Promise.reject(error);
     }
   );
