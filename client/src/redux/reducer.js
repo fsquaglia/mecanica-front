@@ -20,7 +20,6 @@ const initialState = {
   LogIn: [],
   info: [],
   isAuthenticate: false,
-  isSearching: false,
   allCars: [],
   byPat: [],
   carById: [],
@@ -66,16 +65,7 @@ const reducer = (state = initialState, { type, payload }) => {
         carById: payload,
       };
     //? %%%%%%%% Vehiculos (car & service) %%%%%%%%%%%%%%%%%%%%%%%%
-    case SEARCH_START:
-      return {
-        ...state,
-        isSearching: true,
-      };
-    case SEARCH_END:
-      return {
-        ...state,
-        isSearching: false,
-      };
+   
     case ALL_CARS:
       return {
         ...state,

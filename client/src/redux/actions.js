@@ -147,12 +147,3 @@ export const carByPat = (patent) => async (dispatch) => {
 //*>>>>>>>>>> Filtros por dni y patente <<<<<<<<<<<<<<<<<<<<<<<<
 
 
-export const searchStart = (handleSearchStart) => ({
-  type: SEARCH_START,
-  payload: handleSearchStart,
-});
-
-export const searchEnd = (handleSearchEnd) => ({
-  type: SEARCH_END,
-  payload: handleSearchEnd,
-});

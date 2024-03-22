@@ -90,9 +90,7 @@ const notComparePassword = async (req, res, next) => {
     const adminEmails = [email1, email2];
     for (const adminEmail of adminEmails) {
       const user = await getUserIdByEmail(adminEmail);
-      console.log(user.id)
-      console.log(id)
-      if (id === user.id){return res.status(403).json({ error: ' Acción no permitida.' });}
+      if (id === user.id){return res.status(403).json({ error: ' Acción no permitida (9).' });}
         return next();
     }
   } catch (error) {
