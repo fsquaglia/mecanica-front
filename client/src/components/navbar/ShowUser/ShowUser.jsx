@@ -7,8 +7,8 @@ const ShowUser = () => {
     <div>
       {authenticated ? <>
         <div className={style.userDetails}>
-          <h4 className={style.h4}>Bienvenido: {user.nickname && user.nickname}</h4>
-          <img src={user.picture} alt="Nor Found" />
+          <h4 className={style.h4}> {user.nickname && user.nickname}</h4>
+          <img className={style.picture} src={user.picture} alt="Nor Found" />
         </div>
       </> : null
       }
