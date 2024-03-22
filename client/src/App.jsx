@@ -1,15 +1,7 @@
 
 import interceptor from "./Interceptor";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import {
-  About,
-  Error,
-  Home,
-  Detail,
-  Landing,
-  Login,
-  EditWindow,
-} from "./views/Index";
+import {Error,  Home, Detail, Landing, Login, EditWindow, } from "./views/Index";
 import { Admin, DetailAd } from "./views/Staff/AdminIndex";
 import { loginUser, isNotAuth, isMyCommerce } from "./redux/actions";
 import { useDispatch } from "react-redux";
@@ -49,7 +41,6 @@ function App() {
       <Routes>
         <Route path="/fire" element={<ImagesConfig />} />
         <Route path="/" element={<Landing />} />
-        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path={"/error"} element={<Error />} />
         <Route path="/home" element={authenticated ? <Home /> : <Navigate to="/" />} />

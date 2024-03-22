@@ -1,5 +1,6 @@
 import style from './Navbar.module.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { Link, animateScroll as scroll, } from 'react-scroll';
 import { useState } from 'react'
 
 import { useAuth } from '../Auth/AuthContext/AuthContext'
@@ -23,9 +24,6 @@ const Navbar = () => {
 
 
 
-
-
-
   return (
     <div className={style.nav}>
 
@@ -34,21 +32,18 @@ const Navbar = () => {
       </div>
 
       <div className={style.login}>
-        <Link>
-          <h3 className={style.linksH3}>Home</h3>
-        </Link>
-        <Link>
-          <h3 className={style.linksH3}>Historia</h3>
-        </Link>
-        <Link>
-          <h3 className={style.linksH3}>Servicios</h3>
-        </Link>
-        <Link>
-          <h3 className={style.linksH3}>Tips</h3>
-        </Link>
-        <Link>
-          <h3 className={style.linksH3}>Contacto</h3>
-        </Link>
+        <Link to="pagina"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </Link>
+          
+        <Link to="historia"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}> <h3 className={style.linksH3}>Historia</h3> </Link>
+          
+       
+        <Link to="servicios"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Servicios</h3> </Link>
+        
+        
+        <Link to="consejos"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Tips</h3> </Link>
+          
+        <Link to="contacto"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} >  <h3 className={style.linksH3}>Contacto</h3> </Link>
+        
         {/* <LoginLinks />
         <AdminLink /> */}
 
@@ -103,9 +98,9 @@ const Navbar = () => {
             <br></br>
             <br></br>
             <li class="nav-item">
-              <Link to='/login'>
+              <NavLink to='/login'>
                 <a className={style.out} aria-current="page" href="#">Ingresar</a>
-              </Link>
+              </NavLink>
             </li>
             <li class="nav-item">
               <LoginLinks />

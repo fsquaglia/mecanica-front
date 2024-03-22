@@ -1,4 +1,3 @@
-import About from './About'
 //import Detail from './Detail'
 import Home from './User/Home'
 import Landing from './Landing'
@@ -9,7 +8,6 @@ import DetailAd from './Staff/DetailAd'
 import Error from '../components/error/Error';
 import EditWindow from '../components/Auth/EditComponents/ModalEdit'
 export {
-    About,
     Error,
     Home,
     Detail,
