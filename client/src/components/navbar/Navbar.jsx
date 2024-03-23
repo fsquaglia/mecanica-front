@@ -8,6 +8,7 @@ import LoginLinks from './Links/LoginLinks'
 import AdminLink from './Links/AdminLink'
 import ShowUser from './ShowUser/ShowUser'
 import logo from '../../../public/images/BoscarolHnos.png'
+import userLogo from '../../../public/images/user.png'
 
 
 const Navbar = () => {
@@ -32,18 +33,18 @@ const Navbar = () => {
       </div>
 
       <div className={style.login}>
-        <Link to="pagina"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </Link>
-          
-        <Link to="historia"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}> <h3 className={style.linksH3}>Historia</h3> </Link>
-          
-       
-        <Link to="servicios"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Servicios</h3> </Link>
-        
-        
-        <Link to="consejos"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Tips</h3> </Link>
-          
-        <Link to="contacto"  activeClass="active" spy={true} smooth={true} duration={600} offset={-70} >  <h3 className={style.linksH3}>Contacto</h3> </Link>
-        
+        <Link to="pagina" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </Link>
+
+        <Link to="historia" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}> <h3 className={style.linksH3}>Historia</h3> </Link>
+
+
+        <Link to="servicios" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Servicios</h3> </Link>
+
+
+        <Link to="consejos" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Tips</h3> </Link>
+
+        <Link to="contacto" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} >  <h3 className={style.linksH3}>Contacto</h3> </Link>
+
         {/* <LoginLinks />
         <AdminLink /> */}
 
@@ -59,8 +60,8 @@ const Navbar = () => {
       <div className={style.userData}>
         <ShowUser />
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Usuario
+          <button class={`btn btn-secondary ${style.dropDownButton}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src={userLogo} className={style.userLogo} />
           </button>
           <ul class={`dropdown-menu ${style.dropdownMenu}`}>
             <LoginLinks />
