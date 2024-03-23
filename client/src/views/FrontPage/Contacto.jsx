@@ -1,31 +1,135 @@
-import React from 'react'
+import {useState } from "react";
+import style from './styles/Contacto.module.css'
+import GenericButton from '../../components/GenericButton/GenericButton'
+import {HandlError,showSuccess, showError} from '../../components/Auth/HandlerError';
+import {validateEmail } from './Auxiliar';
+import showConfirmationDialog from '../../components/utils/sweetAlert'
+
+
 
 const Contacto = () => {
+  const initialInput = {
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  };
+  const [input, setInput] = useState(initialInput);
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  const [error, setError] = useState({
+      name:"",
+      email: "",
+      subject: "",
+      message: "",
+    });
+
+
+  const handleOnChange = (event) => {
+    const { name, value } = event.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+    setError({
+      ...error,
+      [name]: validateEmail({ ...input, [name]: value })[name],
+    });
+  };
+
+ 
+
+  const handleSubmit = async(e) => {
+    const validationErrors= validateEmail(input)
+    e.preventDefault();
+    setError(validationErrors);
+    if (Object.values(validationErrors).every((error) => error === "")&& isSubmit) 
+    setIsSubmit(true);
+    
+    const confirmed = await showConfirmationDialog('¿Desea enviarnos un email? Confirme su accion');
+    if (confirmed) {
+        // Si el usuario hace clic en "Aceptar", ejecutar la funcion:
+      try {
+        console.log('enviando post', {
+          name: input.name,
+          email: input.email,
+          subject: input.subject,
+          message: input.message,
+        });
+        setInput(initialInput);
+        showSuccess("Mensaje enviado exitosamente");
+      } catch (error) {
+        console.error(error);
+        showError('Acontecio un error, mensaje no enviado')
+        HandlError(error)
+      }
+    }
+    }
+
+  const permit =
+  !input.name.trim() ||
+  !input.email.trim() ||
+  !input.subject.trim() ||
+  !input.message.trim() ||
+  error.name ||
+  error.email ||
+  error.subject ||
+  error.message;
+
+
   return (
-    <div>
-        <h2>Contacto</h2>
-        <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat venenatis enim, in sollicitudin augue vehicula eget. Nam blandit pretium tortor vel maximus. Fusce quis pharetra ex, non pellentesque elit. In vitae imperdiet urna, ut hendrerit odio. Vivamus nec tristique nulla. Integer consequat vulputate nibh, et mollis erat feugiat feugiat. Sed scelerisque ex tincidunt mi blandit, eu iaculis risus interdum. Fusce eget neque sit amet mi ornare venenatis. Donec tincidunt rutrum eros, nec vestibulum urna volutpat volutpat. In vel commodo arcu. Sed non euismod mi. Cras tortor lectus, interdum et est non, varius dapibus sem.
-
-Donec commodo mauris vitae est pharetra porttitor. Aliquam ac massa a ipsum gravida feugiat. Nullam quis nisi dui. Nunc sed elementum nisi, quis vehicula massa. Praesent eget semper quam. Etiam viverra aliquet dolor quis vulputate. Aenean condimentum pellentesque dolor vitae blandit.
-
-Nullam finibus neque in sem dignissim, at vehicula tellus efficitur. Fusce aliquet pretium dolor eget volutpat. Morbi scelerisque laoreet diam, at rutrum massa sodales ac. Duis laoreet risus et est pellentesque, in pulvinar leo auctor. Sed in quam laoreet, malesuada orci sed, pharetra nulla. In mollis hendrerit faucibus. Quisque viverra egestas mauris sit amet tincidunt. Aliquam nec mi et sem semper egestas ac eu ipsum. Integer et lectus vitae lorem rutrum viverra ut id erat. Mauris elementum massa at pulvinar molestie. Sed ullamcorper mi a lobortis bibendum.
-
-Aliquam orci mauris, placerat sit amet mauris finibus, tempor efficitur lectus. Integer dictum facilisis sagittis. Nulla tristique nunc enim, tincidunt interdum mi vehicula id. Nunc dui erat, fermentum non massa in, tincidunt dapibus lectus. Integer interdum eget odio sit amet commodo. Cras eleifend orci et erat facilisis, quis molestie sapien sodales. Suspendisse venenatis viverra lorem, eget dapibus tellus ullamcorper in. In bibendum eu nisi et iaculis. Curabitur rhoncus purus at ultrices sollicitudin. Integer eu commodo nulla. Curabitur faucibus vulputate mauris et consectetur. Nam id orci velit. Cras id nibh nisl. Proin dapibus justo vel ipsum scelerisque dapibus. Morbi dignissim hendrerit lacus, accumsan porta arcu vestibulum vitae. Quisque vel magna efficitur, sodales tellus id, gravida massa.
-
-Quisque ut molestie nisl, in interdum justo. Donec et viverra nisi, id tempor nisl. Pellentesque laoreet fringilla eros, et tempor ante. Nam ullamcorper metus eget mattis ultrices. Aenean vitae leo vitae ipsum aliquet porttitor eget quis urna. Morbi ac quam velit. Morbi nec orci mauris. Proin in ullamcorper justo.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat venenatis enim, in sollicitudin augue vehicula eget. Nam blandit pretium tortor vel maximus. Fusce quis pharetra ex, non pellentesque elit. In vitae imperdiet urna, ut hendrerit odio. Vivamus nec tristique nulla. Integer consequat vulputate nibh, et mollis erat feugiat feugiat. Sed scelerisque ex tincidunt mi blandit, eu iaculis risus interdum. Fusce eget neque sit amet mi ornare venenatis. Donec tincidunt rutrum eros, nec vestibulum urna volutpat volutpat. In vel commodo arcu. Sed non euismod mi. Cras tortor lectus, interdum et est non, varius dapibus sem.
-
-Donec commodo mauris vitae est pharetra porttitor. Aliquam ac massa a ipsum gravida feugiat. Nullam quis nisi dui. Nunc sed elementum nisi, quis vehicula massa. Praesent eget semper quam. Etiam viverra aliquet dolor quis vulputate. Aenean condimentum pellentesque dolor vitae blandit.
-
-Nullam finibus neque in sem dignissim, at vehicula tellus efficitur. Fusce aliquet pretium dolor eget volutpat. Morbi scelerisque laoreet diam, at rutrum massa sodales ac. Duis laoreet risus et est pellentesque, in pulvinar leo auctor. Sed in quam laoreet, malesuada orci sed, pharetra nulla. In mollis hendrerit faucibus. Quisque viverra egestas mauris sit amet tincidunt. Aliquam nec mi et sem semper egestas ac eu ipsum. Integer et lectus vitae lorem rutrum viverra ut id erat. Mauris elementum massa at pulvinar molestie. Sed ullamcorper mi a lobortis bibendum.
-
-Aliquam orci mauris, placerat sit amet mauris finibus, tempor efficitur lectus. Integer dictum facilisis sagittis. Nulla tristique nunc enim, tincidunt interdum mi vehicula id. Nunc dui erat, fermentum non massa in, tincidunt dapibus lectus. Integer interdum eget odio sit amet commodo. Cras eleifend orci et erat facilisis, quis molestie sapien sodales. Suspendisse venenatis viverra lorem, eget dapibus tellus ullamcorper in. In bibendum eu nisi et iaculis. Curabitur rhoncus purus at ultrices sollicitudin. Integer eu commodo nulla. Curabitur faucibus vulputate mauris et consectetur. Nam id orci velit. Cras id nibh nisl. Proin dapibus justo vel ipsum scelerisque dapibus. Morbi dignissim hendrerit lacus, accumsan porta arcu vestibulum vitae. Quisque vel magna efficitur, sodales tellus id, gravida massa.
-
-Quisque ut molestie nisl, in interdum justo. Donec et viverra nisi, id tempor nisl. Pellentesque laoreet fringilla eros, et tempor ante. Nam ullamcorper metus eget mattis ultrices. Aenean vitae leo vitae ipsum aliquet porttitor eget quis urna. Morbi ac quam velit. Morbi nec orci mauris. Proin in ullamcorper justo.</p>
-<hr></hr>
-    </div>
-  )
-}
-
+    <section>
+      <div >
+        <div>
+          <h2>
+            Contactenos:
+          </h2>
+        </div>
+        <div  className={style.contact}>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <input
+                name="name"
+                value={input.name}
+                className="input"
+                type="text"
+                placeholder="Su nombre..."
+                onChange={handleOnChange}
+              />
+              {error.name && <p>{error.name}</p>}
+              <input
+                name="email"
+                value={input.email}
+                className="input"
+                type="email"
+                placeholder="Su email..."
+                onChange={handleOnChange}
+              />
+              {error.email && <p>{error.email}</p>}
+            </div>
+            <input
+              name="subject"
+              value={input.subject}
+              className="input"
+              type="text"
+              placeholder="Asunto..."
+              onChange={handleOnChange}
+            />
+            {error.subject && <p>{error.subject}</p>}
+            <textarea
+              name="message"
+              value={input.message}
+              className="textarea"
+              placeholder="Su mensaje..."
+              onChange={handleOnChange}
+            ></textarea>
+            {error.message && <p>{error.message}</p>}
+            <GenericButton type='submit' buttonText= {'Enviar e-mail'} disabled={permit}/>
+          </form>
+          </div>
+        
+      </div>
+    </section>
+  );
+};
 export default Contacto
