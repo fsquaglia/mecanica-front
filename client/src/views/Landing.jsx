@@ -16,7 +16,6 @@ const Landing = () => {
 
   return (
     <div className={style.bigDiv}>
-    <Navbar/>
     <Element name='pagina'><Pagina/></Element>
     <Element name='historia'><Historia/></Element>
     <Element name='servicios'><Servicios/></Element>

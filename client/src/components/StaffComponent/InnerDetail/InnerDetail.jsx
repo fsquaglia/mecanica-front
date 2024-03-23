@@ -1,24 +1,34 @@
 import {Link, useNavigate} from 'react-router-dom'
 import style from './InnerDetail.module.css'
 import {useState} from 'react'
+import { useSelector } from 'react-redux'
 import GenericButton from '../../GenericButton/GenericButton'
 import Edition from '../AdminHelpers/Edition/Edition';
 import EditWindow from '../../Auth/EditComponents/ModalEdit';
-import {infoSelect, roles} from '../AdminHelpers/Helpers/InfoMap';
+import {infoSelect, roles, allowing} from '../AdminHelpers/Helpers/InfoMap';
 
 const InnerDetail = ({ type, data }) => {
     const navigate= useNavigate()
     const [userEdition, setUserEdition] = useState(false);
+    const infoEditing= useSelector((state)=>state.LogIn)
+  
     const onClose=()=>{
       navigate(-1)
     }
   const handlerUser = ()=>{
     setUserEdition(true);
   }
-   const pars = (type === 'car')? data.Users : data.Cars
+  
+  const pars = (type === 'car')? data.Users : data.Cars
   const propietarios = infoSelect(pars)
-   const info1 = (type==='user')? data.role: null;
-      const rol = roles(info1)
+  const info1 = (type==='user')? data.role: null;
+  const rol = roles(info1)
+  
+  //Logica para gestionar permiso de edicion a usuario de su propia cuenta:
+  
+   const edt = allowing(infoEditing, data)
+   console.log('puedo editarme? ',edt)
+  //===================================================
     return (
       <div className={style.container}>
         <h2>{type === 'car' ? 'Vehiculo:' : 'Usuario:'}</h2>
@@ -49,7 +59,7 @@ const InnerDetail = ({ type, data }) => {
               <label>Observaciones: {data.observations}</label>
               <div>
               <GenericButton buttonText={'Ver Servicios'}/>
-              <Edition allowedRoles={[1, 0, 2]} text={'Editar'}/>
+              <Edition allowedRoles={[0,1,2]}text={'Editar'}/>
               </div>
             </>
           )}
@@ -78,7 +88,7 @@ const InnerDetail = ({ type, data }) => {
               </div>
               <img src={data.picture} style={{maxWidth:'150px'}}/>
               <div>
-              <Edition allowedRoles={[0,1, 2]} onClick={handlerUser} text={'Editar'} />
+              <Edition allowedRoles={[0]}  exception={edt} onClick={handlerUser} text={'Editar'} />
               </div>
             </>
           )}
