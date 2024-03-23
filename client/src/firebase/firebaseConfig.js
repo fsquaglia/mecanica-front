@@ -2,7 +2,8 @@
 //app Boscarol Servicios en el proyecto Boscarol de Firebase
 
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
+import { getStorage } from "firebase/storage"; //almacenamiento de imágenes
+import { getDatabase } from "firebase/database"; //realtime database para los Servicios
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,3 +23,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const imagesDB = getStorage(app);
+export const realtimeDB = getDatabase();
