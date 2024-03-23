@@ -11,7 +11,6 @@ export default (sequelize)=>{
         },
         type:{type: DataTypes.STRING, allowNull: true},
         detail: { type: DataTypes.TEXT, allowNull: false },
-        date: {type:DataTypes.DATEONLY, allowNull: false},
         date_in: {type: DataTypes.DATEONLY, allowNull: true},
         date_out: { type: DataTypes.DATEONLY, allowNull: true},
         observations:{type:DataTypes.TEXT, allowNull: true},

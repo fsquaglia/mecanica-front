@@ -18,6 +18,10 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      contacto: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       direccion: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -31,6 +35,14 @@ export default (sequelize) => {
         allowNull: false,
       },
       email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      otro: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      img: {
         type: DataTypes.STRING,
         allowNull: true,
       },

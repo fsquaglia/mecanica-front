@@ -4,10 +4,13 @@ import { useNavigate} from "react-router-dom";
 import  ValidCar  from '../CarServValidate';
 import { postCar } from '../SendPosts';
 import GenericButton from '../../../../GenericButton/GenericButton';
+import Confirmation from '../../../../Confirmation/Confirmation';
+import showConfirmationDialog from '../../../../utils/sweetAlert';
 
 const CreateCar = () => {
     const idUser= sessionStorage.getItem('idUser')
-    //const {id : idUser}=useParams();
+
+    const [showConfirmation, setShowConfirmation] = useState(false);
  
   const [input, setInput] = useState({
     patent: "",
@@ -46,9 +49,10 @@ const CreateCar = () => {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit =  async (event) => {
     event.preventDefault();
-
+    const confirmed = await showConfirmationDialog('¿Está seguro de crear el vehiculo?');
+    if (confirmed) {
     const validationErrors = ValidCar(input);
     setError(validationErrors);
 
@@ -68,7 +72,23 @@ const CreateCar = () => {
       navigate("/admin");
     }
   };
-  
+}
+
+  const permit =
+  !input.patent.trim() ||
+  !input.mark.trim() ||
+  !input.model.trim() ||
+  !input.year.trim() ||
+  !input.motorNum.trim() ||
+  !input.chassisNum.trim() ||
+  !input.observations.trim() ||
+  error.patent ||
+  error.mark ||
+  error.model ||
+  error.year ||
+  error.motorNum ||
+  error.chassisNum ||
+  error.observations;
 
   return (
     <div>
@@ -186,7 +206,7 @@ const CreateCar = () => {
            <label > Imagen: </label>
          </div>
          <br/>
-    <GenericButton type='submit' buttonText={'Crear Vehiculo'}/>
+    <GenericButton type='submit' buttonText={'Crear Vehiculo'} disabled={permit}/>
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
 import {
- LOGIN_USER,
+  LOGIN_USER,
   ISN_AUTH,
   ALL_USERS,
   USER_BY_IDFY,
@@ -10,26 +10,27 @@ import {
   CAR_BY_ID,
   SEARCH_START,
   SEARCH_END,
-} from './actions'
+  ISMYCOMMERCE,
+} from "./actions";
 
 const initialState = {
-    allUsers: [],
-    userBynumId:[],
-    detailUsers: [],
-    LogIn: [],
-    info: [],
-    isAuthenticate: false,
-    isSearching: false,
-    allCars:[],
-    byPat:[],
-    carById:[],
-    cars:[],
-    services: []
+  allUsers: [],
+  userByDni:[],
+  detailUsers: [],
+  LogIn: [],
+  info: [],
+  isAuthenticate: false,
+  allCars: [],
+  byPat: [],
+  carById: [],
+  cars: [],
+  services: [],
+  myCommerce: undefined,
 };
 
-const reducer = (state = initialState, { type, payload })=>{    
-    switch(type){
-        case LOGIN_USER:
+const reducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case LOGIN_USER:
       //console.log('usuario comun reducer  '+payload)
       return {
         ...state,
@@ -47,11 +48,11 @@ const reducer = (state = initialState, { type, payload })=>{
         ...state,
         allUsers: payload,
       };
-      case  USER_BY_IDFY:
-        return{
-          ...state,
-          userBynumId: payload,
-        }
+    case USER_BY_IDFY:
+      return {
+        ...state,
+        userBynumId: payload,
+      };
     case USER_BY_ID:
       return {
         ...state,
@@ -62,38 +63,36 @@ const reducer = (state = initialState, { type, payload })=>{
         ...state,
         detailUsers: payload,
         carById: payload,
-      }
-//? %%%%%%%% Vehiculos (car & service) %%%%%%%%%%%%%%%%%%%%%%%%
-       case SEARCH_START:
-         return {
-           ...state,
-           isSearching: true,
-         };
-       case SEARCH_END:
-         return {
-           ...state,
-           isSearching: false,
-           };
-      case ALL_CARS:
-        return {
-          ...state,
-          allCars:payload,
-        }
-      case CAR_PAT:
-        return {
-          ...state,
-          byPat:payload,
-        }
-      case CAR_BY_ID:
-        return {
-          ...state,
-          carById: payload,
-        }
-      default :
+      };
+    //? %%%%%%%% Vehiculos (car & service) %%%%%%%%%%%%%%%%%%%%%%%%
+   
+    case ALL_CARS:
       return {
         ...state,
-      }
-    }
-}
+        allCars: payload,
+      };
+    case CAR_PAT:
+      return {
+        ...state,
+        byPat: payload,
+      };
+    case CAR_BY_ID:
+      return {
+        ...state,
+        carById: payload,
+      };
+    //? %%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%
+    case ISMYCOMMERCE:
+      return {
+        ...state,
+        myCommerce: payload,
+      };
+    //? %%%%%%%% commerce end %%%%%%%%%%%%%%%%%%%%%%%%
+    default:
+      return {
+        ...state,
+      };
+  }
+};
 
 export default reducer;

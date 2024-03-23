@@ -4,8 +4,8 @@
 //? 8    8 8oooo8 8 8     8  ooooo   `8 8oooo8 8  `' Y.  .P 8oooo8 8  `'
 //? 8    8 8.     8 8     8           8 8.     8     `b..d' 8.     8
 //? 8    8 `Yooo' 8 8YooP'      `YooP' `Yooo' 8      `YP'  `Yooo' 8
-//? :..:::..:.....:..8 ....::.....::.....:..::::::...:::.....:..::::
-//?* ::::::::::::::::8 :::: 06/03/2024 :::::::::::::::::::::::::::::
+//? :..:::..:.....:. 8 ....::.....::.....:..::::::...:::.....:..::::
+//?* ::::::::::::::: 8 :::: 06/03/2024 :::::::::::::::::::::::::::::
 //? :::::::::::::::::..::::::::::::::::::::::::::::::::::::::::::::
 
 import app from "./src/server.js";
@@ -17,7 +17,7 @@ const { PORT } = process.env;
 
 app.listen(PORT, async () => {
   try {
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ force:false });
     await appUserTable();
     console.log(`El server está corriendo 🚴 🏃 en el puerto: ${PORT};
         ¡Por ahora todo bien! 😉`);

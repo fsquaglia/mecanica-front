@@ -1,16 +1,18 @@
 .nav {
-
+  /* Tuve que cambiar position a fixed y agregar el z-index en 1000 para que no se desaparezca al scrolear*/
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
+  z-index: 1000;
+
 
   /* Posiciona la navbar sobre el contenido */
   display: grid;
-  grid-template-columns: 20% 50% 10% 20%;
+  grid-template-columns: 40% 30% 10% 20%;
   background-color: #332F2A;
   width: 100%;
-  height: 6rem;
+  height: 6em;
   margin-bottom: 0.25rem;
 
   /* Añadido para dar espacio en los lados */
@@ -28,6 +30,7 @@
   align-self: center;
   justify-self: right;
   margin-right: 2em;
+
 
 }
 
@@ -59,21 +62,65 @@
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
+  padding-left: 10em;
 }
+
+.linksH3 {
+  color: white;
+  font-size: 1em;
+  margin-left: 1.6em;
+}
+
+.linksH3:hover {
+  color: #DB9144;
+}
+
+.linksH3:active {
+  color: red;
+}
+
+/*la idea de esto es que se active en rojo cuando estas posicionado en esa seccion*/
+
 
 .logo {
   grid-column-start: 1;
   grid-column-end: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-bottom: 0.5em;
+  padding-left: 4em;
 }
 
-.logoTitle {
-  color: red;
-  font-size: 1.5em;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+.logoImg {
+  height: 2.5em;
+  width: auto;
+  align-self: center;
+}
+
+.dropDownButton {
+  background-color: rgb(177, 132, 84, 0.9);
+  height: 3.4em;
+  width: 3.4em;
+  border-radius: 50%;
+}
+
+.dropDownButton:hover {
+  background-color: rgb(177, 132, 84, 0.7);
+
+}
+
+.dropdownMenu {
+  background-color: rgb(92, 83, 74);
+  font-size: 1em;
+
+}
+
+.userLogo {
+  height: 1.8em;
+  width: auto;
+
 }
 
 .out {
@@ -81,3 +128,58 @@
   color: white;
 }
 
+/*/////////// pantalla celular */
+@media only screen and (max-width: 900px) {
+
+  /* Estilos a aplicar para dispositivos con una pantalla de 768px o menos de ancho */
+  .login {
+    display: none;
+  }
+
+  .userData {
+    display: none;
+  }
+
+  .logoImg {
+    height: 2.5em;
+    width: auto;
+    padding-left: 2em;
+  }
+}
+
+
+
+/*///////// pantalla grande */
+@media only screen and (min-width: 900px) {
+
+  .nav {
+    grid-template-columns: 30% 30% 10% 30%;
+  }
+
+  .userDetails {
+    grid-column-start: 3;
+    display: none;
+  }
+
+  .userData {
+    grid-column-start: 4;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 6.5em;
+
+  }
+
+  .dropDownButton {
+    margin-left: 3em;
+  }
+
+}
+
+@media only screen and (min-width: 1200px) {
+  .logoImg {
+    height: 3em;
+
+  }
+}

@@ -7,6 +7,7 @@ import {getById, carById, cleanDetails} from '../../redux/actions'
 const DetailAd = () => {
   const location = useLocation();
   const dispatch= useDispatch();
+  
   //Separamos la query del params y hacemos dos variables:
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get('type'); //Obtener el type "user" o "car"
@@ -29,6 +30,9 @@ const DetailAd = () => {
 
   return (
     <div>
+      <br></br>
+      <br></br>
+      <br></br>
       <InnerDetail type={type} data={data}/>
     </div>
   )

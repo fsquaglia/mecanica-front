@@ -1,10 +1,15 @@
 import style from './Navbar.module.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { Link, animateScroll as scroll, } from 'react-scroll';
+import { useState } from 'react'
 
 import { useAuth } from '../Auth/AuthContext/AuthContext'
 import LoginLinks from './Links/LoginLinks'
 import AdminLink from './Links/AdminLink'
 import ShowUser from './ShowUser/ShowUser'
+import logo from '../../../public/images/BoscarolHnos.png'
+import userLogo from '../../../public/images/user.png'
+
 
 const Navbar = () => {
   const { authenticated, user, logout } = useAuth()
@@ -20,27 +25,53 @@ const Navbar = () => {
 
 
 
-
-
-
-
   return (
     <div className={style.nav}>
 
       <div className={style.logo}>
-        <h3 className={style.logoTitle}>Boscarol hnos.</h3>
+        <img src={logo} alt="" className={style.logoImg} />
       </div>
 
       <div className={style.login}>
-        <LoginLinks />
-        <AdminLink />
-        <ShowUser />
+        <Link to="pagina" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </Link>
+
+        <Link to="historia" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}> <h3 className={style.linksH3}>Historia</h3> </Link>
+
+
+        <Link to="servicios" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Servicios</h3> </Link>
+
+
+        <Link to="consejos" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Tips</h3> </Link>
+
+        <Link to="contacto" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} >  <h3 className={style.linksH3}>Contacto</h3> </Link>
+
+        {/* <LoginLinks />
+        <AdminLink /> */}
+
+
 
 
         {/* <Link to='/login'>
           <h4 className={style.botones}>Ingresar</h4>
         </Link> */}
 
+      </div>
+
+      <div className={style.userData}>
+        <ShowUser />
+        <div class="dropdown">
+          <button class={`btn btn-secondary ${style.dropDownButton}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src={userLogo} className={style.userLogo} />
+          </button>
+          <ul class={`dropdown-menu ${style.dropdownMenu}`}>
+            <LoginLinks />
+            <AdminLink />
+            <li>
+              <a className={style.out} href='/' onClick={handleClick}>Salir</a>
+
+            </li>
+          </ul>
+        </div>
       </div>
 
 
@@ -68,10 +99,20 @@ const Navbar = () => {
             <br></br>
             <br></br>
             <li class="nav-item">
-              <Link to='/login'>
+              <NavLink to='/login'>
                 <a className={style.out} aria-current="page" href="#">Ingresar</a>
-              </Link>
+              </NavLink>
             </li>
+            <li class="nav-item">
+              <LoginLinks />
+
+
+            </li>
+            <li class="nav-item">
+              <AdminLink />
+
+            </li>
+
             <br></br>
             <li class="nav-item">
               {

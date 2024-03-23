@@ -2,7 +2,6 @@ import style from './styles/LoginForm.module.css'
 import { useState, useEffect } from "react";
 import GenericButton from '../GenericButton/GenericButton';
 import { useNavigate } from "react-router-dom";
-
 import {ValidLogin} from './internalUtils/Validate';
 import {loginUser}from './Auth'
 
@@ -37,7 +36,6 @@ const LoginForm = ({handleSignClick, auth}) => {
     password: "",
   });
 
-
   function handleChange(event) {
     const { name, value } = event.target;
     setInput({
@@ -49,23 +47,24 @@ const LoginForm = ({handleSignClick, auth}) => {
       [name]: ValidLogin({ ...input, [name]: value })[name],
     });
   }
-
- const handleSubmit = async(event)=>{
+  
+  const handleSubmit = async(event)=>{
     event.preventDefault();
-  
-      const user = await loginUser(input,login);
-      setInput({
-        email: "",
-        password: "",
-      });
-      if(user){
+    
+    const user = await loginUser(input,login);
+    setInput({
+      email: "",
+      password: "",
+    });
+    if(user){
       navigate("/home");
-  
-      }
+      
+    }
     //}
   }
-
-
+  const permit= (error.email|| error.password)? true :null;
+ 
+  
   return (
     <div className={style.form}>
         <div>
@@ -102,7 +101,7 @@ const LoginForm = ({handleSignClick, auth}) => {
           {error.password && <p className={style.errorMessage}>{error.password}</p>}
         </div>
         <br/>
-        <GenericButton type='submit' buttonText={'Iniciar Sesion'}/>
+        <GenericButton type='submit' buttonText={'Iniciar Sesion'} disabled={null}/> {/*en lugar de null va permit*/}
       </form>
         )}
      
@@ -113,7 +112,3 @@ const LoginForm = ({handleSignClick, auth}) => {
 export default LoginForm
 
 
- // {(authenticated && user.role === 0) || (authenticated && user.role === 2) ? <>
-      // <h4>¿No tiene cuenta? Registrar:</h4>
-      // <GenericButton onClick={handleSignClick} buttonText={'Registro'} /> </>
-      // : null }

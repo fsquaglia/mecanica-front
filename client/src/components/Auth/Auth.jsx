@@ -1,5 +1,7 @@
 import axios from "axios";
-import {HandlError,showSuccess, showError } from './HandlerError';
+import {HandlError,showSuccess, showError} from './HandlerError';
+import setAuthHeader from './axiosUtils'
+
 
 
 
@@ -16,7 +18,7 @@ const createUser = async(userData,openCreateCar)=>{
         typeId,
         numberId,
         country
-    })
+    }, setAuthHeader())
     if (response.status === 201) {
       //const token = response.data.token;
       const user = response.data.data;
@@ -50,8 +52,8 @@ const loginUser = async(userData,login)=>{
       
           
             showSuccess('Login sucessfully')
-            console.log(token)
-            console.log(user)
+            //console.log(token)
+            //console.log(user)
             
               return user;
         }
@@ -62,11 +64,58 @@ const loginUser = async(userData,login)=>{
           throw error;
         }
                
-            }
+            }  
+
+            const verifyPassword = async(userData, setVerify)=>{
+              const id = userData.id;
+              const password = userData.password;
+              try {
+                  const response = await axios.post(`/user/set`,{
+                      id,
+                      password,
+                  }, setAuthHeader());
+                  if (response.status === 200) {
+                    //console.log(response.data)
+                    const user = response.data;
+                      showSuccess('Verificacion exitosa')
+                      //console.log(user)
+                      setVerify(false)
+                        return user;
+                  }
+                  } catch (error) {
+                    showError('Verificacion fallida')
+                    HandlError(error);
+                    throw error;
+                  }  
+                  }
+          
+                      const changePassword  = async (id, passChange,setVerify, onClose, logout) => {
+                        //Lógica para guardar los cambios (puedes conectarlo a tus acciones de Redux)
+                        try {
+                          // Realiza la solicitud PUT con Axios
+                          const response = await axios.put(`/user/${id}`,passChange, setAuthHeader());
+                          
+                          if (response.status === 200) {
+                            showSuccess('Usuario actualizado con éxito. Inicie sesion nuevamente')
+                            setVerify(true)
+                           onClose(); // Cierra el modal después de guardar los cambios
+                           setTimeout(()=>{
+                            logout()
+                           }, 5000)
+                          } else {
+                            showError('Error al actualizar el usuario')
+                          }
+                        } catch (error) {
+                          HandlError({error:error.message})
+                          console.error('Error al actualizar el usuario:', error);
+                        }
+                      };
 
 
 export {
     createUser,
-    loginUser
+    loginUser,
+    verifyPassword,
+    changePassword 
 }
 

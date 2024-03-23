@@ -1,4 +1,5 @@
 import { User, Car } from "../../db.js";
+import bcrypt from 'bcrypt'
 
 const getUsers = async () => {
   try {
@@ -72,6 +73,7 @@ const userById = async (id) => {
 };
 
 const updateUser = async (id, newData) => {
+ 
   try {
     if (!id) {
       throw new Error("No se encontró un id valido");
@@ -80,7 +82,7 @@ const updateUser = async (id, newData) => {
 
     if (!user) {
       throw new Error("Usuario no encontrado");
-    }
+    }//Si newData con contiene password toma este camino
     if (!newData.password) {
       const parsedData = {
         email: newData.email,
@@ -95,13 +97,15 @@ const updateUser = async (id, newData) => {
       // Actualizar todos los campos
       const userUp = await user.update(parsedData);
       return userUp;
-    } else {
+      //si tiene password lo encripta y luego actualiza el password de usuario:
+    } else { 
+      
       const hashedPassword = await bcrypt.hash(newData.password, 10);
       const parsedData = {
         password: hashedPassword,
       };
-      const userUp = await user.update(parsedData);
-      return userUp;
+      const userUpd = await user.update(parsedData);
+      return userUpd;
     }
   } catch (error) {
     console.error("Error al actualizar el usuario");

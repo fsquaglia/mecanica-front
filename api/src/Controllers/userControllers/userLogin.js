@@ -13,7 +13,7 @@ const userLogin = async(email, password)=>{
         where: {
           email: email,
           deletedAt: false,
-          //enable: true,
+          enable: true,
         },
       });
     
