@@ -1,5 +1,5 @@
 import axios from "axios";
-import {HandlError,showSuccess, showError } from './HandlerError';
+import {HandlError,showSuccess, showError} from './HandlerError';
 import setAuthHeader from './axiosUtils'
 
 

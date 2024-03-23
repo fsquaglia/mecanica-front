@@ -5,6 +5,7 @@ import  ValidCar  from '../CarServValidate';
 import { postCar } from '../SendPosts';
 import GenericButton from '../../../../GenericButton/GenericButton';
 import Confirmation from '../../../../Confirmation/Confirmation';
+import showConfirmationDialog from '../../../../utils/sweetAlert';
 
 const CreateCar = () => {
     const idUser= sessionStorage.getItem('idUser')
@@ -48,12 +49,10 @@ const CreateCar = () => {
     });
   };
 
-  const handleSubmit =  (event) => {
+  const handleSubmit =  async (event) => {
     event.preventDefault();
-    setShowConfirmation(true); 
-  };
-
-  const handleConfirmation = async (e) => {
+    const confirmed = await showConfirmationDialog('¿Está seguro de crear el vehiculo?');
+    if (confirmed) {
     const validationErrors = ValidCar(input);
     setError(validationErrors);
 
@@ -72,11 +71,8 @@ const CreateCar = () => {
       });
       navigate("/admin");
     }
-    setShowConfirmation(false); 
   };
-  const onCancel=()=>{
-    setShowConfirmation(false);
-  }
+}
 
   const permit =
   !input.patent.trim() ||
@@ -96,9 +92,6 @@ const CreateCar = () => {
 
   return (
     <div>
-       {showConfirmation && (
-        <Confirmation onConfirm={ handleConfirmation} close={onCancel} message={'¿Está seguro de crear el vehiculo?'} />
-      )}
       <form onSubmit={handleSubmit}>
        <div>
          </div>   

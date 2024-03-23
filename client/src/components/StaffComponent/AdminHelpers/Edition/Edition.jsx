@@ -29,7 +29,6 @@ const Edition = ({ allowedRoles = (allowedRoles), exception, text, onClick }) =>
      return result;
    }
    const isPermitted =isEvalued(permit, allowedRoles);
-
   // Mostramos el botón solo si hay permiso o la verificación de la excepción ha terminado
   return (
     <>
