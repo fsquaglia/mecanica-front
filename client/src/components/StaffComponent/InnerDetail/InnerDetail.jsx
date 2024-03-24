@@ -10,7 +10,7 @@ import {infoSelect, roles, allowing} from '../AdminHelpers/Helpers/InfoMap';
 const InnerDetail = ({ type, data }) => {
     const navigate= useNavigate()
     const [userEdition, setUserEdition] = useState(false);
-    const infoEditing= useSelector((state)=>state.LogIn)
+    const infoEditing = useSelector((state)=>state.LogIn)
   
     const onClose=()=>{
       navigate(-1)
@@ -27,7 +27,7 @@ const InnerDetail = ({ type, data }) => {
   //Logica para gestionar permiso de edicion a usuario de su propia cuenta:
   
    const edt = allowing(infoEditing, data)
-   console.log('puedo editarme? ',edt)
+   //console.log('puedo editarme? ',edt)
   //===================================================
     return (
       <div className={style.container}>
@@ -59,7 +59,7 @@ const InnerDetail = ({ type, data }) => {
               <label>Observaciones: {data.observations}</label>
               <div>
               <GenericButton buttonText={'Ver Servicios'}/>
-              <Edition allowedRoles={[0,1,2]}text={'Editar'}/>
+              <Edition allowedRoles={[0]}text={'Editar'}/>
               </div>
             </>
           )}
@@ -93,7 +93,6 @@ const InnerDetail = ({ type, data }) => {
             </>
           )}
           <GenericButton onClick={()=>{navigate(-1)}} buttonText={'Volver'}/>
-          {/* <button style={{maxWidth:'10rem'}} onClick={()=>{navigate(-1)}}><h3>Volver:</h3 ></button> */}
          {userEdition?
          <EditWindow userEdit={data} onClose={onClose} />:
          null}

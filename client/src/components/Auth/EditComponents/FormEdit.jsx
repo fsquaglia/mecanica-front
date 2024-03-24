@@ -33,7 +33,7 @@ const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose, logou
         // Si el usuario hace clic en "Aceptar", ejecutar la funcion:
         onSaveChanges() 
     }
-    //setShowConfUser(true); 
+
   };
  
 
@@ -70,7 +70,7 @@ const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose, logou
           País:
           <input type="text" name="country" value={editedUser.country} onChange={handleInputChange} />
         </label>
-        {authenticated && user.role === 2 ? null : (
+        {authenticated && (user.role === 1||user.role === 2) ? null : (
         <>
         <label>
           Rol:
