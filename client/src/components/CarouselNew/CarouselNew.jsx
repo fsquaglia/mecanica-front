@@ -16,7 +16,7 @@ const Carousel = ({ images, intervalTime = 2000, transitionDuration = 1 }) => {
 
       // Desplazar el carrusel hacia la siguiente imagen
       carouselRef.current.style.transform = `translateX(-${
-        100 / images.length
+        200 / images.length
       }%)`;
 
       // Esperar a que termine la transición antes de restaurar el estado original
@@ -47,89 +47,3 @@ const Carousel = ({ images, intervalTime = 2000, transitionDuration = 1 }) => {
 };
 
 export default Carousel;
-
-/*
-import React, { useEffect, useRef } from "react";
-import "./Carousel.css"; // Estilos CSS para el carrusel
-
-const Carousel = ({
-  images,
-  intervalTime = 3000,
-  transitionDuration = 0.5,
-}) => {
-  const carouselRef = useRef(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Avanzar el carrusel moviendo el primer elemento al final
-      carouselRef.current.appendChild(
-        carouselRef.current.firstElementChild.cloneNode(true)
-      );
-      carouselRef.current.removeChild(carouselRef.current.firstElementChild);
-    }, intervalTime);
-
-    return () => clearInterval(interval);
-  }, [intervalTime]);
-
-  return (
-    <div className="carousel-container">
-      <div
-        className="carousel-wrapper"
-        style={{
-          transitionDuration: `${transitionDuration}s`,
-          transform: `translateX(-${100 / images.length}%)`,
-        }}
-        ref={carouselRef}
-      >
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`Slide ${index}`}
-            className="carousel-slide"
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Carousel;
-
-
-import React, { useEffect, useRef } from "react";
-import "./Carousel.css"; // Estilos CSS para el carrusel
-
-const Carousel = ({ images, intervalTime = 3000 }) => {
-  const carouselRef = useRef(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Avanzar el carrusel moviendo el primer elemento al final
-      carouselRef.current.appendChild(
-        carouselRef.current.firstElementChild.cloneNode(true)
-      );
-      carouselRef.current.removeChild(carouselRef.current.firstElementChild);
-    }, intervalTime);
-
-    return () => clearInterval(interval);
-  }, [intervalTime]);
-
-  return (
-    <div className="carousel-container">
-      <div className="carousel-wrapper" ref={carouselRef}>
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`Slide ${index}`}
-            className="carousel-slide"
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Carousel;
-*/
