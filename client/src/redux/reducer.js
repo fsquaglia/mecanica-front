@@ -8,8 +8,7 @@ import {
   ALL_CARS,
   CAR_PAT,
   CAR_BY_ID,
-  SEARCH_START,
-  SEARCH_END,
+  ALL_SERVICES,
   ISMYCOMMERCE,
 } from "./actions";
 
@@ -81,6 +80,11 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         carById: payload,
       };
+    case ALL_SERVICES:
+      return {
+        ...state,
+        services:payload,
+      }
     //? %%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%
     case ISMYCOMMERCE:
       return {

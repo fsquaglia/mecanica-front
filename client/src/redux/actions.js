@@ -10,8 +10,7 @@ export const CLEAN_DETAILS = "CLEAN_DETAILS";
 export const ALL_CARS = "ALL_CARS";
 export const CAR_PAT = "CAR_PAT";
 export const CAR_BY_ID = "CAR_BY_ID";
-export const SEARCH_START = "SEARCH_START";
-export const SEARCH_END = "SEARCH_END";
+export const ALL_SERVICES= 'ALL_SERVICES';
 export const ISMYCOMMERCE = "ISMYCOMMERCE";
 
 //?%%%%%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,7 +103,7 @@ export const cleanDetails = () => (dispatch) => {
   });
 };
 
-//?%%%%%%%%%%% cars & services %%%%%%%%%%%%%%%%%%%%%%%%%%
+//?%%%%%%%%%%% cars  %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 export const getAllCars = () => {
   return async (dispatch) => {
@@ -144,6 +143,18 @@ export const carByPat = (patent) => async (dispatch) => {
   }
 };
 
-//*>>>>>>>>>> Filtros por dni y patente <<<<<<<<<<<<<<<<<<<<<<<<
-
+//*>>>>>>>>>> Services <<<<<<<<<<<<<<<<<<<<<<<<
+export const getAllServices = () => {
+  return async (dispatch) => {
+    try {
+      const data = await axios("/service", setAuthHeader());
+      return dispatch({
+        type: ALL_SERVICES,
+        payload: data.data,
+      });
+    } catch (error) {
+      HandlError(error);
+    }
+  };
+};
 

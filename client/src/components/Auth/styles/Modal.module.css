@@ -11,7 +11,7 @@
   border-radius: 0.5em;
   width: 40%;
   /* Increase to 75% for a 15% increase */
-  height: 70%;
+  height: 80%;
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 
 
@@ -69,7 +69,7 @@
   justify-content: start;
   align-items: start;
   margin-left: 2em;
-  margin-top: 2em;
+  margin-top: 3em;
   width: 100%;
 
 }

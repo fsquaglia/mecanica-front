@@ -1,23 +1,56 @@
 import {Link, useNavigate} from 'react-router-dom'
 import style from './InnerDetail.module.css'
-import {useState} from 'react'
-import { useSelector } from 'react-redux'
+import {useState, useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {getAllServices} from '../../../redux/actions'
 import GenericButton from '../../GenericButton/GenericButton'
 import Edition from '../AdminHelpers/Edition/Edition';
 import EditWindow from '../../Auth/EditComponents/ModalEdit';
+import CreateModal from '../Cars&ServiceEdit/EditCars/Create/CreateModal'
+import CarryTable from '../ServiceComp/CarryTable'
 import {infoSelect, roles, allowing} from '../AdminHelpers/Helpers/InfoMap';
 
 const InnerDetail = ({ type, data }) => {
     const navigate= useNavigate()
     const [userEdition, setUserEdition] = useState(false);
+    const [createCar, setCreateCar]= useState(false)
     const infoEditing = useSelector((state)=>state.LogIn)
+    
   
     const onClose=()=>{
       navigate(-1)
     }
+    //Edicion de usuario
   const handlerUser = ()=>{
     setUserEdition(true);
   }
+  //creacion de vehiculos 
+  const handlerCreate = ()=>{
+    const userId = (type==='user')? data.id: null;
+    sessionStorage.setItem('idUser', userId)
+    setCreateCar(true)
+  }
+  const closerAd = ()=>{
+    setCreateCar(false)
+  }
+  //Presentacion y edicion de servicios
+  //todo Hay que corregir y hacerla por Id; el componente que renderice a todos los 
+  //todos los servicios debe estar en el Admin
+
+  const dispatch = useDispatch()
+  const services = useSelector((state)=>state.services)
+  const [serv, setServ] = useState(false)
+  const handleServ = ()=>{
+    setServ(true)
+  }
+  const servClose = ()=>{
+    setServ(false)
+  }
+  useEffect(()=>{
+    if(serv===true){
+      dispatch(getAllServices())
+    }
+  },[serv])
   
   const pars = (type === 'car')? data.Users : data.Cars
   const propietarios = infoSelect(pars)
@@ -58,8 +91,10 @@ const InnerDetail = ({ type, data }) => {
               <img src={data.picture} style={{ maxWidth: '150px' }}/>
               <label>Observaciones: {data.observations}</label>
               <div>
-              <GenericButton buttonText={'Ver Servicios'}/>
               <Edition allowedRoles={[0]}text={'Editar'}/>
+              {serv? <><GenericButton onClick={servClose} buttonText={'Cerrar'}/>
+              <CarryTable data= {services}/></> : 
+              <GenericButton onClick={handleServ} buttonText={'Ver Servicios'}/>}
               </div>
             </>
           )}
@@ -90,12 +125,17 @@ const InnerDetail = ({ type, data }) => {
               <div>
               <Edition allowedRoles={[0]}  exception={edt} onClick={handlerUser} text={'Editar'} />
               </div>
+              <div>
+              <Edition allowedRoles={[0,2]}  onClick={handlerCreate} text={'Crear Vehiculo'} />
+              </div>
             </>
           )}
           <GenericButton onClick={()=>{navigate(-1)}} buttonText={'Volver'}/>
          {userEdition?
          <EditWindow userEdit={data} onClose={onClose} />:
          null}
+         {createCar?
+         <CreateModal closer={closerAd}/>: null}
         
       </div>
     );

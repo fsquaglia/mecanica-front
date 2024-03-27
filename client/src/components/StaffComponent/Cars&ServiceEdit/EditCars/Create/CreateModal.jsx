@@ -8,7 +8,8 @@ const CreateModal = ({closer}) => {
   const navigate = useNavigate()
  
  const onClose =()=>{
-    closer()
+    closer();
+   
  }
 
   return (
