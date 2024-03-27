@@ -1,31 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { postFav } from "../../redux/actions";
+import neumatico from "../../assets/neumatico.gif";
 
 const Consejos = () => {
+  const [post, setPost] = useState([]);
+  const dispatch = useDispatch();
+  const postFavorites = useSelector((state) => state.postFav);
+
+  useEffect(() => {
+    dispatch(postFav());
+  }, []);
+
   return (
-    <div>
-        <h2>Consejos</h2>
-    <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat venenatis enim, in sollicitudin augue vehicula eget. Nam blandit pretium tortor vel maximus. Fusce quis pharetra ex, non pellentesque elit. In vitae imperdiet urna, ut hendrerit odio. Vivamus nec tristique nulla. Integer consequat vulputate nibh, et mollis erat feugiat feugiat. Sed scelerisque ex tincidunt mi blandit, eu iaculis risus interdum. Fusce eget neque sit amet mi ornare venenatis. Donec tincidunt rutrum eros, nec vestibulum urna volutpat volutpat. In vel commodo arcu. Sed non euismod mi. Cras tortor lectus, interdum et est non, varius dapibus sem.
+    <div
+      className="container justify-content-center"
+      style={{ marginTop: "30px" }}
+    >
+      <div style={{ margin: "30px" }}>
+        <h2>Ten en cuenta estos Tips</h2>
+      </div>
 
-Donec commodo mauris vitae est pharetra porttitor. Aliquam ac massa a ipsum gravida feugiat. Nullam quis nisi dui. Nunc sed elementum nisi, quis vehicula massa. Praesent eget semper quam. Etiam viverra aliquet dolor quis vulputate. Aenean condimentum pellentesque dolor vitae blandit.
-
-Nullam finibus neque in sem dignissim, at vehicula tellus efficitur. Fusce aliquet pretium dolor eget volutpat. Morbi scelerisque laoreet diam, at rutrum massa sodales ac. Duis laoreet risus et est pellentesque, in pulvinar leo auctor. Sed in quam laoreet, malesuada orci sed, pharetra nulla. In mollis hendrerit faucibus. Quisque viverra egestas mauris sit amet tincidunt. Aliquam nec mi et sem semper egestas ac eu ipsum. Integer et lectus vitae lorem rutrum viverra ut id erat. Mauris elementum massa at pulvinar molestie. Sed ullamcorper mi a lobortis bibendum.
-
-Aliquam orci mauris, placerat sit amet mauris finibus, tempor efficitur lectus. Integer dictum facilisis sagittis. Nulla tristique nunc enim, tincidunt interdum mi vehicula id. Nunc dui erat, fermentum non massa in, tincidunt dapibus lectus. Integer interdum eget odio sit amet commodo. Cras eleifend orci et erat facilisis, quis molestie sapien sodales. Suspendisse venenatis viverra lorem, eget dapibus tellus ullamcorper in. In bibendum eu nisi et iaculis. Curabitur rhoncus purus at ultrices sollicitudin. Integer eu commodo nulla. Curabitur faucibus vulputate mauris et consectetur. Nam id orci velit. Cras id nibh nisl. Proin dapibus justo vel ipsum scelerisque dapibus. Morbi dignissim hendrerit lacus, accumsan porta arcu vestibulum vitae. Quisque vel magna efficitur, sodales tellus id, gravida massa.
-
-Quisque ut molestie nisl, in interdum justo. Donec et viverra nisi, id tempor nisl. Pellentesque laoreet fringilla eros, et tempor ante. Nam ullamcorper metus eget mattis ultrices. Aenean vitae leo vitae ipsum aliquet porttitor eget quis urna. Morbi ac quam velit. Morbi nec orci mauris. Proin in ullamcorper justo.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat venenatis enim, in sollicitudin augue vehicula eget. Nam blandit pretium tortor vel maximus. Fusce quis pharetra ex, non pellentesque elit. In vitae imperdiet urna, ut hendrerit odio. Vivamus nec tristique nulla. Integer consequat vulputate nibh, et mollis erat feugiat feugiat. Sed scelerisque ex tincidunt mi blandit, eu iaculis risus interdum. Fusce eget neque sit amet mi ornare venenatis. Donec tincidunt rutrum eros, nec vestibulum urna volutpat volutpat. In vel commodo arcu. Sed non euismod mi. Cras tortor lectus, interdum et est non, varius dapibus sem.
-
-Donec commodo mauris vitae est pharetra porttitor. Aliquam ac massa a ipsum gravida feugiat. Nullam quis nisi dui. Nunc sed elementum nisi, quis vehicula massa. Praesent eget semper quam. Etiam viverra aliquet dolor quis vulputate. Aenean condimentum pellentesque dolor vitae blandit.
-
-Nullam finibus neque in sem dignissim, at vehicula tellus efficitur. Fusce aliquet pretium dolor eget volutpat. Morbi scelerisque laoreet diam, at rutrum massa sodales ac. Duis laoreet risus et est pellentesque, in pulvinar leo auctor. Sed in quam laoreet, malesuada orci sed, pharetra nulla. In mollis hendrerit faucibus. Quisque viverra egestas mauris sit amet tincidunt. Aliquam nec mi et sem semper egestas ac eu ipsum. Integer et lectus vitae lorem rutrum viverra ut id erat. Mauris elementum massa at pulvinar molestie. Sed ullamcorper mi a lobortis bibendum.
-
-Aliquam orci mauris, placerat sit amet mauris finibus, tempor efficitur lectus. Integer dictum facilisis sagittis. Nulla tristique nunc enim, tincidunt interdum mi vehicula id. Nunc dui erat, fermentum non massa in, tincidunt dapibus lectus. Integer interdum eget odio sit amet commodo. Cras eleifend orci et erat facilisis, quis molestie sapien sodales. Suspendisse venenatis viverra lorem, eget dapibus tellus ullamcorper in. In bibendum eu nisi et iaculis. Curabitur rhoncus purus at ultrices sollicitudin. Integer eu commodo nulla. Curabitur faucibus vulputate mauris et consectetur. Nam id orci velit. Cras id nibh nisl. Proin dapibus justo vel ipsum scelerisque dapibus. Morbi dignissim hendrerit lacus, accumsan porta arcu vestibulum vitae. Quisque vel magna efficitur, sodales tellus id, gravida massa.
-
-Quisque ut molestie nisl, in interdum justo. Donec et viverra nisi, id tempor nisl. Pellentesque laoreet fringilla eros, et tempor ante. Nam ullamcorper metus eget mattis ultrices. Aenean vitae leo vitae ipsum aliquet porttitor eget quis urna. Morbi ac quam velit. Morbi nec orci mauris. Proin in ullamcorper justo.</p>
-<hr></hr>
+      <div className="row align-items-center justify-content-center">
+        {postFavorites && postFavorites.length ? (
+          postFavorites.map((tip) => (
+            <div
+              className="align-items-center "
+              style={{
+                width: "18rem",
+                filter: "drop-shadow(6px 6px 6px rgba(50, 50, 0, 0.5))",
+                border: "nome !important",
+                margin: "10px",
+              }}
+            >
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/boscarol-f2a0a.appspot.com/o/blog%2Fcambio_aceite.jpg?alt=media&token=36529fb0-9691-4a5d-856c-e5d07720cbe3"
+                className="card-img-top"
+                style={{
+                  margin: "10px",
+                  borderRadius: "10px",
+                }}
+                alt="..."
+              />
+              <div className="card-body text-light">
+                <h5 className="card-title">{tip.titlePost}</h5>
+                <p className="card-text">{tip.textPost}</p>
+                <a href="#" className="btn btn-primary">
+                  Ver más...
+                </a>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="container">
+            <img src={neumatico} alt="Cargando datos ..." />
+          </div>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Consejos
+export default Consejos;
