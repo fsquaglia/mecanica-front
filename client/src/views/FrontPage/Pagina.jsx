@@ -3,6 +3,7 @@ import Carousel from "../../components/CarouselNew/CarouselNew";
 import { useEffect, useState } from "react";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { imagesDB } from "../../firebase/firebaseConfig";
+import logo from '../../../public/images/logoBoscarol.png'
 
 const Pagina = () => {
   const [images, setImages] = useState([]);
@@ -57,10 +58,23 @@ const Pagina = () => {
         className={style.pag}
         style={{ backgroundImage: `url(${getRandomImage()})` }}
       >
+
+
+        <div className={style.divImg}>
+
+          <img src={logo} className={style.logoB} alt="" />
+        </div>
+        <div className={style.divTitulo}>
+          <h1 className={style.titulo}>Boscarol Hermanos</h1>
+          <h2 className={style.titulo}>Cuidando tu auto desde 1980</h2>
+        </div>
+
+
+
         {/* <img src={getRandomImage()} alt="Imagen de fondo taller Boscarol" /> */}
       </div>
 
-      <div>
+      <div className={style.divCarrusel}>
         <Carousel images={images} />
       </div>
     </div>
