@@ -2,7 +2,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import style from './InnerDetail.module.css'
 import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {getAllServices} from '../../../redux/actions'
+import {getMyServices} from '../../../redux/actions'
 import GenericButton from '../../GenericButton/GenericButton'
 import Edition from '../AdminHelpers/Edition/Edition';
 import EditWindow from '../../Auth/EditComponents/ModalEdit';
@@ -16,7 +16,7 @@ const InnerDetail = ({ type, data }) => {
     const [createCar, setCreateCar]= useState(false)
     const infoEditing = useSelector((state)=>state.LogIn)
     
-  
+    
     const onClose=()=>{
       navigate(-1)
     }
@@ -31,24 +31,27 @@ const InnerDetail = ({ type, data }) => {
     setCreateCar(true)
   }
   const closerAd = ()=>{
+    sessionStorage.clear()
     setCreateCar(false)
   }
   //Presentacion y edicion de servicios
-  //todo Hay que corregir y hacerla por Id; el componente que renderice a todos los 
-  //todos los servicios debe estar en el Admin
+  //todo| Hay que corregir y hacerla por Id; el componente que renderice a todos los 
+  //todo| los servicios debe estar en el Admin
 
   const dispatch = useDispatch()
-  const services = useSelector((state)=>state.services)
+  const services = useSelector((state)=>state.servByCar)
   const [serv, setServ] = useState(false)
+
   const handleServ = ()=>{
     setServ(true)
   }
   const servClose = ()=>{
     setServ(false)
   }
+  const carId = (type==='car')? data.id: null;
   useEffect(()=>{
     if(serv===true){
-      dispatch(getAllServices())
+      dispatch(getMyServices(carId))
     }
   },[serv])
   
@@ -91,8 +94,8 @@ const InnerDetail = ({ type, data }) => {
               <img src={data.picture} style={{ maxWidth: '150px' }}/>
               <label>Observaciones: {data.observations}</label>
               <div>
-              <Edition allowedRoles={[0]}text={'Editar'}/>
-              {serv? <><GenericButton onClick={servClose} buttonText={'Cerrar'}/>
+              <Edition allowedRoles={[0]}text={'Edit. Veh.'}/>
+              {serv? <><GenericButton onClick={servClose} buttonText={'Cerrar Serv'}/>
               <CarryTable data= {services}/></> : 
               <GenericButton onClick={handleServ} buttonText={'Ver Servicios'}/>}
               </div>
@@ -123,7 +126,7 @@ const InnerDetail = ({ type, data }) => {
               </div>
               <img src={data.picture} style={{maxWidth:'150px'}}/>
               <div>
-              <Edition allowedRoles={[0]}  exception={edt} onClick={handlerUser} text={'Editar'} />
+              <Edition allowedRoles={[0]}  exception={edt} onClick={handlerUser} text={'Edit Usuario'} />
               </div>
               <div>
               <Edition allowedRoles={[0,2]}  onClick={handlerCreate} text={'Crear Vehiculo'} />

@@ -11,6 +11,8 @@ export const ALL_CARS = "ALL_CARS";
 export const CAR_PAT = "CAR_PAT";
 export const CAR_BY_ID = "CAR_BY_ID";
 export const ALL_SERVICES= 'ALL_SERVICES';
+export const SERV_BY_CAR = 'SERV_BY_CAR';
+export const SERV_BY_ID = 'SERV_BY_ID';
 export const ISMYCOMMERCE = "ISMYCOMMERCE";
 
 //?%%%%%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -157,4 +159,16 @@ export const getAllServices = () => {
     }
   };
 };
-
+export const getMyServices = (carId) => {
+  return async (dispatch) => {
+    try {
+      const data = await axios(`/service?search=${carId}`, setAuthHeader());
+      return dispatch({
+        type: SERV_BY_CAR,
+        payload: data.data,
+      });
+    } catch (error) {
+      HandlError(error);
+    }
+  };
+};

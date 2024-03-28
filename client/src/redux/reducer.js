@@ -9,6 +9,8 @@ import {
   CAR_PAT,
   CAR_BY_ID,
   ALL_SERVICES,
+  SERV_BY_CAR,
+  SERV_BY_ID,
   ISMYCOMMERCE,
 } from "./actions";
 
@@ -24,6 +26,8 @@ const initialState = {
   carById: [],
   cars: [],
   services: [],
+  servByCar:[],
+  servById:[],
   myCommerce: undefined,
 };
 
@@ -85,6 +89,11 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         services:payload,
       }
+      case SERV_BY_CAR:
+        return {
+          ...state,
+          servByCar: payload
+        }
     //? %%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%
     case ISMYCOMMERCE:
       return {
