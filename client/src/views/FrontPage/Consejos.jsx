@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postFav } from "../../redux/actions";
 import neumatico from "../../assets/neumatico.gif";
+import GenericButton from "../../components/GenericButton/GenericButton";
 
 const Consejos = () => {
-  const [post, setPost] = useState([]);
   const dispatch = useDispatch();
   const postFavorites = useSelector((state) => state.postFav);
 
@@ -12,10 +12,17 @@ const Consejos = () => {
     dispatch(postFav());
   }, []);
 
+  // Función para truncar el título si supera los 30 caracteres
+  const truncateTitle = (title) => {
+    if (title.length > 30) {
+      return title.slice(0, 27) + "...";
+    }
+    return title;
+  };
   return (
     <div
-      className="container justify-content-center"
-      style={{ marginTop: "30px" }}
+      className="container"
+      style={{ marginTop: "40px", marginBottom: "40px" }}
     >
       <div style={{ margin: "30px" }}>
         <h2>Ten en cuenta estos Tips</h2>
@@ -24,30 +31,37 @@ const Consejos = () => {
       <div className="row align-items-center justify-content-center">
         {postFavorites && postFavorites.length ? (
           postFavorites.map((tip) => (
-            <div
-              className="align-items-center "
-              style={{
-                width: "18rem",
-                filter: "drop-shadow(6px 6px 6px rgba(50, 50, 0, 0.5))",
-                border: "nome !important",
-                margin: "10px",
-              }}
-            >
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/boscarol-f2a0a.appspot.com/o/blog%2Fcambio_aceite.jpg?alt=media&token=36529fb0-9691-4a5d-856c-e5d07720cbe3"
-                className="card-img-top"
+            <div style={{ width: "350px", margin: "10px" }}>
+              <div
+                className="align-items-center justify-content-center"
                 style={{
-                  margin: "10px",
-                  borderRadius: "10px",
+                  height: "400px", // Alto del contenedor
+                  border: "none !important",
+                  overflow: "hidden", // Oculta el desbordamiento de la imagen
                 }}
-                alt="..."
-              />
-              <div className="card-body text-light">
-                <h5 className="card-title">{tip.titlePost}</h5>
-                <p className="card-text">{tip.textPost}</p>
-                <a href="#" className="btn btn-primary">
-                  Ver más...
-                </a>
+              >
+                <img
+                  src={tip.imgPost[0]}
+                  className="card-img-top"
+                  style={{
+                    objectFit: "cover", // La imagen cubre el contenedor
+                    width: "100%", // Ancho completo del contenedor
+                    height: "100%", // Alto completo del contenedor
+                  }}
+                  alt={tip.titlePost}
+                />
+              </div>
+              <div className="text-secondary">
+                <h5 className="text-secondary fw-normal">
+                  {truncateTitle(tip.titlePost)}
+                </h5>
+                <p
+                  className="text-secondary fw-light"
+                  style={{ height: "200px" }}
+                >
+                  {tip.textPost}
+                </p>
+                <GenericButton buttonText={"Ver más..."} disabled={false} />
               </div>
             </div>
           ))
