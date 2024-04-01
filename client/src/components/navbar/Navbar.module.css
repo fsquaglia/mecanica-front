@@ -104,16 +104,49 @@
   height: 3.4em;
   width: 3.4em;
   border-radius: 50%;
+  margin-right: 2em;
 }
 
 .dropDownButton:hover {
   background-color: rgb(177, 132, 84, 0.7);
-
+  transform: scale(1.1);
 }
+
+.dropDownButton:active {
+  transform: translateY(1px);
+  transition: 0.2s ease;
+}
+
+.dropDownButtonHidden {
+  display: hidden;
+  background: none;
+  border: none;
+}
+
+.dropDownButtonHidden:hover {
+  background: none;
+
+  transform: scale(1.1);
+  transition: 0.2s ease;
+}
+
+.dropDownButtonHidden:active {
+  background-color: transparent;
+  transform: translateY(1px);
+  transition: 0.2s ease;
+  border: none;
+}
+
+.dropDownButtonHidden:focus {
+  background-color: transparent;
+}
+
 
 .dropdownMenu {
   background-color: rgb(92, 83, 74);
-  font-size: 1em;
+  padding-left: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
 
 }
 
@@ -124,8 +157,12 @@
 }
 
 .out {
-  font-size: 1.5em;
+  font-size: 1.3em;
   color: white;
+}
+
+.out:hover {
+  color: #DB9144
 }
 
 /*/////////// pantalla celular */

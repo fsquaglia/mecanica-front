@@ -58,10 +58,18 @@ const Navbar = () => {
       </div>
 
       <div className={style.userData}>
-        <ShowUser />
+
         <div class="dropdown">
-          <button class={`btn btn-secondary ${style.dropDownButton}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src={userLogo} className={style.userLogo} />
+          <button class={`btn btn-secondary ${authenticated ? style.dropDownButtonHidden : style.dropDownButton}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {(
+              authenticated ? (
+                <ShowUser />
+              ) : (
+
+                <img src={userLogo} className={style.userLogo} />
+              )
+            )}
+
           </button>
           <ul class={`dropdown-menu ${style.dropdownMenu}`}>
             <LoginLinks />

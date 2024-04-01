@@ -15,8 +15,10 @@ const LoginLinks = () => {
         <Link to="/login"><a className={style.in} aria-current="page" href="#">Ingresar</a></Link>
       )}
       <br></br>
-      {authenticated? 
-      <Link to={`/home/user/${user.id}?type=user`}>Perfil:</Link>:null}
+      {authenticated ?
+        <Link to={`/home/user/${user.id}?type=user`}>
+          <a className={style.in} aria-current="page" href="#">Perfil</a>
+        </Link> : null}
     </div>
 
   )
