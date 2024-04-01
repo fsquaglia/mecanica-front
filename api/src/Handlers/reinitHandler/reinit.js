@@ -102,20 +102,22 @@ const reinit = async (req, res) => {
     //vaciar y rellenar Comemrce
     await Commerce.destroy({ where: {} });
     await Commerce.create({
-      razonsocial: "Boscarol Ariel",
+      razonsocial: "Boscarol Ariel A. y Pablo A.",
       fantasia: "Boscarol Hnos.",
       direccion: "Güemes 853",
       ciudad: "San Cristóbal",
       idProvince: 21,
-      telefono: "543408427110",
-      email: "boscarol@boscarol.com.ar",
-      instagram: "",
-      facebook: "",
+      telefono: "54 3408 427110",
+      email: "boscarolhnos@gmail.com",
+      instagram: "https://www.instagram.com/",
+      facebook: "https://www.facebook.com/",
       otro: "",
+      celular: "54 3408 675420",
       isMyCommerce: true,
+      datePost: new Date(),
     });
 
-    //crear categorías y subcategorías
+    //crear categorías y subcategorías de Productos
     await Category.destroy({ where: {} });
     await Category.create({
       name: "Aceites",
@@ -170,20 +172,51 @@ const reinit = async (req, res) => {
     ]);
 
     await Post.create({
-      titlePost: "El mantenimiento",
-      textPost: "lorem ipsun",
-      idCategory: 2,
-      published: false,
-      viewFavPost: true,
-    });
-    await Post.create({
-      titlePost: "Los aceites",
-      textPost: "lorem ipsun",
+      titlePost: "Elige el Aceite Correcto",
+      textPost:
+        "Escoger el aceite adecuado para tu vehículo es crucial. Consulta el manual del propietario para conocer la viscosidad y especificaciones recomendadas. Además, considera factores como el clima y el kilometraje del motor para garantizar un rendimiento óptimo y una mayor vida útil del motor.",
       idCategory: 1,
       published: true,
-      viewFavPost: false,
+      viewFavPost: true,
+      imgPost: [
+        "https://firebasestorage.googleapis.com/v0/b/boscarol-f2a0a.appspot.com/o/blog%2Flos-mejores-aceites-para-motor.jpg?alt=media&token=8efad536-49b1-419e-b84b-bcc41d93ecd5",
+      ],
+    });
+    await Post.create({
+      titlePost: "Presión de Neumáticos",
+      textPost:
+        "Seguridad en la Carretera: Mantener la presión adecuada en los neumáticos no solo mejora la eficiencia del combustible, sino que también garantiza un mejor agarre y maniobrabilidad. Consulta la etiqueta de presión en la puerta del conductor y verifica la presión de los neumáticos regularmente, especialmente antes de viajes largos.",
+      idCategory: 1,
+      published: true,
+      viewFavPost: true,
+      imgPost: [
+        "https://firebasestorage.googleapis.com/v0/b/boscarol-f2a0a.appspot.com/o/blog%2Fpresion-neumaticos-3-e1589185063995.jpg?alt=media&token=c00d8a4b-613a-4255-9a4f-8079c04f234e",
+      ],
     });
 
+    await Post.create({
+      titlePost: "Evita el Desgaste Prematuro del Motor",
+      textPost:
+        "Cambiar regularmente el aceite del motor es esencial para prevenir el desgaste prematuro y mantener el motor funcionando sin problemas. Programa cambios de aceite según las recomendaciones del fabricante y utiliza productos de calidad para prolongar la vida útil de tu motor y evitar costosas reparaciones.",
+      idCategory: 1,
+      published: true,
+      viewFavPost: true,
+      imgPost: [
+        "https://firebasestorage.googleapis.com/v0/b/boscarol-f2a0a.appspot.com/o/blog%2Fcambio_aceite.jpg?alt=media&token=36529fb0-9691-4a5d-856c-e5d07720cbe3",
+      ],
+    });
+
+    await Post.create({
+      titlePost: "Mantén la Temperatura Óptima",
+      textPost:
+        "La elección del refrigerante adecuado es vital para evitar problemas de sobrecalentamiento en tu automóvil. Verifica regularmente el nivel de agua refrigerante y asegúrate de que esté en la proporción correcta con el anticongelante. Esto ayudará a prevenir daños costosos en el sistema de enfriamiento.",
+      idCategory: 1,
+      published: true,
+      viewFavPost: true,
+      imgPost: [
+        "https://firebasestorage.googleapis.com/v0/b/boscarol-f2a0a.appspot.com/o/blog%2Frefrigerante.jpg?alt=media&token=d154c523-da23-47b8-b958-1258c236b843",
+      ],
+    });
     console.log("okey bien");
     res.status(200).json({ message: "Todo ok" });
   } catch (error) {
