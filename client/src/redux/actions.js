@@ -14,6 +14,7 @@ export const ALL_SERVICES= 'ALL_SERVICES';
 export const SERV_BY_CAR = 'SERV_BY_CAR';
 export const SERV_BY_ID = 'SERV_BY_ID';
 export const ISMYCOMMERCE = "ISMYCOMMERCE";
+export const POST_FAVORITES = "POSTFAV";
 
 //?%%%%%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%%%
 export const isMyCommerce = () => {
@@ -51,6 +52,23 @@ export const isMyCommerce = () => {
 };
 //?%%%%%%%%%%% commerce end %%%%%%%%%%%%%%%%%%%%%%%%%%
 
+//%%%%%%%%%%% post/tips/consejos %%%%%%%%%%%%%%%%%%%%%%%%%%
+export const postFav = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios("/postfav?total=3");
+      return dispatch({
+        type: POST_FAVORITES,
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los post Favoritos");
+    }
+  };
+};
+
+//%%%%%%%%%%% post/tips/consejos end %%%%%%%%%%%%%%%%%%%%%%%%%%
+
 export const loginUser = (payload) => (dispatch) => {
   return dispatch({
     type: LOGIN_USER,
@@ -78,7 +96,7 @@ export const getAllUsers = () => {
 };
 export const userBynumId = (numberId) => async (dispatch) => {
   try {
-    const data = await axios(`/user?numberId=${numberId}`,setAuthHeader());
+    const data = await axios(`/user?numberId=${numberId}`, setAuthHeader());
     return dispatch({
       type: USER_BY_IDFY,
       payload: data.data,
@@ -89,7 +107,7 @@ export const userBynumId = (numberId) => async (dispatch) => {
 };
 export const getById = (id, token) => async (dispatch) => {
   try {
-    const data = await axios(`/user/${id}`,setAuthHeader());
+    const data = await axios(`/user/${id}`, setAuthHeader());
     return dispatch({
       type: USER_BY_ID,
       payload: data.data,
@@ -123,7 +141,7 @@ export const getAllCars = () => {
 
 export const carById = (id) => async (dispatch) => {
   try {
-    const data = await axios(`/car/${id}`,setAuthHeader());
+    const data = await axios(`/car/${id}`, setAuthHeader());
     return dispatch({
       type: CAR_BY_ID,
       payload: data.data,
@@ -145,7 +163,7 @@ export const carByPat = (patent) => async (dispatch) => {
   }
 };
 
-//*>>>>>>>>>> Services <<<<<<<<<<<<<<<<<<<<<<<<
+
 export const getAllServices = () => {
   return async (dispatch) => {
     try {
@@ -172,3 +190,4 @@ export const getMyServices = (carId) => {
     }
   };
 };
+

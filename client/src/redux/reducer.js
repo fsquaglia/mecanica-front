@@ -12,11 +12,12 @@ import {
   SERV_BY_CAR,
   SERV_BY_ID,
   ISMYCOMMERCE,
+  POST_FAVORITES,
 } from "./actions";
 
 const initialState = {
   allUsers: [],
-  userByDni:[],
+  userByDni: [],
   detailUsers: [],
   LogIn: [],
   info: [],
@@ -29,6 +30,7 @@ const initialState = {
   servByCar:[],
   servById:[],
   myCommerce: undefined,
+  postFav: null,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -68,7 +70,7 @@ const reducer = (state = initialState, { type, payload }) => {
         carById: payload,
       };
     //? %%%%%%%% Vehiculos (car & service) %%%%%%%%%%%%%%%%%%%%%%%%
-   
+
     case ALL_CARS:
       return {
         ...state,
@@ -101,6 +103,12 @@ const reducer = (state = initialState, { type, payload }) => {
         myCommerce: payload,
       };
     //? %%%%%%%% commerce end %%%%%%%%%%%%%%%%%%%%%%%%
+    // %%%%%%%% post/tips/consejos %%%%%%%%%%%%%%%%%%%%%%%%
+    case POST_FAVORITES:
+      return {
+        ...state,
+        postFav: payload,
+      };
     default:
       return {
         ...state,
