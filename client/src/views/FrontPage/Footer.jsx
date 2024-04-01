@@ -13,7 +13,7 @@ const Footer = () => {
 
   console.log(myCommerce);
   return (
-    <div className="container text-light bg-secondary">
+    <div className="container text-light bg-secondary pb-3">
       {myCommerce && Object.keys(myCommerce).length > 0 ? (
         <div className="row">
           <div className="col text-start">
@@ -95,6 +95,7 @@ const Footer = () => {
       ) : (
         <img src={boscarol} alt="Logo taller Boscarol Hnos" />
       )}
+      <div style={{ marginBottom: "20px" }}></div>
     </div>
   );
 };
