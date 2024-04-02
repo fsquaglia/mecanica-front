@@ -74,6 +74,7 @@
 
 .linksH3:hover {
   color: #DB9144;
+  cursor: pointer;
 }
 
 .linksH3:active {
@@ -181,6 +182,31 @@
     height: 2.5em;
     width: auto;
     padding-left: 2em;
+  }
+
+  .linksH3 {
+    font-size: 1.4em;
+    margin-right: 1em;
+  }
+
+
+
+  .pictureDeployMenu {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .divHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .titleDeployMenu {
+    align-self: flex-start;
   }
 }
 

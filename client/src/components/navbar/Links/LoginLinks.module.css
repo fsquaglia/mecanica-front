@@ -16,10 +16,22 @@
     color: #DB9144;
 }
 
+.ingresar {
+    font-size: 1.3em;
+    color: white;
+}
+
+.ingresar:hover {
+    color: #DB9144;
+
+}
+
 @media only screen and (max-width: 768px) {
 
-    /* Estilos a aplicar para dispositivos con una pantalla de 768px o menos de ancho */
-    .in {
+    .ingresar {
         display: none;
     }
+
+
+
 }
