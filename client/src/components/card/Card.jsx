@@ -1,10 +1,13 @@
 import React from 'react'
+import style from './Card.module.css'
 
-const Card = ({info}) => {
-    const {url}=info;
+const Card = ({ titulo, imagen, descripcion }) => {
+
   return (
-    <div>
-    <img src={url} style={{maxWidth: '12.5rem', zIndex: "2"}} />
+    <div className={style.bigDiv}>
+      <img className={style.img} src={imagen} alt="" />
+      <h3>{titulo}</h3>
+      <p>{descripcion}</p>
     </div>
   )
 }

@@ -1,0 +1,12 @@
+.img {
+    height: 15em;
+    width: auto;
+}
+
+.bigDiv {
+    height: 20em;
+    width: 15em;
+    overflow: hidden;
+    margin-top: 6em;
+    margin-left: 2em;
+}
