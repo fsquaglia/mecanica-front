@@ -8,21 +8,21 @@ import { ButtonBack, Consejos, Contacto, Footer, Historia, Pagina, Servicios } f
 
 const Landing = () => {
   useEffect(() => {
-     // Actualiza scrollSpy cuando el componente se monta
-     scrollSpy.update();
+    // Actualiza scrollSpy cuando el componente se monta
+    scrollSpy.update();
 
   }, []);
 
 
   return (
     <div className={style.bigDiv}>
-    <Element name='pagina'><Pagina/></Element>
-    <Element name='historia'><Historia/></Element>
-    <Element name='servicios'><Servicios/></Element>
-    <Element name='consejos'><Consejos/></Element>
-    <Element name='contacto'><Contacto/></Element>
-    <Footer/>
-    <ButtonBack/>
+      <Element name='pagina'><Pagina /></Element>
+      <Element name='historia'><Historia /></Element>
+      <Element name='servicios'><Servicios /></Element>
+      <Element name='consejos'><Consejos /></Element>
+      <Element name='contacto'><Contacto /></Element>
+
+      <ButtonBack />
 
       {/* <Carousel info={mocks}/> */}
     </div>
