@@ -1,12 +1,48 @@
-.img {
-    height: 15em;
-    width: auto;
+.bigDiv {
+    height: 33em;
+    width: 19em;
+    overflow: hidden;
+    margin-bottom: 4em;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
-.bigDiv {
-    height: 20em;
-    width: 15em;
+.divImg {
+    display: flex;
+    justify-content: flex-end;
+    height: 25em;
+    width: 19em;
+}
+
+.img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    overflow-x: hidden;
+
+
+
+}
+
+.divTitle {
+    display: flex;
+    justify-content: flex-start;
+    color: grey;
+    margin-top: 0.5em;
+}
+
+
+
+.divText {
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+    height: 5em;
+    color: grey;
+    white-space: wrap;
+    /* Evita que el texto se divida en múltiples líneas */
     overflow: hidden;
-    margin-top: 6em;
-    margin-left: 2em;
+    /* Oculta el texto que desborda el contenedor */
+    text-overflow: ellipsis;
 }

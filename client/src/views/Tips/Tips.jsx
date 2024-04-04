@@ -8,8 +8,14 @@ function Tips() {
     console.log(datosDePrueba);
     return (
         <div className={style.mainDiv}>
+            <div className={style.divHeaderImg}>
+                <img className={style.headerImg} src="https://www.healeybrothers.com/content/images/comingsoon/2021FordMustangMach1/Header.jpg" alt="" />
+            </div>
+
+
             <div className={style.divMenuFilter}>
                 <h3>Filtros y busquedas</h3>
+                <hr></hr>
                 <h4>opciones</h4>
                 <h4>opciones</h4>
                 <h4>opciones</h4>
