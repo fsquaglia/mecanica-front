@@ -1,7 +1,7 @@
 
 import interceptor from "./Interceptor";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import {Error,  Home, Detail, Landing, Login, EditWindow, } from "./views/Index";
+import { Error, Home, Detail, Landing, Login, EditWindow, } from "./views/Index";
 import { Admin, DetailAd } from "./views/Staff/AdminIndex";
 import { loginUser, isNotAuth, isMyCommerce } from "./redux/actions";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,8 @@ import { useAuth } from "./components/Auth/AuthContext/AuthContext";
 import "./App.css";
 import ImagesConfig from "./components/imagesConfig/ImagesConfig";
 import Navbar from "./components/navbar/Navbar";
+import Footer from "./views/FrontPage/Footer";
+import Tips from "./views/Tips/Tips";
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
     <div>
       <Navbar />
       <Routes>
+
         <Route path="/fire" element={<ImagesConfig />} />
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
@@ -49,8 +52,11 @@ function App() {
         <Route exact path="/admin" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? ( <Admin /> ) : ( <Navigate to="/home" />)}/>
         <Route path="/admin/:name" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? (<Admin />) : (<Navigate to="/error" />) }/>
         <Route path="/admin/detail/:id" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? ( <DetailAd />) : (<Navigate to="/error" />)}/>
+
         <Route path={"*"} element={<Navigate to="/error" />} />
+        <Route path="tips" element={<Tips />} />
       </Routes>
+      <Footer />
     </div>
   );
 
