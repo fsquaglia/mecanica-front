@@ -1,4 +1,5 @@
 import {Link, useNavigate} from 'react-router-dom'
+import {useAuth} from '../../Auth/AuthContext/AuthContext'
 import style from './InnerDetail.module.css'
 import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,9 +9,10 @@ import Edition from '../AdminHelpers/Edition/Edition';
 import EditWindow from '../../Auth/EditComponents/ModalEdit';
 import CreateModal from '../Cars&ServiceEdit/EditCars/Create/CreateModal'
 import CarryTable from '../ServiceComp/CarryTable'
-import {infoSelect, roles, allowing} from '../AdminHelpers/Helpers/InfoMap';
+import {infoSelect, roles, estado, allowing} from '../AdminHelpers/Helpers/InfoMap';
 
 const InnerDetail = ({ type, data }) => {
+  const {user}=useAuth()
     const navigate= useNavigate()
     const [userEdition, setUserEdition] = useState(false);
     const [createCar, setCreateCar]= useState(false)
@@ -59,7 +61,8 @@ const InnerDetail = ({ type, data }) => {
   const propietarios = infoSelect(pars)
   const info1 = (type==='user')? data.role: null;
   const rol = roles(info1)
-  
+  const info2 =  data.enable? data.enable: null;
+  const enable = estado(info2)
   //Logica para gestionar permiso de edicion a usuario de su propia cuenta:
   
    const edt = allowing(infoEditing, data)
@@ -78,7 +81,7 @@ const InnerDetail = ({ type, data }) => {
               <li>Año: {data.year}</li>
               <li>Numero de motor: {data.motorNum}</li>
               <li>Numero de chasis: {data.chassisNum}</li>
-              <li>Estado: {data.country}</li>
+              <li>Estado: {enable}</li>
               <li>Creado: {data.createdAt}</li>
               <li>Actualizado: {data.updatedAt}</li>
               </ul>
@@ -111,11 +114,12 @@ const InnerDetail = ({ type, data }) => {
               <li>Numero documento: {data.numberId}</li>
               <li>Rol: {rol}</li>
               <li>País: {data.country}</li>
-              <li>Estado: {data.country}</li>
+              <li>Estado: {enable}</li>
               <li>Creado: {data.createdAt}</li>
               <li>Actualizado: {data.updatedAt}</li>
               </ul>
-              <div>
+              {user.role===0||user.role===2 ?
+                <div>
                <p>Vehiculo:</p>
                  {propietarios?.map((propietario, index) => (
                     <span key={index}>
@@ -124,6 +128,7 @@ const InnerDetail = ({ type, data }) => {
                        </span>
                        ))}
               </div>
+              : null}
               <img src={data.picture} style={{maxWidth:'150px'}}/>
               <div>
               <Edition allowedRoles={[0]}  exception={edt} onClick={handlerUser} text={'Edit Usuario'} />

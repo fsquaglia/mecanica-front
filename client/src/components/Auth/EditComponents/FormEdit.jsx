@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import axios from 'axios'
 import style from '../styles/Form.module.css';
 import GenericButton from '../../GenericButton/GenericButton';
-import CloudinaryUpload from './CloudinaryUpload';
+
 import {useAuth} from '../AuthContext/AuthContext'
 import EditPass from './EditPass';
 import showConfirmationDialog from '../../utils/sweetAlert'
+import ImgUpFire from '../../ImgUpFire/ImgUpFire';
 
 
 
@@ -20,6 +21,10 @@ const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose, logou
     //console.log(setImageUrl)
     onInputChange("picture", url);
   };
+  // const onImageChange = useCallback((url) => {
+  //   setImageUrl(url);
+  //   onInputChange("picture", url);
+  // }, [onInputChange]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,11 +44,11 @@ const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose, logou
 
   return (
     <div className={style.formContainer}>
-      <form onSubmit={handleSubmit}>
         <label>
           {imageUrl && <img style={{maxWidth:'120px'}} src={imageUrl} alt="Current User" />}
         </label>
-        <CloudinaryUpload onImageChange={onImageChange}/>
+        <ImgUpFire maxImages={1} uploadImgs={onImageChange}/>
+      <form onSubmit={handleSubmit}>
         <label>
           Nombre:
           <input type="text" name="name" value={editedUser.name} onChange={handleInputChange} />

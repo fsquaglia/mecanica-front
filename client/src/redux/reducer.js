@@ -56,7 +56,7 @@ const reducer = (state = initialState, { type, payload }) => {
     case USER_BY_IDFY:
       return {
         ...state,
-        userBynumId: payload,
+        userByDni: payload,
       };
     case USER_BY_ID:
       return {
