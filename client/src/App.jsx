@@ -1,18 +1,16 @@
-
 import interceptor from "./Interceptor";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { Error, Home, Detail, Landing, Login, EditWindow, } from "./views/Index";
+import { Error, Home, Detail, Landing, Login, EditWindow } from "./views/Index";
 import { Admin, DetailAd } from "./views/Staff/AdminIndex";
 import { loginUser, isNotAuth, isMyCommerce } from "./redux/actions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useAuth } from "./components/Auth/AuthContext/AuthContext";
 import "./App.css";
-import ImagesConfig from "./components/imagesConfig/ImagesConfig";
+import Customize from "./components/Customize/Customize";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./views/FrontPage/Footer";
 import Tips from "./views/Tips/Tips";
-
 
 function App() {
   const { authenticated, user, logout } = useAuth();
@@ -21,7 +19,6 @@ function App() {
   //console.log(authenticated)
   const allow = user ? user.role : 1;
   //console.log(allow)
-
 
   useEffect(() => {
     if (authenticated) {
@@ -37,18 +34,34 @@ function App() {
   }, []);
 
   return (
-
     <div>
       <Navbar />
       <Routes>
 
-        <Route path="/fire" element={<ImagesConfig />} />
+        <Route path="/customize" element={<Customize />} />
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path={"/error"} element={<Error />} />
-        <Route path="/home" element={authenticated ? <Home /> : <Navigate to="/" />} />
-        <Route path="/home/user/:id" element={authenticated ? <DetailAd /> : <Navigate to="/home" />} />
-        <Route exact path="/admin" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? (<Admin />) : (<Navigate to="/home" />)} />
+        <Route
+          path="/home"
+          element={authenticated ? <Home /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/home/user/:id"
+          element={authenticated ? <DetailAd /> : <Navigate to="/home" />}
+        />
+        <Route
+          exact
+          path="/admin"
+          element={
+            (authenticated && allow === 0) || (authenticated && allow === 2) ? (
+              <Admin />
+            ) : (
+              <Navigate to="/home" />
+            )
+          }
+        />
+
         <Route
           path="/admin/:name"
           element={
@@ -76,7 +89,6 @@ function App() {
       <Footer />
     </div>
   );
-
 }
 
 export default App;
