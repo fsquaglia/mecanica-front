@@ -43,8 +43,12 @@ const EditWindow = ({ onClose, userEdit}) => {
       const response = await axios.put(`/user/${id}`,editedUser, setAuthHeader());
       
       if (response.status === 200) {
-        showSuccess('Usuario actualizado con éxito')
+        showSuccess(`Usuario actualizado con éxito. \n Inicia sesion nuevamente`)
        onClose(); // Cierra el modal después de guardar los cambios
+       setTimeout(()=>{
+        logout();
+       },4000)
+       
       } else {
         showError('Error al actualizar el usuario')
       }
