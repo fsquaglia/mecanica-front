@@ -8,6 +8,10 @@ import logo from '../../../public/images/logoBoscarol.png'
 const Pagina = () => {
   const [images, setImages] = useState([]);
   const [imageMain, setImageMain] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  //console.log(baseBackGround[0].url)
+  
 
   useEffect(() => {
     //buscamos las imágenes del carrusel
@@ -21,8 +25,10 @@ const Pagina = () => {
           })
         );
         setImages(downloadUrls);
+        setLoading(false);
       } catch (error) {
         console.error("Colocar imagen por defecto. Error: ", error);
+        setLoading(false);
       }
     };
 
@@ -51,9 +57,19 @@ const Pagina = () => {
     const randomIndex = Math.floor(Math.random() * imageMain.length);
     return imageMain[randomIndex];
   };
-
+ //style={{ backgroundImage: `url(${baseBackGround[0].url})` }}
   return (
     <div>
+       {loading ? (
+        // Muestra la imagen baseBackGround mientras se cargan las imágenes
+        <div className={style.pag}  >
+         <br></br>
+         <br></br>
+         <br></br>
+         <br></br>
+          <h1 className={style.loader} ></h1>
+        </div>
+      ) : (<>
       <div
         className={style.pag}
         style={{ backgroundImage: `url(${getRandomImage()})` }}
@@ -76,7 +92,8 @@ const Pagina = () => {
 
       <div className={style.divCarrusel}>
         <Carousel images={images} />
-      </div>
+      </div></>
+       )}
     </div>
   );
 };

@@ -1,29 +1,68 @@
 import {Link, useNavigate} from 'react-router-dom'
+import {useAuth} from '../../Auth/AuthContext/AuthContext'
 import style from './InnerDetail.module.css'
-import {useState} from 'react'
-import { useSelector } from 'react-redux'
+import {useState, useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {getMyServices} from '../../../redux/actions'
 import GenericButton from '../../GenericButton/GenericButton'
 import Edition from '../AdminHelpers/Edition/Edition';
 import EditWindow from '../../Auth/EditComponents/ModalEdit';
-import {infoSelect, roles, allowing} from '../AdminHelpers/Helpers/InfoMap';
+import CreateModal from '../Cars&ServiceEdit/EditCars/Create/CreateModal'
+import CarryTable from '../ServiceComp/CarryTable'
+import {infoSelect, roles, estado, allowing} from '../AdminHelpers/Helpers/InfoMap';
 
 const InnerDetail = ({ type, data }) => {
+  const {user}=useAuth()
     const navigate= useNavigate()
     const [userEdition, setUserEdition] = useState(false);
+    const [createCar, setCreateCar]= useState(false)
     const infoEditing = useSelector((state)=>state.LogIn)
-  
+    
+    
     const onClose=()=>{
       navigate(-1)
     }
+    //Edicion de usuario
   const handlerUser = ()=>{
     setUserEdition(true);
   }
+  //creacion de vehiculos 
+  const handlerCreate = ()=>{
+    const userId = (type==='user')? data.id: null;
+    sessionStorage.setItem('idUser', userId)
+    setCreateCar(true)
+  }
+  const closerAd = ()=>{
+    sessionStorage.clear()
+    setCreateCar(false)
+  }
+  //Presentacion y edicion de servicios
+  //todo| Hay que corregir y hacerla por Id; el componente que renderice a todos los 
+  //todo| los servicios debe estar en el Admin
+
+  const dispatch = useDispatch()
+  const services = useSelector((state)=>state.servByCar)
+  const [serv, setServ] = useState(false)
+
+  const handleServ = ()=>{
+    setServ(true)
+  }
+  const servClose = ()=>{
+    setServ(false)
+  }
+  const carId = (type==='car')? data.id: null;
+  useEffect(()=>{
+    if(serv===true){
+      dispatch(getMyServices(carId))
+    }
+  },[serv])
   
   const pars = (type === 'car')? data.Users : data.Cars
   const propietarios = infoSelect(pars)
   const info1 = (type==='user')? data.role: null;
   const rol = roles(info1)
-  
+  const info2 =  data.enable? data.enable: null;
+  const enable = estado(info2)
   //Logica para gestionar permiso de edicion a usuario de su propia cuenta:
   
    const edt = allowing(infoEditing, data)
@@ -32,7 +71,7 @@ const InnerDetail = ({ type, data }) => {
     return (
       <div className={style.container}>
         <h2>{type === 'car' ? 'Vehiculo:' : 'Usuario:'}</h2>
-        <Edition onClick={()=>{navigate("/admin")}} text={'Volver a Admin'} allowedRoles={[0, 2]}/>
+        <Edition onClick={()=>{navigate("/admin")}} text={'Panel Admin'} allowedRoles={[0, 2]}/>
           {type === 'car' && (
             <>
             <ul>
@@ -42,24 +81,29 @@ const InnerDetail = ({ type, data }) => {
               <li>Año: {data.year}</li>
               <li>Numero de motor: {data.motorNum}</li>
               <li>Numero de chasis: {data.chassisNum}</li>
-              <li>Estado: {data.country}</li>
+              <li>Estado: {enable}</li>
               <li>Creado: {data.createdAt}</li>
               <li>Actualizado: {data.updatedAt}</li>
               </ul>
-              <div>
+              {user.role && user.role === 1? null : <>
+                <div>
                <p>Propietario:</p>
                  {propietarios?.map((propietario, index) => (
                     <span key={index}>
-                  <Link to={`/admin/detail/${propietario.id}?type=user`}>Nombre: {propietario.name}</Link>
+                  <Link to={`/admin/dett/${propietario.id}?type=user`}>Nombre: {propietario.name}</Link>
                     {index !== propietarios.length - 1 ? ', ' : ''}
                        </span>
                        ))}
               </div>
+              </>}
+              
               <img src={data.picture} style={{ maxWidth: '150px' }}/>
               <label>Observaciones: {data.observations}</label>
               <div>
-              <GenericButton buttonText={'Ver Servicios'}/>
-              <Edition allowedRoles={[0]}text={'Editar'}/>
+              <Edition allowedRoles={[0]}text={'Edit. Veh.'}/>
+              {serv? <><GenericButton onClick={servClose} buttonText={'Cerrar Serv'}/>
+              <CarryTable data= {services}/></> : 
+              <GenericButton onClick={handleServ} buttonText={'Ver Servicios'}/>}
               </div>
             </>
           )}
@@ -73,22 +117,27 @@ const InnerDetail = ({ type, data }) => {
               <li>Numero documento: {data.numberId}</li>
               <li>Rol: {rol}</li>
               <li>País: {data.country}</li>
-              <li>Estado: {data.country}</li>
+              <li>Estado: {enable}</li>
               <li>Creado: {data.createdAt}</li>
               <li>Actualizado: {data.updatedAt}</li>
               </ul>
-              <div>
+              {user.role===0||user.role===2 ?
+                <div>
                <p>Vehiculo:</p>
                  {propietarios?.map((propietario, index) => (
                     <span key={index}>
-                  <Link to={`/admin/detail/${propietario.id}?type=car`}>Patente: {propietario.name}</Link>
+                  <Link to={`/admin/dett/${propietario.id}?type=car`}>Patente: {propietario.name}</Link>
                     {index !== propietarios.length - 1 ? ', ' : ''}
                        </span>
                        ))}
               </div>
+              : null}
               <img src={data.picture} style={{maxWidth:'150px'}}/>
               <div>
-              <Edition allowedRoles={[0]}  exception={edt} onClick={handlerUser} text={'Editar'} />
+              <Edition allowedRoles={[0]}  exception={edt} onClick={handlerUser} text={'Edit Usuario'} />
+              </div>
+              <div>
+              <Edition allowedRoles={[0,2]}  onClick={handlerCreate} text={'Crear Vehiculo'} />
               </div>
             </>
           )}
@@ -96,6 +145,8 @@ const InnerDetail = ({ type, data }) => {
          {userEdition?
          <EditWindow userEdit={data} onClose={onClose} />:
          null}
+         {createCar?
+         <CreateModal closer={closerAd}/>: null}
         
       </div>
     );

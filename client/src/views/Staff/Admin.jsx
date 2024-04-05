@@ -1,27 +1,36 @@
 import style from './styles/Admin.module.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import SideBar from '../../components/sideBar/SideBar'
+import CarryTable from '../../components/StaffComponent/ServiceComp/CarryTable'
+import GenericButton from '../../components/GenericButton/GenericButton'
 import { UserGrid, CarGrid } from '../../components/StaffComponent/Index'
-import { getAllCars, getAllUsers } from '../../redux/actions'
+import { getAllCars, getAllUsers, getAllServices } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 
 const Admin = () => {
   const dispatch = useDispatch();
+  //Logica para el panel de servicios
+ const [service, setService] = useState(false)
+  const services = useSelector((state) => state.services)
 
-  const users = useSelector((state) => state.allUsers)
+ const handleToggleServ = ()=>{
+  setService(true)
+ }
+ const handleHiddeServ = ()=>{
+  setService(false)
+ }
+//------------------------------------------
 
-
-
-
-  //console.log(users)
   useEffect(() => {
-
+    if(service===true){
+      dispatch(getAllServices())
+    }
     dispatch(getAllUsers())
     dispatch(getAllCars())
 
-  }, []);
+  }, [service]);
 
   return (
     <div className={style.bigDiv}>
@@ -30,8 +39,13 @@ const Admin = () => {
       <h2>Panel de Administrador:</h2>
       <div className={style.cardList}>
         <SideBar />
+      {(!service)?<>
+      <GenericButton onClick={handleToggleServ} buttonText={'Ver Services'}/>
         <UserGrid />
-        <CarGrid />
+        <CarGrid /></>:
+       <><GenericButton onClick={handleHiddeServ} buttonText={'Ver Usuario/Vehic.'}/>
+        <CarryTable data={services}/></>}
+       <GenericButton  buttonText={'Programar servicio'}/>
       </div>
     </div>
   )

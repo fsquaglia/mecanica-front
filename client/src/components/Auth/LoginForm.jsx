@@ -62,7 +62,7 @@ const LoginForm = ({handleSignClick, auth}) => {
     }
     //}
   }
-  const permit= (error.email|| error.password)? true :null;
+  const permit= (!input.email.trim() ||!input.password.trim() ||error.email|| error.password)? true :null;
  
   
   return (

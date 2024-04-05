@@ -4,13 +4,11 @@ import { useNavigate} from "react-router-dom";
 import  ValidCar  from '../CarServValidate';
 import { postCar } from '../SendPosts';
 import GenericButton from '../../../../GenericButton/GenericButton';
-import Confirmation from '../../../../Confirmation/Confirmation';
 import showConfirmationDialog from '../../../../utils/sweetAlert';
 
 const CreateCar = () => {
     const idUser= sessionStorage.getItem('idUser')
 
-    const [showConfirmation, setShowConfirmation] = useState(false);
  
   const [input, setInput] = useState({
     patent: "",
@@ -180,7 +178,7 @@ const CreateCar = () => {
          </div>
          <br/>
          <div >
-           <input
+           <textarea
              type="text"
              placeholder="observaciones"
              value={input.observations}

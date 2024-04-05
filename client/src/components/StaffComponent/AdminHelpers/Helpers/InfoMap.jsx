@@ -19,6 +19,11 @@ const roles = (role) => {
           return 'User';
   }
 };
+ const estado = (info)=>{
+  if(info){
+    return 'Activo';
+  } return 'Bloqueado'
+ }
 
 const allowing =(inf1, inf2)=>{
   let result = false;
@@ -33,5 +38,6 @@ const allowing =(inf1, inf2)=>{
 export {
   infoSelect,
   roles,
+  estado,
   allowing
 }

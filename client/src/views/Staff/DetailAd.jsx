@@ -12,6 +12,8 @@ const DetailAd = () => {
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get('type'); //Obtener el type "user" o "car"
   const id = location.pathname.split('/').pop(); // Obtener el ID de la URL
+  //console.log(id)
+
   //Obtener la info del State
   const user = useSelector((state)=>state.detailUsers)
   const cars = useSelector((state)=>state.carById)

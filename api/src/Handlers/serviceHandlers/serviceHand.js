@@ -1,5 +1,5 @@
 import {createService, updateService, deleteService} from '../../Controllers/serviceControllers/contService.js';
-import {getService,serviceById} from '../../Controllers/serviceControllers/getService.js'
+import {getService, getServiceByQuery, serviceById} from '../../Controllers/serviceControllers/getService.js'
 
 const createServiceHand = async (req, res)=>{
     const {type, detail, date_in, date_out, observations, picture, carId}= req.body;
@@ -13,9 +13,15 @@ const createServiceHand = async (req, res)=>{
 //=====================================================
 
 const getServiceHand = async (req, res)=>{
+    const {search}=req.query;
     try {
+        if(search){
+            const response = await getServiceByQuery(search)
+            res.status(200).json(response) 
+        }else{
        const response = await getService()
        res.status(200).json(response) 
+       }
     } catch (error) {
         res.status(400).json({error: error.message})
     }

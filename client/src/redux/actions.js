@@ -10,8 +10,9 @@ export const CLEAN_DETAILS = "CLEAN_DETAILS";
 export const ALL_CARS = "ALL_CARS";
 export const CAR_PAT = "CAR_PAT";
 export const CAR_BY_ID = "CAR_BY_ID";
-export const SEARCH_START = "SEARCH_START";
-export const SEARCH_END = "SEARCH_END";
+export const ALL_SERVICES= 'ALL_SERVICES';
+export const SERV_BY_CAR = 'SERV_BY_CAR';
+export const SERV_BY_ID = 'SERV_BY_ID';
 export const ISMYCOMMERCE = "ISMYCOMMERCE";
 export const POST_FAVORITES = "POSTFAV";
 
@@ -122,7 +123,7 @@ export const cleanDetails = () => (dispatch) => {
   });
 };
 
-//?%%%%%%%%%%% cars & services %%%%%%%%%%%%%%%%%%%%%%%%%%
+//?%%%%%%%%%%% cars  %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 export const getAllCars = () => {
   return async (dispatch) => {
@@ -162,4 +163,42 @@ export const carByPat = (patent) => async (dispatch) => {
   }
 };
 
-//*>>>>>>>>>> Filtros por dni y patente <<<<<<<<<<<<<<<<<<<<<<<<
+
+export const getAllServices = () => {
+  return async (dispatch) => {
+    try {
+      const data = await axios("/service", setAuthHeader());
+      return dispatch({
+        type: ALL_SERVICES,
+        payload: data.data,
+      });
+    } catch (error) {
+      HandlError(error);
+    }
+  };
+};
+export const getMyServices = (carId) => {
+  return async (dispatch) => {
+    try {
+      const data = await axios(`/service?search=${carId}`, setAuthHeader());
+      return dispatch({
+        type: SERV_BY_CAR,
+        payload: data.data,
+      });
+    } catch (error) {
+      HandlError(error);
+    }
+  };
+};
+export const servicesById = (id)=>async(dispatch)=>{
+    try {
+      const myServ = await axios(`/service/${id}`)
+      const data = myServ.data;
+      return dispatch({
+        type:SERV_BY_ID,
+        payload:data,
+      });
+    } catch (error) {
+      HandlError(error);
+    }
+}

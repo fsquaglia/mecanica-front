@@ -136,7 +136,12 @@ A cada tabla corresponde una ruta, a fin de separar las responsabilidades; de mo
 
 - Método: `GET`
 - Ruta: `/service`
-- Descripción: Obtiene la lista de todos los vehículos.
+- Descripción: Obtiene la lista de todos los servicos.
+
+### Obtener Servicios por patente de vehiculo (query) (necesita permiso de admin)
+- Método: `GET`
+- Ruta: `/service?search=carId`
+- Descripción: Obtiene la lista de servicios de un vehiculo.
 
 ### Obtener Servicio por Id 
 
