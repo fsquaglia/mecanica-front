@@ -9,6 +9,8 @@ import { useAuth } from "./components/Auth/AuthContext/AuthContext";
 import "./App.css";
 import Customize from "./components/Customize/Customize";
 import Navbar from "./components/navbar/Navbar";
+import Footer from "./views/FrontPage/Footer";
+import Tips from "./views/Tips/Tips";
 
 function App() {
   const { authenticated, user, logout } = useAuth();
@@ -35,6 +37,7 @@ function App() {
     <div>
       <Navbar />
       <Routes>
+
         <Route path="/customize" element={<Customize />} />
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
@@ -58,6 +61,7 @@ function App() {
             )
           }
         />
+
         <Route
           path="/admin/:name"
           element={
@@ -80,7 +84,9 @@ function App() {
         />
         {/* <Route path= {'/home/:id'} element={<Detail/>}/> */}
         <Route path={"*"} element={<Navigate to="/error" />} />
+        <Route path="tips" element={<Tips />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

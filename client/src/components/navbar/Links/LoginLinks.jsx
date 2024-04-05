@@ -12,11 +12,13 @@ const LoginLinks = () => {
           <Link to="/login">{user.role === 0 || user.role === 2 ? <a className={style.out} aria-current="page" href="#">Crear usuario</a> : <a className={style.out} aria-current="page" href="#">Ingresar</a>}</Link>
         )
       ) : (
-        <Link to="/login"><a className={style.in} aria-current="page" href="#">Ingresar</a></Link>
+        <Link to="/login"><a className={style.ingresar} aria-current="page" href="#">Ingresar</a></Link>
       )}
       <br></br>
-      {authenticated? 
-      <Link to={`/home/user/${user.id}?type=user`}>Perfil:</Link>:null}
+      {authenticated ?
+        <Link to={`/home/user/${user.id}?type=user`}>
+          <a className={style.in} aria-current="page" href="#">Perfil</a>
+        </Link> : null}
     </div>
 
   )
