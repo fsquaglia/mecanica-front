@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { imagesDB } from "../../firebase/firebaseConfig";
 import { ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
+import DivCustom from "./DivCustom";
 
 function ImageLanding() {
   const [images, setImages] = useState(Array(3).fill(null));
@@ -72,56 +73,33 @@ function ImageLanding() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <div className="container align-items-center justify-content-center">
       <div>
-        <span>Imágenes Landing</span>
+        <h4>Imágenes principales</h4>
+      </div>
+      <div className=" container w-75">
+        <p>
+          Selecciona entre una y tres imágenes que se mostrarán como principales
+          en tu App. Aleatoriamente se mostrará una de ellas. Escoge un formato
+          .jpg, .jpeg, .png, con orientación apaisada.
+        </p>
       </div>
       <div
+        className="container row"
         style={{
-          display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)", // 3 columnas con el mismo ancho
-          gap: "10px",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {images.map((image, index) => (
-          <div
+          <DivCustom
             key={index}
-            style={{
-              width: "100px",
-              height: "100px",
-              border: "1px solid black",
-              margin: "10px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => handleImageClick(index)}
-          >
-            {image ? (
-              <img
-                src={image}
-                alt={`Image ${index}`}
-                style={{ maxWidth: "100%", maxHeight: "100%" }}
-              />
-            ) : (
-              "+"
-            )}
-            <input
-              type="file"
-              id={`fileInput${index}`}
-              accept=".jpg, .jpeg, .png"
-              style={{ display: "none" }}
-              onChange={(e) => handleFileChange(index, e)}
-            />
-          </div>
+            image={image}
+            index={index}
+            handleImageClick={handleImageClick}
+            handleFileChange={handleFileChange}
+          />
         ))}
       </div>
     </div>
