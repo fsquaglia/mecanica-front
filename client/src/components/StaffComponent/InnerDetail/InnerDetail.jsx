@@ -71,7 +71,7 @@ const InnerDetail = ({ type, data }) => {
     return (
       <div className={style.container}>
         <h2>{type === 'car' ? 'Vehiculo:' : 'Usuario:'}</h2>
-        <Edition onClick={()=>{navigate("/admin")}} text={'Volver a Admin'} allowedRoles={[0, 2]}/>
+        <Edition onClick={()=>{navigate("/admin")}} text={'Panel Admin'} allowedRoles={[0, 2]}/>
           {type === 'car' && (
             <>
             <ul>
@@ -85,15 +85,18 @@ const InnerDetail = ({ type, data }) => {
               <li>Creado: {data.createdAt}</li>
               <li>Actualizado: {data.updatedAt}</li>
               </ul>
-              <div>
+              {user.role && user.role === 1? null : <>
+                <div>
                <p>Propietario:</p>
                  {propietarios?.map((propietario, index) => (
                     <span key={index}>
-                  <Link to={`/admin/detail/${propietario.id}?type=user`}>Nombre: {propietario.name}</Link>
+                  <Link to={`/admin/dett/${propietario.id}?type=user`}>Nombre: {propietario.name}</Link>
                     {index !== propietarios.length - 1 ? ', ' : ''}
                        </span>
                        ))}
               </div>
+              </>}
+              
               <img src={data.picture} style={{ maxWidth: '150px' }}/>
               <label>Observaciones: {data.observations}</label>
               <div>
@@ -123,7 +126,7 @@ const InnerDetail = ({ type, data }) => {
                <p>Vehiculo:</p>
                  {propietarios?.map((propietario, index) => (
                     <span key={index}>
-                  <Link to={`/admin/detail/${propietario.id}?type=car`}>Patente: {propietario.name}</Link>
+                  <Link to={`/admin/dett/${propietario.id}?type=car`}>Patente: {propietario.name}</Link>
                     {index !== propietarios.length - 1 ? ', ' : ''}
                        </span>
                        ))}

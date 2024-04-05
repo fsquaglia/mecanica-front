@@ -2,7 +2,7 @@
 import interceptor from "./Interceptor";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { Error, Home, Detail, Landing, Login, EditWindow, } from "./views/Index";
-import { Admin, DetailAd } from "./views/Staff/AdminIndex";
+import { Admin, DetailAd, DetailService } from "./views/Staff/AdminIndex";
 import { loginUser, isNotAuth, isMyCommerce } from "./redux/actions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -47,11 +47,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path={"/error"} element={<Error />} />
         <Route path="/home" element={authenticated ? <Home /> : <Navigate to="/" />} />
-        <Route path="/home/:id" element={authenticated ? <Detail /> : <Navigate to="/" />} />
+        <Route path="/home/detail/:id" element={authenticated ? <Detail /> : <Navigate to="/" />} />
+        <Route path="/home/detailservice/:id" element={authenticated ? <DetailService /> : <Navigate to="/" />} />
         <Route path="/home/user/:id" element={authenticated ? <DetailAd /> : <Navigate to="/home" />}/>
+        <Route path="/admin/detailservice/:id" element={authenticated ? <DetailService /> : <Navigate to="/home" />}/>
         <Route exact path="/admin" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? ( <Admin /> ) : ( <Navigate to="/home" />)}/>
         <Route path="/admin/:name" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? (<Admin />) : (<Navigate to="/error" />) }/>
-        <Route path="/admin/detail/:id" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? ( <DetailAd />) : (<Navigate to="/error" />)}/>
+        <Route path="/admin/dett/:id" element={(authenticated && allow === 0) || (authenticated && allow === 2) ? ( <DetailAd />) : (<Navigate to="/error" />)}/>
 
         <Route path={"*"} element={<Navigate to="/error" />} />
         <Route path="tips" element={<Tips />} />

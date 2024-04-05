@@ -190,4 +190,15 @@ export const getMyServices = (carId) => {
     }
   };
 };
-
+export const servicesById = (id)=>async(dispatch)=>{
+    try {
+      const myServ = await axios(`/service/${id}`)
+      const data = myServ.data;
+      return dispatch({
+        type:SERV_BY_ID,
+        payload:data,
+      });
+    } catch (error) {
+      HandlError(error);
+    }
+}

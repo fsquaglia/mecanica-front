@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
  import {app} from '../../firebase/firebaseConfig';
   import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
+  
 const ImgUpFire = ({ maxImages, uploadImgs }) => {
  
   const [imagenes, setImagenes] = useState([]);
@@ -23,32 +24,44 @@ const ImgUpFire = ({ maxImages, uploadImgs }) => {
     newImagenes.splice(index, 1);
     setImagenes(newImagenes);
   };
-
-  const handleUpload = async (e) => {
+  const handleUpload = async () => {
     const storage = getStorage(app);
     setUploadProgress(0);
-
+  
     try {
-      const urls = await Promise.all(imagenes.map(async (imagen) => {
+      const uploadedUrls = [];
+      await Promise.all(imagenes.map(async (imagen) => {
         const storageRef = ref(storage, `images/${imagen.name}`);
         await uploadBytes(storageRef, imagen);
-        return await getDownloadURL(storageRef);
+        const url = await getDownloadURL(storageRef);
+        uploadedUrls.push(url);
       }));
-      setImagenUrls(urls);
-       await uploadImgs(imagenUrls[0])
-      console.log('soy la imagen subida',imagenUrls[0])
+      setImagenUrls(uploadedUrls);
+      console.log('Imagenes subidas:', uploadedUrls);
       setUploadProgress(100);
     } catch (error) {
       console.error(error);
     }
   };
-  // useEffect(() => {
-  //   // Upload the first image when imagenUrls gets updated
-  //   if (imagenUrls.length > 0) {
-  //     uploadImgs(imagenUrls[0]);
+  // const handleUpload = async (e) => {
+  //   const storage = getStorage(app);
+  //   setUploadProgress(0);
+
+  //   try {
+  //     const urls = await Promise.all(imagenes.map(async (imagen) => {
+  //       const storageRef = ref(storage, `images/${imagen.name}`);
+  //       await uploadBytes(storageRef, imagen);
+  //       return getDownloadURL(storageRef);
+  //     }));
+  //     setImagenUrls(urls);
+  //      uploadImgs(imagenUrls[0])
   //     console.log('soy la imagen subida',imagenUrls[0])
+  //     setUploadProgress(100);
+  //   } catch (error) {
+  //     console.error(error);
   //   }
-  // }, [imagenUrls, uploadImgs]);
+  // };
+ 
 
   return (
     <div>

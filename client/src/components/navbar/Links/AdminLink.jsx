@@ -12,12 +12,16 @@ const AdminLink = () => {
   return (
     <div>
       <div>
-        {authenticated && user.role !== 1 && (
+        {authenticated && user.role !== 1 ? (
           <NavLink to={isHome ? '/admin' : '/home'}>
-            <a className={style.out} aria-current="page" href="#">{isHome ? 'Admin' : 'Home'}</a>
+            <a className={style.out} aria-current="page" href="#">{isHome ? 'Admin' : 'Mi Usuario'}</a>
 
           </NavLink>
-        )}
+        ): authenticated ?
+        <NavLink to={isHome ? null : '/home'}>
+            <a className={style.out} aria-current="page" href="#">{isHome ? null : 'Mi Usuario'}</a>
+          </NavLink>: null
+          }
       </div>
     </div>
   )

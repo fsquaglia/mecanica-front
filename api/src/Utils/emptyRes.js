@@ -1,7 +1,7 @@
  const emptyResServ = ()=>{
     return [
         {
-          "id": "Aun no hay datos",
+          "id": false,
           "type": "No hay datos",
           "detail": "Aun no hay datos",
           "date_in": "Aun no hay datos",

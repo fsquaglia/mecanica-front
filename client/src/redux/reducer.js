@@ -68,6 +68,7 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         detailUsers: payload,
         carById: payload,
+        servById: payload,
       };
     //? %%%%%%%% Vehiculos (car & service) %%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -95,6 +96,11 @@ const reducer = (state = initialState, { type, payload }) => {
         return {
           ...state,
           servByCar: payload
+        }
+      case SERV_BY_ID:
+        return {
+          ...state,
+          servById: payload,
         }
     //? %%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%
     case ISMYCOMMERCE:
