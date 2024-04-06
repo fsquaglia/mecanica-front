@@ -19,9 +19,9 @@ const updatePassword = async(id)=>{
         const parsedData = {
           password:hashedPassword,
           };
-        const userUp= await user.update(parsedData); 
-        return userUp;
-        
+        //const userUp= await user.update(parsedData); 
+        //return userUp;
+        console.log('paso, paso!!')
       } catch (error) {
         console.error("Error al actualizar el usuario");
        throw error;

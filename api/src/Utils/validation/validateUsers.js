@@ -69,13 +69,12 @@ const verifyUsPas = async (req, res, next) => {
 
 const verifyDoNotDel = async (req, res, next) => {
   const {email1, email2}=getEmails();
-  const {id} = req.params;
+  const {id }= req.params;
+  console.log('soy id ',id)
   try {
     const adminEmails = [email1, email2];
     for (const adminEmail of adminEmails) {
       const user = await getUserIdByEmail(adminEmail);
-      console.log(user.id)
-      console.log(id)
       if (id === user.id){return res.status(403).json({ error: ' Acción no permitida.' });}
         return next();
     }
@@ -85,14 +84,14 @@ const verifyDoNotDel = async (req, res, next) => {
 };
 const notComparePassword = async (req, res, next) => {
   const {email1, email2}=getEmails();
-  const {id} = req.body;
+  const {id} = req.params;
   try {
     const adminEmails = [email1, email2];
     for (const adminEmail of adminEmails) {
       const user = await getUserIdByEmail(adminEmail);
       if (id === user.id){return res.status(403).json({ error: ' Acción no permitida (9).' });}
-        return next();
     }
+    return next();
   } catch (error) {
     res.status(500).json({ error: 'Error interno del servidor.' });
   }
