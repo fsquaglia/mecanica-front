@@ -6,6 +6,9 @@ import {useState}from 'react'
 import showConfirmationDialog from '../../utils/sweetAlert'
 
 const EditPass = ({id, onClose, logout}) => {
+    const [showPassword, setShowPassword]= useState(false)
+    const [showPassword1, setShowPassword1]= useState(false)
+    const [showPassword2, setShowPassword2]= useState(false)
     
     const [verify, setVerify]= useState(true)
     const [inputPass, setInputPass]= useState({
@@ -88,13 +91,16 @@ const EditPass = ({id, onClose, logout}) => {
     <form>
                  <label>Intoduzca su contraseña actual:</label>
                 <input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="Contraseña actual"
                     value={inputPass.password}
                     name="password"
                     autoComplete="off"
                     onChange={(event) => handleChangePass(event)}
                 />
+                <button type= 'button' onClick={()=>{setShowPassword(!showPassword)}}>
+          <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'}></i>
+          </button>
                 <label>Intoduzca su nueva contraseña:</label>
                <GenericButton type="submit" onClick={handleSubmitVerify} buttonText={'Verificar contraseña'} disabled={!inputPass.password}/>
 
@@ -103,7 +109,7 @@ const EditPass = ({id, onClose, logout}) => {
                 <label>¡Password confirmado! Puede continuar:</label>: null}
                 <label>Intoduzca su nueva contraseña:</label>
                 <input
-                    type="password"
+                    type={showPassword1 ? 'text' : 'password'}
                     placeholder="Nuevo password"
                     value={input.newPassword}
                     name="newPassword"
@@ -111,17 +117,22 @@ const EditPass = ({id, onClose, logout}) => {
                     onChange={(event) => handleChange(event)}
                     disabled={disabledInput} // Deshabilitar si la contraseña actual no está verificada
                 />
+                <button type= 'button' onClick={()=>{setShowPassword1(!showPassword1)}}>
+          <i className={showPassword1 ? 'bi bi-eye-slash' : 'bi bi-eye'}></i>
+          </button>
                 {error.newPassword && <p className={style.errorMessage}>{error.newPassword}</p>}
                 <label>Confirme su nueva contraseña:</label>
                 <input
-                    type="password"
+                    type={showPassword2 ? 'text' : 'password'}
                     placeholder="Confirmar nuevo password"
                     value={input.confirmPassword}
                     name="confirmPassword"
                     autoComplete="off"
                     onChange={(event) => handleChange(event)}
                     disabled={disabledInput} // Deshabilitar si la contraseña actual no está verificada
-                />
+                /><button type= 'button' onClick={()=>{setShowPassword2(!showPassword2)}}>
+                <i className={showPassword2 ? 'bi bi-eye-slash' : 'bi bi-eye'}></i>
+                </button>
                  {error.confirmPassword && <p className={style.errorMessage}>{error.confirmPassword}</p>}
                 <GenericButton type="submit" onClick={handleSubmitChange} buttonText={'Cambiar contraseña'} disabled={disabledBy}/>
             </form>

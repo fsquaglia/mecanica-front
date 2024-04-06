@@ -34,7 +34,17 @@ const EditWindow = ({ onClose, userEdit}) => {
       [name]: processedValue,
     }));
   };
-
+  const resetUser = ()=>{
+    if(user.id === id){
+      showSuccess(`Usuario actualizado con éxito. \n Inicia sesion nuevamente`)
+      setTimeout(()=>{
+        logout();
+       },4000)
+    }else{
+      showSuccess(`Usuario actualizado con éxito`)
+      null;
+    }
+  }
   const handleSaveChanges = async () => {
   
     //Lógica para guardar los cambios
@@ -43,11 +53,9 @@ const EditWindow = ({ onClose, userEdit}) => {
       const response = await axios.put(`/user/${id}`,editedUser, setAuthHeader());
       
       if (response.status === 200) {
-        showSuccess(`Usuario actualizado con éxito. \n Inicia sesion nuevamente`)
+        //showSuccess(`Usuario actualizado con éxito. \n Inicia sesion nuevamente`)
        onClose(); // Cierra el modal después de guardar los cambios
-       setTimeout(()=>{
-        logout();
-       },4000)
+       resetUser();
        
       } else {
         showError('Error al actualizar el usuario')
@@ -68,7 +76,7 @@ const EditWindow = ({ onClose, userEdit}) => {
 
  const onResetPass = async()=>{
   try {
-    const response = await axios.patch(`/user/${id}`, setAuthHeader());
+    const response = await axios.patch(`/user/${id}`, null, setAuthHeader());
     if (response.status === 200) {
       showSuccess('Contraseña actualizada con exito')
      onClose(); // Cierra el modal después de guardar los cambios

@@ -12,6 +12,7 @@ const LoginForm = ({handleSignClick, auth}) => {
   const navigate = useNavigate();
   //----------------------------------------
   const [showForm, setShowForm] = useState(false);
+  const [showPassword, setShowPassword]= useState(false)
 
   useEffect(() => {
     if (!authenticated) {
@@ -90,7 +91,7 @@ const LoginForm = ({handleSignClick, auth}) => {
         <div>
           <label > Password: </label>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             placeholder="password"
             value={input.password}
             name="password"
@@ -98,10 +99,13 @@ const LoginForm = ({handleSignClick, auth}) => {
             onChange={(event) => handleChange(event)}
             className=''
           />
+          <button type= 'button' onClick={()=>{setShowPassword(!showPassword)}}>
+          <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'}></i>
+          </button>
           {error.password && <p className={style.errorMessage}>{error.password}</p>}
         </div>
         <br/>
-        <GenericButton type='submit' buttonText={'Iniciar Sesion'} disabled={null}/> {/*en lugar de null va permit*/}
+        <GenericButton type='submit' buttonText={'Iniciar Sesion'} disabled={permit}/> {/*en lugar de null va permit*/}
       </form>
         )}
      

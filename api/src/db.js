@@ -55,6 +55,7 @@ Category.belongsTo(Category, {
 });
 Category.hasMany(Category, { as: "subcategories", foreignKey: "parentId" });
 Product.belongsTo(Category, { as: "subCategory", foreignKey: "subcategoryId" });
+
 Post.belongsTo(CategoryPost, { foreignKey: "idCategory", allowNull: false });
 Provider.belongsTo(CategoryProvider, {
   foreignKey: "idCategory",

@@ -12,9 +12,9 @@ userRouter.get('/user/:id', verifyToken, getDetailUserHand)
 userRouter.post('/user/login', middleLogin, userLogHand)
 userRouter.post('/user/create', verifyToken, checkRole([0,2]), middleCreate, userCreateHand)
 userRouter.post('/user/set',  verifyToken, checkRole([0,1,2]),   middleCompare, notComparePassword, userPassHand)
-userRouter.put('/user/:id',  verifyToken, verifyUsPas,  checkRole([0,1,2]), updateUserHand)
-userRouter.patch('/user/:id', verifyDoNotDel, checkRole([0]), resetUserhand)
-userRouter.delete('/user/:id', verifyDoNotDel, checkRole([0,1]), delUserHand)
+userRouter.put('/user/:id',  verifyToken,verifyUsPas,  checkRole([0,1,2]), updateUserHand)
+userRouter.patch('/user/:id', notComparePassword, verifyToken, checkRole([0]), resetUserhand)
+userRouter.delete('/user/:id', verifyDoNotDel, verifyToken, checkRole([0,1]), delUserHand)
 
 
 export default userRouter;

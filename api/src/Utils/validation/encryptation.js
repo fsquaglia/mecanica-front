@@ -30,9 +30,10 @@ const verifyToken =(req, res, next)=>{
     })
 }
 
+
 export {
     generateToken,
-    verifyToken,
+    verifyToken
 };
   
 
