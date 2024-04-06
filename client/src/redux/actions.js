@@ -15,6 +15,7 @@ export const SERV_BY_CAR = 'SERV_BY_CAR';
 export const SERV_BY_ID = 'SERV_BY_ID';
 export const ISMYCOMMERCE = "ISMYCOMMERCE";
 export const POST_FAVORITES = "POSTFAV";
+export const GET_ALL_TIPS = "GET_ALL_TIPS"
 
 //?%%%%%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%%%
 export const isMyCommerce = () => {
@@ -202,3 +203,21 @@ export const servicesById = (id)=>async(dispatch)=>{
       HandlError(error);
     }
 }
+
+
+/////get post
+
+
+export const getAllTips = () => {
+  return async (dispatch) => {
+    try {
+      const data = await axios("/postpublish");
+      return dispatch({
+        type: GET_ALL_TIPS,
+        payload: data.data,
+      });
+    } catch (error) {
+      HandlError(error);
+    }
+  };
+};
