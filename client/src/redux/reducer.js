@@ -13,6 +13,7 @@ import {
   SERV_BY_ID,
   ISMYCOMMERCE,
   POST_FAVORITES,
+  GET_ALL_TIPS,
 } from "./actions";
 
 const initialState = {
@@ -31,6 +32,7 @@ const initialState = {
   servById:[],
   myCommerce: undefined,
   postFav: null,
+  allTips:[],
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -119,6 +121,13 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
       };
+    //%%%%%%%%%% GET tips
+    case GET_ALL_TIPS:
+      return {
+        ...state,
+        allTips: payload,
+
+      }
   }
 };
 
