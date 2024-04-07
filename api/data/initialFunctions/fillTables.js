@@ -1,25 +1,26 @@
 // En un archivo donde se manejan las operaciones relacionadas con el llenado de datos (por ejemplo, fillData.js)
 import dataBulk from './dataBulk.js';
-import { GeneralProduct, User, Category, Discipline, Genre,Trademarck, Extra} from '../../database.js'; // Importa tus modelos de tablas
-import { categories, discip, gender, trademarks, extrass, users} from '../../../data/Info/index.js'
-import productCr from './ProductCr.js';
+import { Province, Category, Product, Provider, CategoryPost, Post, CategoryProvider, Commerce, ImagesConfig, CategoryImg,} from '../../src/db.js'; // Importa tus modelos de tablas
+import { categoriesImages, category, categoryPost, commerce, products, providers, provinces, tipMecanica} from '../archives/index.js'
+import createCommerce from './createCommerce.js';
+
 
 
 // Usa la función dataBulk para diferentes tablas y conjuntos de datos
 const fillTables =async (table, data)=>{
-    await dataBulk(User, users, 2);
-    await dataBulk(Category, categories,0);
-    await dataBulk(Discipline, discip,0);
-    await dataBulk(Genre, gender,0);
-    await dataBulk(Trademarck, trademarks,0);
-    await dataBulk(Extra, extrass,0);
-    const existdatas = await GeneralProduct.findAll();
+    await dataBulk(Province, provinces, 0);
+    await dataBulk(CategoryImg, categoriesImages,0);
+    await dataBulk(Provider, providers,0);
+    await dataBulk(CategoryPost, categoryPost,0);
+    await dataBulk(Post, tipMecanica,0);
+
+    const existdatas = await Commerce.findAll();
     if (existdatas.length ===0 ) {
-     // Hacer una lectura de la data.json para llenar la tabla
-    await productCr();
-    console.log(`GeneralProduct & Product1 tables filled successfully!`);
+     // Hacer una lectura de los datos para llenar la tabla
+    await createCommerce(commerce);
+    console.log(`"The tables are filled successfully!"`);
          } else {
-           console.log(`The GeneralProduct & Product1 tables already contains data.`);//
+           console.log(`"The tables already contains data"`);//
          }
 }
 

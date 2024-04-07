@@ -4,6 +4,7 @@ import { useNavigate} from "react-router-dom";
 import  ValidCar  from '../CarServValidate';
 import { postCar } from '../SendPosts';
 import GenericButton from '../../../../GenericButton/GenericButton';
+import ImgUpFire from '../../../../ImgUpFire/ImgUpFire'
 import showConfirmationDialog from '../../../../utils/sweetAlert';
 
 const CreateCar = () => {
@@ -33,6 +34,18 @@ const CreateCar = () => {
   });
 
   const navigate = useNavigate();
+
+  const handleUploadImg = (url) => {
+    setInput((prevInput) => ({
+      ...prevInput,
+      picture: url, // Set the URL of the uploaded image
+    }));
+  };
+  // const onImageChange = (url) => {
+  //   setImageUrl(url);
+  //   //console.log(setImageUrl)
+  //   onInputChange("picture", url);
+  // };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -90,6 +103,10 @@ const CreateCar = () => {
 
   return (
     <div>
+    <div >
+          <ImgUpFire maxImages={1} uploadImgs={handleUploadImg}/>
+           <label > Imagen: </label>
+         </div>
       <form onSubmit={handleSubmit}>
        <div>
          </div>   
@@ -189,19 +206,6 @@ const CreateCar = () => {
            />
            <label > Observaciones: </label>
            {error.observations && <p className={style.errorMessage}>{error.observations}</p>}
-         </div>
-         <br/>
-         <div >
-           <input
-             type="text"
-             placeholder="imagen"
-             value={input.picture}
-             name="picture"
-             autoComplete="off"
-             onChange={(event) => handleChange(event)}
-             className=''
-           />
-           <label > Imagen: </label>
          </div>
          <br/>
     <GenericButton type='submit' buttonText={'Crear Vehiculo'} disabled={permit}/>

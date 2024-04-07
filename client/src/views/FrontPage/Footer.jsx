@@ -11,7 +11,7 @@ const Footer = () => {
     dispatch(isMyCommerce());
   }, []);
 
-  console.log(myCommerce);
+ // console.log(myCommerce);
   return (
     <div className="container text-light bg-secondary pb-3">
       {myCommerce && Object.keys(myCommerce).length > 0 ? (

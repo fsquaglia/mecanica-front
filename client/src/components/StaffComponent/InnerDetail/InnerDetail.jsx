@@ -20,7 +20,8 @@ const InnerDetail = ({ type, data }) => {
     
     
     const onClose=()=>{
-      navigate(-1)
+      setUserEdition(false)
+      //navigate(-1)
     }
     //Edicion de usuario
   const handlerUser = ()=>{

@@ -21,10 +21,7 @@ const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose, logou
     //console.log(setImageUrl)
     onInputChange("picture", url);
   };
-  // const onImageChange = useCallback((url) => {
-  //   setImageUrl(url);
-  //   onInputChange("picture", url);
-  // }, [onInputChange]);
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
