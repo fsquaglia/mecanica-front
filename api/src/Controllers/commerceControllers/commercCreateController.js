@@ -28,7 +28,7 @@ const commerceCreate = async(razonsocial, fantasia, direccion, ciudad, idProvinc
            facebook: facebook,
            otro: otro,
         }, {transaction})
-       await newdata.addProvince(provFound, {transaction})
+       await provFound.addCommerce(newdata, {transaction})
        await transaction.commit();
 
        return newdata

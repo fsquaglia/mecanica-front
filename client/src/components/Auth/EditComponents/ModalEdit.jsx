@@ -25,7 +25,7 @@ const EditWindow = ({ onClose, userEdit}) => {
     enable,
   });
 
-
+//console.log(editedUser)
 
   const handleInputChange = (name, value) => {
     const processedValue = name === 'enable' ? value === 'true' : value;

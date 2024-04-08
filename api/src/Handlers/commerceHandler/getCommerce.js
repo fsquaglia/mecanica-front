@@ -1,4 +1,5 @@
 import { Commerce, Province } from "../../db.js";
+import { emptyResCommerce} from '../../Utils/emptyRes.js'
 
 const getCommerce = async (req, res) => {
   const { active } = req.query;
@@ -28,7 +29,7 @@ const getCommerce = async (req, res) => {
         include: [{ model: Province, attributes: ["descProvince"] }],
       });
     }
-
+   if(data.length===0){res.status(200).json(emptyResCommerce())}
     res.status(200).json(data);
   } catch (error) {
     res.status(400).json({ error: "Error al obtener los Comercios" });

@@ -12,7 +12,7 @@ import ImgUpFire from '../../ImgUpFire/ImgUpFire';
 
 const FormEdit = ({ id, editedUser, onInputChange, onSaveChanges, onClose, logout}) => {
   const [imageUrl, setImageUrl] = useState(editedUser.picture);
-
+ //console.log('soy el form ',imageUrl)
   const { authenticated, user}= useAuth()
   
  

@@ -1,5 +1,5 @@
 import {Service} from '../../db.js'
-import emptyResServ from '../../Utils/emptyRes.js';
+import {emptyResServ} from '../../Utils/emptyRes.js';
 
 const getService = async () => {
     try {

@@ -36,32 +36,13 @@ const ImgUpFire = ({ maxImages, uploadImgs }) => {
         const url = await getDownloadURL(storageRef);
         uploadedUrls.push(url);
       }));
-      setImagenUrls(uploadedUrls);
-      console.log('Imagenes subidas:', uploadedUrls);
+      uploadImgs(uploadedUrls[0])
+      //console.log('Imagenes para subir:', uploadImgs);
       setUploadProgress(100);
     } catch (error) {
       console.error(error);
     }
   };
-  // const handleUpload = async (e) => {
-  //   const storage = getStorage(app);
-  //   setUploadProgress(0);
-
-  //   try {
-  //     const urls = await Promise.all(imagenes.map(async (imagen) => {
-  //       const storageRef = ref(storage, `images/${imagen.name}`);
-  //       await uploadBytes(storageRef, imagen);
-  //       return getDownloadURL(storageRef);
-  //     }));
-  //     setImagenUrls(urls);
-  //      uploadImgs(imagenUrls[0])
-  //     console.log('soy la imagen subida',imagenUrls[0])
-  //     setUploadProgress(100);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
- 
 
   return (
     <div>

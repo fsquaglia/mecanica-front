@@ -16,4 +16,27 @@
         },
       ]
  }
- export default emptyResServ
+ const emptyResCommerce = ()=>{
+  return [
+    {
+    "razonsocial": "...",
+    "fantasia": "...",
+    "direccion": "...",
+    "ciudad": "...",
+    "telefono": "...",
+    "celular": "",
+    "email": "",
+    "instagram": "",
+    "facebook": "",
+    "otro": "",
+    "idProvince": 21,
+    "Province": {
+      "descProvince": "...",
+    },
+  }
+]
+ }
+ export {
+  emptyResServ,
+  emptyResCommerce
+};
