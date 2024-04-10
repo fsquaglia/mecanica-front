@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import boscarol from "../../../public/images/BoscarolHnos.png";
+import boscarol from '../../assets/images/BoscarolHnos.png'
 import { isMyCommerce } from "../../redux/actions";
 
 const Footer = () => {
@@ -11,7 +11,7 @@ const Footer = () => {
     dispatch(isMyCommerce());
   }, []);
 
-  console.log(myCommerce);
+ // console.log(myCommerce);
   return (
     <div className="container text-light bg-secondary pb-3">
       {myCommerce && Object.keys(myCommerce).length > 0 ? (

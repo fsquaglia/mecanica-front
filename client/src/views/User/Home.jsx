@@ -20,8 +20,8 @@ const Home = () => {
 
   return (
     <div className={style.bigDiv}>
-     
-
+      <br></br>
+      <br></br>
       <h1>Bienvenido ¡¡ {name}!!</h1>
       <ul>
         <p>Mis Vehículos:</p>
@@ -31,11 +31,7 @@ const Home = () => {
           </li>
         ))}
       </ul>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-
+     
     </div>
   )
 }

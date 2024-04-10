@@ -30,7 +30,7 @@ export const isMyCommerce = () => {
       //si la petición falla enviar un objeto básico
       const dataError = {
         razonsocial: "...",
-        fantasia: "...",
+        fantasia: "Boscarol Hnos.",
         direccion: "...",
         ciudad: "...",
         telefono: "...",
@@ -48,6 +48,7 @@ export const isMyCommerce = () => {
         type: ISMYCOMMERCE,
         payload: dataError,
       });
+      
     }
   };
 };
@@ -106,7 +107,7 @@ export const userBynumId = (numberId) => async (dispatch) => {
     HandlError(error);
   }
 };
-export const getById = (id, token) => async (dispatch) => {
+export const getById = (id) => async (dispatch) => {
   try {
     const data = await axios(`/user/${id}`, setAuthHeader());
     return dispatch({

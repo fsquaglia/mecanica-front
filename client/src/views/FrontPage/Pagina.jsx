@@ -3,7 +3,7 @@ import Carousel from "../../components/CarouselNew/CarouselNew";
 import { useEffect, useState } from "react";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { imagesDB } from "../../firebase/firebaseConfig";
-import logo from '../../../public/images/logoBoscarol.png'
+import logo from '../../assets/images/logoBoscarol.png'
 
 const Pagina = () => {
   const [images, setImages] = useState([]);

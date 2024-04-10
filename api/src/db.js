@@ -19,6 +19,7 @@ const sequelize = new Sequelize(
 //        }
 //      }
 //    });
+
 //* Iterar sobre los modelos y crearlos con Sequelize
 Object.values(models).forEach((model) => model(sequelize));
 
@@ -45,25 +46,19 @@ Car.belongsToMany(User, { through: "user_car" });
 
 Car.hasMany(Service), Service.belongsTo(Car);
 
-Commerce.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
-//Client.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
-Provider.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
-// Establecer la relación de categorías con sí misma para manejar la jerarquía
-Category.belongsTo(Category, {
-  as: "parentCategory",
-  foreignKey: "parentId",
-});
-Category.hasMany(Category, { as: "subcategories", foreignKey: "parentId" });
-Product.belongsTo(Category, { as: "subCategory", foreignKey: "subcategoryId" });
-Post.belongsTo(CategoryPost, { foreignKey: "idCategory", allowNull: false });
-Provider.belongsTo(CategoryProvider, {
-  foreignKey: "idCategory",
-  allowNull: false,
-});
-ImagesConfig.belongsTo(CategoryImg, {
-  foreignKey: "idCategory",
-  allowNull: false,
-});
+Provider.belongsToMany(CategoryProvider,{through: 'categ_prov'});
+
+CategoryProvider.belongsToMany(Provider,{through: 'categ_prov'});
+
+
+Province.hasMany(Provider);
+Provider.belongsTo(Province);
+
+Province.hasMany(Commerce), 
+Commerce.belongsTo(Province) 
+
+CategoryPost.hasMany(Post),  Post.belongsTo(CategoryPost);
+
 
 export {
   User,
@@ -81,3 +76,24 @@ export {
   CategoryImg,
   sequelize,
 };
+
+
+//Client.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
+//Provider.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
+// Establecer la relación de categorías con sí misma para manejar la jerarquía
+// Category.belongsTo(Category, {
+//   as: "parentCategory",
+//   foreignKey: "parentId",
+// });
+// Category.hasMany(Category, { as: "subcategories", foreignKey: "parentId" });
+// Product.belongsTo(Category, { as: "subCategory", foreignKey: "subcategoryId" });
+
+
+// Provider.belongsTo(CategoryProvider, {
+//   foreignKey: "idCategory",
+//   allowNull: false,
+// });
+// ImagesConfig.belongsTo(CategoryImg, {
+//   foreignKey: "idCategory",
+//   allowNull: false,
+// });

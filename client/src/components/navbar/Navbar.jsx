@@ -2,13 +2,12 @@ import style from './Navbar.module.css'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Link, animateScroll as scroll, } from 'react-scroll';
 import { useState } from 'react'
-
 import { useAuth } from '../Auth/AuthContext/AuthContext'
 import LoginLinks from './Links/LoginLinks'
 import AdminLink from './Links/AdminLink'
 import ShowUser from './ShowUser/ShowUser'
-import logo from '../../../public/images/BoscarolHnos.png'
-import userLogo from '../../../public/images/user.png'
+import logo from '../../assets/images/BoscarolHnos.png'
+import userLogo from '../../assets/images/user.png'
 
 
 const Navbar = () => {
@@ -36,19 +35,19 @@ const Navbar = () => {
       <div className={style.login}>
         {authenticated && location.pathname!=='/' ?
         <>
-        <NavLink to='/' activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </NavLink>
+        <NavLink to='/' activeClass="active"  smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </NavLink>
         </> :
-        <> <Link to="pagina" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </Link>
+        <> <Link to="pagina" activeClass="active"  smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </Link>
 
-        <Link to="historia" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}> <h3 className={style.linksH3}>Historia</h3> </Link>
-
-
-        <Link to="servicios" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Servicios</h3> </Link>
+        <Link to="historia" activeClass="active"  smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}> <h3 className={style.linksH3}>Historia</h3> </Link>
 
 
-        <Link to="consejos" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Tips</h3> </Link>
+        <Link to="servicios" activeClass="active"  smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Servicios</h3> </Link>
 
-        <Link to="contacto" activeClass="active" spy={true} smooth={true} duration={600} offset={-70} >  <h3 className={style.linksH3}>Contacto</h3> </Link> 
+
+        <Link to="consejos" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Tips</h3> </Link>
+
+        <Link to="contacto" activeClass="active"  smooth={true} duration={600} offset={-70} >  <h3 className={style.linksH3}>Contacto</h3> </Link> 
          </>}
         {/* <LoginLinks />
         <AdminLink /> */}

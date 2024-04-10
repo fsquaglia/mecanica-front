@@ -64,8 +64,8 @@ const getProvider = async (req, res) => {
       data = await Provider.findAll({
         order: [["razonsocial", order || "ASC"]],
         include: [
-          { model: CategoryProvider, attributes: ["descCategory"] },
-          { model: Province, attributes: ["descProvince"] },
+          { model: CategoryProvider, attributes: ["descCategory"] , through: { attributes: [] }},
+          { model: Province, attributes: ["descProvince"]},
         ],
       });
     }

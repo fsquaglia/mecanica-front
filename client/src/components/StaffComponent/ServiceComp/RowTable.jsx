@@ -16,10 +16,22 @@ const {id, type, date_in, date_out,createdAt}= data;
   
   return (
     <div className={style.row}>
-    <p><h5>Tipo: </h5>{type}</p>
-    <p><h5>Entró: </h5>{date_in}</p>
-    <p><h5>Salió: </h5>{date_out}</p>
-    <p><h5>Servicio Creado: </h5>{createdAt}</p>
+   <div>
+      <h5>Tipo: </h5>
+      {type}
+    </div>
+    <div>
+      <h5>Entró: </h5>
+      {date_in}
+    </div>
+    <div>
+      <h5>Salió: </h5>
+      {date_out}
+    </div>
+    <div>
+      <h5>Servicio Creado: </h5>
+      {createdAt}
+    </div>
     <button onClick={handleClick} disabled= {allow}>Detalles del servicio</button>
 
     </div>
