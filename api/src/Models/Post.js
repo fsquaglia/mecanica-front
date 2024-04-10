@@ -41,6 +41,6 @@ export default (sequelize) => {
         allowNull: true,
       },
     },
-    { timestamps: false }
+    { timestamps: true }
   );
 };

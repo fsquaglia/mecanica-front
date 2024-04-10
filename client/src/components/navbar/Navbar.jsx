@@ -2,13 +2,12 @@ import style from './Navbar.module.css'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Link, animateScroll as scroll, } from 'react-scroll';
 import { useState } from 'react'
-
 import { useAuth } from '../Auth/AuthContext/AuthContext'
 import LoginLinks from './Links/LoginLinks'
 import AdminLink from './Links/AdminLink'
 import ShowUser from './ShowUser/ShowUser'
-import logo from '../../../public/images/BoscarolHnos.png'
-import userLogo from '../../../public/images/user.png'
+import logo from '../../assets/images/BoscarolHnos.png'
+import userLogo from '../../assets/images/user.png'
 
 
 const Navbar = () => {

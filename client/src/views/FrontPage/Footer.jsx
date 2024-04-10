@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import boscarol from "../../../public/images/BoscarolHnos.png";
+import boscarol from '../../assets/images/BoscarolHnos.png'
 import { isMyCommerce } from "../../redux/actions";
 
 const Footer = () => {

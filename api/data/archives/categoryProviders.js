@@ -1,5 +1,6 @@
 const categoryProviders = [
     { descCategory: "Genéricos" },
-    { descCategory: "Aceites" }
+    { descCategory: "Aceites" },
+    {descCategory: "Repuestos Ford"},
 ]
 export default categoryProviders

@@ -9,10 +9,6 @@ const Car = ({ data }) => {
     patent,
     mark,
     model,
-    year,
-    motorNum,
-    chassisNum,
-    observations,
     picture,
     Users,
   } = data;

@@ -13,7 +13,7 @@ const commerceCreate = async(razonsocial, fantasia, direccion, ciudad, idProvinc
             where:{
                 razonsocial:razonsocial,
                 otro: otro,
-            },transaction
+            },transaction,
         });
         if(datafound){throw new Error('Este comercio o filial ya existe')}
         const newdata = await Commerce.create({
@@ -28,6 +28,7 @@ const commerceCreate = async(razonsocial, fantasia, direccion, ciudad, idProvinc
            facebook: facebook,
            otro: otro,
         }, {transaction})
+
        await provFound.addCommerce(newdata, {transaction})
        await transaction.commit();
 
@@ -43,18 +44,3 @@ const commerceCreate = async(razonsocial, fantasia, direccion, ciudad, idProvinc
 
 export default
     commerceCreate
-
-
-// razonsocial: "Boscarol Ariel A. y Pablo A.",
-// fantasia: "Boscarol Hnos.",
-// direccion: "Güemes 853",
-// ciudad: "San Cristóbal",
-// idProvince: 21,
-// telefono: "54 3408 427110",
-// email: "boscarolhnos@gmail.com",
-// instagram: "https://www.instagram.com/",
-// facebook: "https://www.facebook.com/",
-// otro: "",
-// celular: "54 3408 675420",
-// isMyCommerce: true,
-// datePost: new Date(),

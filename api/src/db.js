@@ -46,13 +46,36 @@ Car.belongsToMany(User, { through: "user_car" });
 
 Car.hasMany(Service), Service.belongsTo(Car);
 
-Commerce.hasOne(Province), Province.hasMany(Commerce);
+Provider.belongsToMany(CategoryProvider,{through: 'categ_prov'});
 
-Provider.hasOne(Province), Province.hasMany(Provider)
+CategoryProvider.belongsToMany(Provider,{through: 'categ_prov'});
 
-Provider.hasOne(CategoryProvider), CategoryProvider.hasMany(Provider)
 
-Post.belongsTo(CategoryPost, { foreignKey: "idCategory", allowNull: false });
+Province.hasMany(Provider);
+Provider.belongsTo(Province);
+
+Province.hasMany(Commerce), 
+Commerce.belongsTo(Province) 
+
+CategoryPost.hasMany(Post),  Post.belongsTo(CategoryPost);
+
+
+export {
+  User,
+  Car,
+  Service,
+  Category,
+  CategoryPost,
+  Post,
+  Product,
+  Provider,
+  Province,
+  CategoryProvider,
+  Commerce,
+  ImagesConfig,
+  CategoryImg,
+  sequelize,
+};
 
 
 //Client.belongsTo(Province, { foreignKey: "idProvince", allowNull: false });
@@ -74,20 +97,3 @@ Post.belongsTo(CategoryPost, { foreignKey: "idCategory", allowNull: false });
 //   foreignKey: "idCategory",
 //   allowNull: false,
 // });
-
-export {
-  User,
-  Car,
-  Service,
-  Category,
-  CategoryPost,
-  Post,
-  Product,
-  Provider,
-  Province,
-  CategoryProvider,
-  Commerce,
-  ImagesConfig,
-  CategoryImg,
-  sequelize,
-};

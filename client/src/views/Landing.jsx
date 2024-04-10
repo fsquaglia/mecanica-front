@@ -1,6 +1,6 @@
 import Carousel from "../components/carousel/Carousel";
 import Navbar from "../components/navbar/Navbar";
-import mocks from "../../public/mocks";
+import mocks from "../assets/mocks";
 import { useEffect } from "react";
 import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 import style from './styles/Landing.module.css'
