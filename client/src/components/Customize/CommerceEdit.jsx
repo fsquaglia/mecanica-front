@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProvinces, isMyCommerce } from "../../redux/actions";
-//import updateCommerce from "../../../../api/src/Handlers/commerceHandler/updateCommerce";
+import { updateCommerce } from "../../redux/actions";
 
 function CommerceEdit() {
   const dispatch = useDispatch();
@@ -23,10 +23,10 @@ function CommerceEdit() {
     }
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(updateCommerce(commerceData.id, commerceData));
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateCommerce(commerceData.id, commerceData));
+  };
 
   useEffect(() => {
     dispatch(isMyCommerce());
@@ -48,7 +48,7 @@ function CommerceEdit() {
       <div class="container w-75">
         <form
           class="row g-3 needs-validation"
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           novalidate
         >
           {/*Razón social */}
