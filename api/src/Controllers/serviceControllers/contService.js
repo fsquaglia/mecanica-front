@@ -8,7 +8,6 @@ const createService = async ( type, detail, date_in, date_out, observations, pic
         if (!carFound) {
             throw new Error('Automóvil no encontrado');
         }
-
         // Verificar si ya existe un servicio para las fechas especificadas
         const existingService = await Service.findOne({
             where: {

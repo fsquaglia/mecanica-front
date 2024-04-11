@@ -3,6 +3,7 @@ import {getService, getServiceByQuery, serviceById} from '../../Controllers/serv
 
 const createServiceHand = async (req, res)=>{
     const {type, detail, date_in, date_out, observations, picture, carId}= req.body;
+    console.log('soy el id', carId)
     try {
        const response = await createService(type, detail, date_in, date_out, observations, picture, carId)
        res.status(201).json(response) 

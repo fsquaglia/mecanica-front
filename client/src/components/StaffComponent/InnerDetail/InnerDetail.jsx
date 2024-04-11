@@ -9,6 +9,7 @@ import Edition from '../AdminHelpers/Edition/Edition';
 import EditWindow from '../../Auth/EditComponents/ModalEdit';
 import CreateModal from '../Cars&ServiceEdit/EditCars/Create/CreateModal'
 import CarryTable from '../ServiceComp/CarryTable'
+import CreateServModal from '../Cars&ServiceEdit/EditServices/Create/CreateServModal'
 import {infoSelect, roles, estado, allowing} from '../AdminHelpers/Helpers/InfoMap';
 
 const InnerDetail = ({ type, data }) => {
@@ -44,14 +45,24 @@ const InnerDetail = ({ type, data }) => {
   const dispatch = useDispatch()
   const services = useSelector((state)=>state.servByCar)
   const [serv, setServ] = useState(false)
+  const [creatServ, setCreatServ] = useState(false)
+  
+  const carId = (type==='car')? data.id: null;
 
   const handleServ = ()=>{
+    sessionStorage.setItem('CarId', carId)
     setServ(true)
   }
   const servClose = ()=>{
+    sessionStorage.clear()
     setServ(false)
   }
-  const carId = (type==='car')? data.id: null;
+  const createServ= ()=>{
+    setCreatServ(true)
+  }
+  const closServ = ()=>{
+    setCreatServ(false)
+  }
   useEffect(()=>{
     if(serv===true){
       dispatch(getMyServices(carId))
@@ -103,6 +114,7 @@ const InnerDetail = ({ type, data }) => {
               <div>
               <Edition allowedRoles={[0]}text={'Edit. Veh.'}/>
               {serv? <><GenericButton onClick={servClose} buttonText={'Cerrar Serv'}/>
+              <Edition allowedRoles={[0,2]}  onClick={createServ} text={'Crear Serv'}/>
               <CarryTable data= {services}/></> : 
               <GenericButton onClick={handleServ} buttonText={'Ver Servicios'}/>}
               </div>
@@ -148,6 +160,8 @@ const InnerDetail = ({ type, data }) => {
          null}
          {createCar?
          <CreateModal closer={closerAd}/>: null}
+         {creatServ?
+         <CreateServModal closServ= {closServ}/>: null}
         
       </div>
     );
