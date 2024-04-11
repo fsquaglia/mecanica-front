@@ -17,10 +17,11 @@ const createPost = async(titlePost, textPost, published, viewFavPost, imgPost, i
         const newPost = await Post.create({
             titlePost:titlePost,
             textPost: textPost,
-            published: published,
-            viewFavPost: viewFavPost,
-            imgPost: imgPost,
+            published: published ?? false,
+            viewFavPost: viewFavPost ?? false,
+            imgPost: imgPost ?? [],
             datePost : new Date(),
+            other: other ?? "",
         }, {transaction})
         await categPost.addPost(newPost,{transaction})
         await transaction.commit();
