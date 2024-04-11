@@ -25,7 +25,15 @@ function CommerceEdit() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //buscar el id de la provincia seleccionada
+    let provinceSelected;
+    for (let i = 0; i < allProvinces.length; i++) {
+      if (allProvinces[i].descProvince === commerceData.Province.descProvince)
+        provinceSelected = allProvinces[i].idProvince;
+    }
+    commerceData.ProvinceIdProvince = provinceSelected;
     dispatch(updateCommerce(commerceData.id, commerceData));
+    dispatch(isMyCommerce());
   };
 
   useEffect(() => {

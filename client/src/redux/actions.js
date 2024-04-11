@@ -59,7 +59,16 @@ export const isMyCommerce = () => {
 export const updateCommerce = (idCommerce, updateData) => {
   return async (dispatch) => {
     try {
-      const { data } = axios.patch("/updateCommerce/" + idCommerce, updateData);
+      const { data } = await axios.patch("/Commerce/" + idCommerce, updateData);
+      if (data) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Datos actualizados",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
       return dispatch({
         type: UPDATE_COMMERCE,
         payload: data,
