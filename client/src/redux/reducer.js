@@ -16,6 +16,7 @@ import {
   GET_ALL_TIPS,
   ALL_PROVINCES,
   UPDATE_COMMERCE,
+  ALL_CATEGORY_TIPS,
 } from "./actions";
 
 const initialState = {
@@ -36,6 +37,7 @@ const initialState = {
   postFav: null,
   allTips: [],
   allProvinces: [],
+  allCategoryTips:[],
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -133,6 +135,12 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
       };
+    
+    case ALL_CATEGORY_TIPS:
+      return {
+        ...state,
+        allCategoryTips:payload,
+      }
   }
 };
 
