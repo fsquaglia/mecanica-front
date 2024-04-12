@@ -20,6 +20,7 @@ export const POST_FAVORITES = "POSTFAV";
 export const GET_ALL_TIPS = "GET_ALL_TIPS";
 export const ALL_PROVINCES = "ALL_PROVINCES";
 export const UPDATE_COMMERCE = "UPDATE_COMMERCE";
+export const ALL_CATEGORY_TIPS = "ALL_CATEGORY_TIPS"
 
 //?%%%%%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%%%
 export const isMyCommerce = () => {
@@ -269,3 +270,17 @@ export const getAllTips = () => {
     }
   };
 };
+
+export const getAllCategoryTips = () => {
+  return async (dispatch) => {
+    try {
+      const data = await axios("/categorypost")
+      return dispatch({
+        type: ALL_CATEGORY_TIPS,
+        payload: data.data
+      })
+    } catch (error) {
+      HandlError(error);
+    }
+  }
+}
