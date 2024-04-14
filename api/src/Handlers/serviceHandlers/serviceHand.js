@@ -1,9 +1,7 @@
-import {createService, updateService, deleteService} from '../../Controllers/serviceControllers/contService.js';
-import {getService, getServiceByQuery, serviceById} from '../../Controllers/serviceControllers/getService.js'
+import {createService, getService, getServiceByQuery, serviceById, updateService, deleteService} from '../../Controllers/serviceControllers/index.js'
 
 const createServiceHand = async (req, res)=>{
     const {type, detail, date_in, date_out, observations, picture, carId}= req.body;
-    console.log('soy el id', carId)
     try {
        const response = await createService(type, detail, date_in, date_out, observations, picture, carId)
        res.status(201).json(response) 

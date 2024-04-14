@@ -11,24 +11,27 @@ import CreateModal from '../Cars&ServiceEdit/EditCars/Create/CreateModal'
 import CarryTable from '../ServiceComp/CarryTable'
 import CreateServModal from '../Cars&ServiceEdit/EditServices/Create/CreateServModal'
 import {infoSelect, roles, estado, allowing} from '../AdminHelpers/Helpers/InfoMap';
+import ModalEditCar from '../Cars&ServiceEdit/EditCars/ModalEditCar'
 
 const InnerDetail = ({ type, data }) => {
   const {user}=useAuth()
     const navigate= useNavigate()
     const [userEdition, setUserEdition] = useState(false);
     const [createCar, setCreateCar]= useState(false)
+    const [editCar, setEditCar] = useState(false)
     const infoEditing = useSelector((state)=>state.LogIn)
     
     
     const onClose=()=>{
       setUserEdition(false)
+      setEditCar(false)
       //navigate(-1)
     }
     //Edicion de usuario
   const handlerUser = ()=>{
     setUserEdition(true);
   }
-  //creacion de vehiculos 
+  //creacion y edicion de vehiculos
   const handlerCreate = ()=>{
     const userId = (type==='user')? data.id: null;
     sessionStorage.setItem('idUser', userId)
@@ -38,11 +41,12 @@ const InnerDetail = ({ type, data }) => {
     sessionStorage.clear()
     setCreateCar(false)
   }
+   const handEditCar = () => {
+    setEditCar(true) 
+   }
   //Presentacion y edicion de servicios
-  //todo| Hay que corregir y hacerla por Id; el componente que renderice a todos los 
-  //todo| los servicios debe estar en el Admin
-
   const dispatch = useDispatch()
+  //Servicios: 
   const services = useSelector((state)=>state.servByCar)
   const [serv, setServ] = useState(false)
   const [creatServ, setCreatServ] = useState(false)
@@ -68,7 +72,7 @@ const InnerDetail = ({ type, data }) => {
       dispatch(getMyServices(carId))
     }
   },[serv])
-  
+  //================================================
   const pars = (type === 'car')? data.Users : data.Cars
   const propietarios = infoSelect(pars)
   const info1 = (type==='user')? data.role: null;
@@ -112,7 +116,7 @@ const InnerDetail = ({ type, data }) => {
               <img src={data.picture} style={{ maxWidth: '150px' }}/>
               <label>Observaciones: {data.observations}</label>
               <div>
-              <Edition allowedRoles={[0]}text={'Edit. Veh.'}/>
+              <Edition allowedRoles={[0,2]} onClick={handEditCar } text={'Edit. Veh.'}/>
               {serv? <><GenericButton onClick={servClose} buttonText={'Cerrar Serv'}/>
               <Edition allowedRoles={[0,2]}  onClick={createServ} text={'Crear Serv'}/>
               <CarryTable data= {services}/></> : 
@@ -162,6 +166,8 @@ const InnerDetail = ({ type, data }) => {
          <CreateModal closer={closerAd}/>: null}
          {creatServ?
          <CreateServModal closServ= {closServ}/>: null}
+         {editCar?
+         <ModalEditCar carEdit={data} onClose= {onClose}/> : null}
         
       </div>
     );
