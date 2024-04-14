@@ -13,6 +13,7 @@ import postPost from "../Handlers/postHandler/postPost.js";
 import deletePost from "../Handlers/postHandler/deletePost.js";
 import updatePost from "../Handlers/postHandler/updatePost.js";
 import getPostByCategory from "../Handlers/postHandler/getPostByCategory.js";
+import getOrderPosts from "../Handlers/postHandler/getOrderPosts.js";
 const postRouter = Router();
 
 //!Rutas para las Categorías de Post
@@ -32,4 +33,5 @@ postRouter.get("/postbycategory/:idCategory", getPostByCategory); //devuelve los
 postRouter.post("/post", postPost); //crear un post/tips
 postRouter.delete("/post/:id", deletePost); //eliminar un post por idPost
 postRouter.patch("/post/:id", updatePost); //actualiza datos de un Post, según idPost. Enviar todo lo demás que se tenga que modificar por body, por ejemplo {titlePost: "Nuevo título", idCategory: 2}
+postRouter.get("/postOrder", getOrderPosts);//devuelve los tips filtrados por categoria y ordenados por fecha o por nombre;
 export default postRouter;
