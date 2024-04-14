@@ -11,51 +11,52 @@ function TipsEdit() {
   const [filterPublished, setFilterPublished] = useState(true);
   const [filterFavorite, setFilterFavorite] = useState(false);
   const [originalTips, setOriginalTips] = useState([]); // Estado para los tips originales
+  const [categotySelected, setCategorySelected] = useState([]);
 
   useEffect(() => {
     dispatch(getAllTips());
-    // if (allTips) {
-    //   setFilteredTips(
-    //     filterTips(allTips, searchTerm, filterPublished, filterFavorite)
-    //   );
-    //   console.log(filteredTips);
-    // }
   }, []);
 
   useEffect(() => {
+    console.log(categotySelected);
+  }, [categotySelected]);
+
+  useEffect(() => {
     if (allTips && allTips.length > 0) {
-      const uniqueCategories = allTips
-        .map((tip) => tip.CategoryPost?.descCategory)
-        .filter(
-          (category, index, self) =>
-            category && self.indexOf(category) === index
-        );
-
-      uniqueCategories.sort();
-      setCatUniques(uniqueCategories);
-
-      // Almacenar los tips originales cuando cambia allTips
-      setOriginalTips(allTips);
       // Aplicar los filtros sobre los tips originales
-      setFilteredTips(
-        filterTips(originalTips, searchTerm, filterPublished, filterFavorite)
-      );
+      const filterTips = (() => {
+        let filtered = allTips.filter((tip) =>
+          tip.titlePost.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        if (filterPublished !== null) {
+          filtered = filtered.filter(
+            (tip) => tip.published === filterPublished
+          );
+        }
+        if (filterFavorite !== null) {
+          filtered = filtered.filter(
+            (tip) => tip.viewFavPost === filterFavorite
+          );
+        }
+        return filtered;
+      })();
+      setFilteredTips(filterTips);
+
+      const uniqueCategories = () => {
+        const uniq =
+          filterTips &&
+          filterTips
+            .map((tip) => tip.CategoryPost?.descCategory)
+            .filter(
+              (category, index, self) =>
+                category && self.indexOf(category) === index
+            );
+
+        return uniq.sort();
+      };
+      setCatUniques(uniqueCategories);
     }
   }, [allTips, searchTerm, filterPublished, filterFavorite]);
-
-  const filterTips = (tips, term, published, favorite) => {
-    let filtered = tips.filter((tip) =>
-      tip.titlePost.toLowerCase().includes(term.toLowerCase())
-    );
-    if (published !== null) {
-      filtered = filtered.filter((tip) => tip.published === published);
-    }
-    if (favorite !== null) {
-      filtered = filtered.filter((tip) => tip.viewFavPost === favorite);
-    }
-
-    return filtered;
-  };
 
   return (
     <div className="container align-items-center justify-content-center">
@@ -157,10 +158,19 @@ function TipsEdit() {
                     className="form-check-input"
                     type="checkbox"
                     value=""
-                    id={"hola"}
-                    checked={false}
+                    id={cat}
+                    checked={categotySelected.some(
+                      (element) => element === cat
+                    )}
+                    onChange={(event) =>
+                      setCategorySelected((prevSelected) =>
+                        event.target.checked
+                          ? [...prevSelected, cat]
+                          : prevSelected.filter((category) => category !== cat)
+                      )
+                    }
                   ></input>
-                  <label className="form-check-label" htmlFor={"hola"}>
+                  <label className="form-check-label" htmlFor={cat}>
                     {cat}
                   </label>
                 </div>
