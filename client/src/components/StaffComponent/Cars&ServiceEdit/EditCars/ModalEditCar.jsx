@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import style from './styles/Modal.module.css'
+import style from '../../generalStyles/ModalsForms/Modal.module.css'
 import FormEditCar from './FormEditCar';
 import ChangeUser from './ChangeUser';
 import deleteCar from './DeleteCar'
