@@ -1,10 +1,8 @@
 import style from './styles/Admin.module.css'
 import { useEffect, useState } from 'react'
-import Navbar from '../../components/navbar/Navbar'
 import SideBar from '../../components/sideBar/SideBar'
-import CarryTable from '../../components/StaffComponent/ServiceComp/CarryTable'
 import GenericButton from '../../components/GenericButton/GenericButton'
-import { UserGrid, CarGrid } from '../../components/StaffComponent/Index'
+import { UserGrid, CarGrid, CarryTable } from '../../components/StaffComponent/Index'
 import { getAllCars, getAllUsers, getAllServices } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 

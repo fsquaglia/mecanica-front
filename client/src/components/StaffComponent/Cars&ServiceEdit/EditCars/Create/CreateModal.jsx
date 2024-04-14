@@ -1,11 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import style from '../styles/Modal.module.css'
+import style from '../../../generalStyles/ModalsForms/Modal.module.css'
 import CreateCar from './CreateCar';
 import GenericButton from '../../../../GenericButton/GenericButton';
 
 
 const CreateModal = ({closer}) => {
-  const navigate = useNavigate()
+  
  
  const onClose =()=>{
     closer();
