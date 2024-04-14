@@ -10,7 +10,7 @@
 
 import app from "./src/server.js";
 import { sequelize } from "./src/db.js";
-import { appUserTable } from "./src/Utils/createSUs.js";
+import { appUserTable } from "./src/Utils/SUcreate-protect/index.js";
 import fillTables from "./data/initialFunctions/fillTables.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -18,7 +18,7 @@ const { PORT } = process.env;
 
 app.listen(PORT, async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
     await appUserTable();
     await fillTables();
     console.log(`El server está corriendo 🚴 🏃 en el puerto: ${PORT};

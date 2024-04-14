@@ -1,11 +1,19 @@
 import { User, Car } from "../../db.js";
+import {Op} from 'sequelize'
+import { getEmails } from "../../Utils/SUcreate-protect/index.js";
 import bcrypt from 'bcrypt'
 
+
 const getUsers = async () => {
+  const {email1,email2} = getEmails()
+ 
   try {
     const response = await User.findAll({
       where: {
         deletedAt: false,
+        email: {
+          [Op.notIn]: [email1, email2] // Lista de correos electrónicos a excluir
+      }
       },
       include: [
         {
@@ -114,7 +122,14 @@ const updateUser = async (id, newData) => {
 };
 
 const deleteUser = async (id) => {
-  console.log("Todavia no estoy lista (deberia borrar)");
+ try {
+   const userD = await User.findByPk(id);
+   if(!userD){throw new Error('Usuario no encontrado')};
+   userD.update({deletedAt: true});
+   return userD;
+ } catch (error) {
+  throw error;
+ }
 };
 
 export { getUsers, userByQuery, userById, updateUser, deleteUser };
