@@ -5,9 +5,8 @@ import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {getMyServices} from '../../../redux/actions'
 import GenericButton from '../../GenericButton/GenericButton'
-import Edition from '../AdminHelpers/Edition/Edition';
 import EditWindow from '../../Auth/EditComponents/ModalEdit';
-import {CreateModal, CarryTable, CreateServModal, ModalEditCar} from '../Index'
+import {CreateModal, CarryTable, CreateServModal, ModalEditCar, Edition} from '../Index'
 import {infoSelect, roles, estado, allowing} from '../AdminHelpers/Helpers/InfoMap';
 
 const InnerDetail = ({ type, data }) => {
