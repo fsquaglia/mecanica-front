@@ -123,6 +123,35 @@ export const postFav = () => {
   };
 };
 
+export const updateTips = (idPost, updateData) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.patch("/post/" + idPost, updateData);
+      return dispatch({
+        type: "",
+        payload: "",
+      });
+    } catch (error) {
+      console.error("Error al actualizar el/los post Favoritos");
+      console.log(error);
+    }
+  };
+};
+
+export const getAllTipsFull = () => {
+  return async (dispatch) => {
+    try {
+      const data = await axios("/allpostordertitle?order=ASC");
+      return dispatch({
+        type: GET_ALL_TIPS,
+        payload: data.data,
+      });
+    } catch (error) {
+      HandlError(error);
+    }
+  };
+};
+
 //%%%%%%%%%%% post/tips/consejos end %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 export const loginUser = (payload) => (dispatch) => {
