@@ -1,25 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllTips } from "../../redux/actions";
+import { getAllTipsFull, updateTips } from "../../redux/actions";
+import Swal from "sweetalert2";
 
 function TipsEdit() {
   const dispatch = useDispatch();
   const allTips = useSelector((state) => state.allTips);
   const [catUniques, setCatUniques] = useState([]); //nombre de las categorías, sólo las que están presentes en allTips
   const [searchTerm, setSearchTerm] = useState(""); //estado para los términos de búsqueda, filtrado reactivo
-  const [filteredTips, setFilteredTips] = useState([]); // Estado para los tips filtrados
+  const [filteredTips, setFilteredTips] = useState([]); // Estado para los tips filtrados qu se mapean
   const [filterPublished, setFilterPublished] = useState(true);
   const [filterFavorite, setFilterFavorite] = useState(false);
-  const [originalTips, setOriginalTips] = useState([]); // Estado para los tips originales
-  const [categotySelected, setCategorySelected] = useState([]);
+  const [categorySelected, setCategorySelected] = useState([]);
+  const [order, setOrder] = useState({
+    date: { text: "", order: "DESC" },
+    title: { text: "", order: "DESC" },
+  });
 
   useEffect(() => {
-    dispatch(getAllTips());
+    dispatch(getAllTipsFull());
   }, []);
 
   useEffect(() => {
-    console.log(categotySelected);
-  }, [categotySelected]);
+    const uniqueCategories = () => {
+      const uniq =
+        allTips &&
+        allTips
+          .map((tip) => tip.CategoryPost?.descCategory)
+          .filter(
+            (category, index, self) =>
+              category && self.indexOf(category) === index
+          );
+
+      return uniq.sort();
+    };
+    setCatUniques(uniqueCategories);
+  }, [allTips]);
 
   useEffect(() => {
     if (allTips && allTips.length > 0) {
@@ -38,25 +54,176 @@ function TipsEdit() {
             (tip) => tip.viewFavPost === filterFavorite
           );
         }
+        if (categorySelected.length > 0) {
+          filtered = filtered.filter(function (element) {
+            return categorySelected.includes(element.CategoryPost.descCategory);
+          });
+        }
+
         return filtered;
       })();
       setFilteredTips(filterTips);
 
-      const uniqueCategories = () => {
-        const uniq =
-          filterTips &&
-          filterTips
-            .map((tip) => tip.CategoryPost?.descCategory)
-            .filter(
-              (category, index, self) =>
-                category && self.indexOf(category) === index
-            );
-
-        return uniq.sort();
-      };
-      setCatUniques(uniqueCategories);
+      setOrder({
+        date: { text: "", order: "DESC" },
+        title: { text: "", order: "DESC" },
+      });
     }
-  }, [allTips, searchTerm, filterPublished, filterFavorite]);
+  }, [allTips, searchTerm, filterPublished, filterFavorite, categorySelected]);
+
+  //manejador de los eventos de clic de botones de Orden
+  const handleOrder = (event) => {
+    //puede llegar como orderDate u orderTitle
+    if (event.target.name === "orderDate") {
+      if (order.date.order === "ASC") {
+        setOrder({
+          title: { text: "", order: "ASC" },
+          date: { text: "\u25BC", order: "DESC" },
+        });
+        const sortedDesc = [...filteredTips].sort(
+          (a, b) => new Date(b.datePost) - new Date(a.datePost)
+        );
+        setFilteredTips(sortedDesc);
+      } else if (order.date.order === "DESC") {
+        setOrder({
+          title: { text: "", order: "ASC" },
+          date: { text: "\u25B2", order: "ASC" },
+        });
+        const sortedAsc = [...filteredTips].sort(
+          (a, b) => new Date(a.datePost) - new Date(b.datePost)
+        );
+        setFilteredTips(sortedAsc);
+      }
+    } else {
+      //orderTitle
+      if (order.title.order === "ASC") {
+        setOrder({
+          title: { text: "\u25BC", order: "DESC" },
+          date: { text: "", order: "ASC" },
+        });
+        const sortedDesc = [...filteredTips].sort((a, b) =>
+          b.titlePost.localeCompare(a.titlePost)
+        );
+        setFilteredTips(sortedDesc);
+      } else if (order.title.order === "DESC") {
+        setOrder({
+          title: { text: "\u25B2", order: "ASC" },
+          date: { text: "", order: "ASC" },
+        });
+        const sortedAsc = [...filteredTips].sort((a, b) =>
+          a.titlePost.localeCompare(b.titlePost)
+        );
+        setFilteredTips(sortedAsc);
+      }
+    }
+  };
+
+  //manejador de evento clic de Publicado en la CARD
+  const handlePublish = async (id, event) => {
+    //si vamos a quitar de Publicado, verificar que queden al menos 3
+    if (event.target.checked) {
+      //aquí sólo quiero publicarlo
+      await dispatch(updateTips(id, { published: true }));
+      await dispatch(getAllTipsFull());
+    } else {
+      //si lo voy a quitar de Publicados, verificar que queden al menos 3 Pub y Fav
+      const totalFavs = allTips.filter(
+        (tip) => tip.viewFavPost === true
+      ).length;
+      const totalPublished = allTips.filter(
+        (tip) => tip.published === true
+      ).length;
+
+      if (totalFavs <= 3 || totalPublished <= 3) {
+        Swal.fire("Debemos mantener al menos 3 Tips publicados y 3 Favoritos");
+      } else {
+        await dispatch(
+          updateTips(id, { published: false, viewFavPost: false })
+        );
+        await dispatch(getAllTipsFull());
+      }
+    }
+  };
+
+  //manejador de evento clic de Publicado en la CARD
+  const handleFavorite = async (id, event, published) => {
+    let confirm = false;
+    let salir = false;
+
+    //si se va a marcar como favorito debe estar publicado
+    if (event.target.checked && !published) {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success m-1",
+          cancelButton: "btn btn-danger m-1",
+        },
+        buttonsStyling: false,
+      });
+      await swalWithBootstrapButtons
+        .fire({
+          title: "Tips no publicado",
+          text: "Se publicará el Tips para marcarlo como Favorito",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "De acuerdo",
+          cancelButtonText: "No, espera...",
+          reverseButtons: false,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            confirm = true;
+            // swalWithBootstrapButtons.fire({
+            //   title: "Deleted!",
+            //   text: "Your file has been deleted.",
+            //   icon: "success",
+            // });
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            // swalWithBootstrapButtons.fire({
+            //   title: "Cancelled",
+            //   text: "Your imaginary file is safe :)",
+            //   icon: "error",
+            // });
+            salir = true;
+          }
+        });
+    }
+    if (salir) return; //cancelamos la ejecución en el swal anterior
+
+    if (confirm) {
+      //confirmamos el swal anterior
+      await dispatch(
+        updateTips(id, {
+          viewFavPost: true,
+          published: true,
+        })
+      );
+      await dispatch(getAllTipsFull());
+      return;
+    }
+
+    //si vamos a quitar de Favoritos, verificar que queden al menos 3 marcados como Favoritos
+    if (event.target.checked) {
+      //si lo voy a marcar como Fav, hacerlo y terminar
+      await dispatch(updateTips(id, { viewFavPost: true }));
+      await dispatch(getAllTipsFull());
+      return;
+    }
+
+    const totalFavs = allTips.filter((tip) => tip.viewFavPost === true).length;
+    const totalPublished = allTips.filter(
+      (tip) => tip.published === true
+    ).length;
+
+    if (totalFavs <= 3 || totalPublished <= 3) {
+      Swal.fire("Debemos mantener al menos 3 Tips publicados y 3 Favoritos");
+    } else {
+      await dispatch(updateTips(id, { viewFavPost: false }));
+      await dispatch(getAllTipsFull());
+    }
+  };
 
   return (
     <div className="container align-items-center justify-content-center">
@@ -102,7 +269,7 @@ function TipsEdit() {
               checked={filterPublished}
               onChange={(event) => setFilterPublished(event.target.checked)}
             ></input>
-            <label class="form-check-label" for="flexSwitchCheckChecked">
+            <label class="form-check-label" htmlFor="flexSwitchCheckChecked">
               Publicados
             </label>
           </div>
@@ -120,25 +287,35 @@ function TipsEdit() {
               checked={filterFavorite}
               onChange={(event) => setFilterFavorite(event.target.checked)}
             ></input>
-            <label class="form-check-label" for="flexSwitchCheckFav">
+            <label className="form-check-label" htmlFor="flexSwitchCheckFav">
               Favoritos
             </label>
           </div>
           {/*Ordenamiento */}
           <div
-            class="d-flex flex-column   form-check form-switch border rounded my-3 bg-light bg-gradient p-2"
+            className="d-flex flex-column   form-check form-switch border rounded my-3 bg-light bg-gradient p-2"
             style={{ minHeight: "54px" }}
           >
             <p>Ordenamiento</p>
             <div className="d-flex flex-wrap justify-content-evenly">
               <div>
-                <button class="btn btn-primary" type="button">
-                  Fecha
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  name="orderDate"
+                  onClick={handleOrder}
+                >
+                  Fecha {order.date.text}
                 </button>
               </div>
               <div>
-                <button class="btn btn-primary" type="button">
-                  Título
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  name="orderTitle"
+                  onClick={handleOrder}
+                >
+                  Título{order.title.text}
                 </button>
               </div>
             </div>
@@ -159,7 +336,7 @@ function TipsEdit() {
                     type="checkbox"
                     value=""
                     id={cat}
-                    checked={categotySelected.some(
+                    checked={categorySelected.some(
                       (element) => element === cat
                     )}
                     onChange={(event) =>
@@ -206,7 +383,7 @@ function TipsEdit() {
                   </div>
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                      Categoría:{" "}
+                      Categoría:
                       {tip.CategoryPost ? tip.CategoryPost.descCategory : null}
                     </li>
                     <li className="list-group-item">
@@ -220,13 +397,14 @@ function TipsEdit() {
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        value=""
-                        id={`flexCheckChecked${tip.idPost}`}
+                        name={`checkPublish${tip.idPost}`}
+                        id={`checkPublish${tip.idPost}`}
                         checked={tip.published}
+                        onChange={(event) => handlePublish(tip.idPost, event)}
                       ></input>
                       <label
                         className="form-check-label"
-                        htmlFor={`flexCheckChecked${tip.idPost}`}
+                        htmlFor={`checkPublish${tip.idPost}`}
                       >
                         Publicado
                       </label>
@@ -237,9 +415,12 @@ function TipsEdit() {
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        value=""
+                        name={`flexCheckChecked${tip.idPost}`}
                         id={`flexCheckChecked${tip.idPost}`}
                         checked={tip.viewFavPost}
+                        onChange={(event) =>
+                          handleFavorite(tip.idPost, event, tip.published)
+                        }
                       ></input>
                       <label
                         className="form-check-label"
@@ -253,7 +434,7 @@ function TipsEdit() {
               ))
             : null}
         </div>
-        <div className="container my-3">
+        <div className="container my-3" style={{ display: "none" }}>
           {/*aquí abajo va el paginado */}
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
