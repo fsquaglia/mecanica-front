@@ -2,6 +2,136 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllTipsFull, updateTips } from "../../redux/actions";
 import Swal from "sweetalert2";
+import DivImageCustom from "./DivImageCustom";
+
+//MODAL
+function Modal({ onClose }) {
+  const handleCloseOutside = (event) => {
+    if (event.target.classList.contains("modal")) {
+      onClose();
+    }
+  };
+  return (
+    <div className="modal" tabindex="-1" onClick={handleCloseOutside}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Editar Tips</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={onClose}
+            ></button>
+          </div>
+          <div className="modal-body">
+            {/*Titulo */}
+            <div class="col-sm-12">
+              <div class="mb-3 row">
+                <label
+                  htmlFor="titlePost"
+                  className="col-sm-2 col-form-label text-start"
+                >
+                  Título
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="titlePost"
+                    name="titlePost"
+                    value={""}
+                    required
+                    // onChange={handleChange}
+                  ></input>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <div className="mb-3 row">
+                <div className="col-sm-5 d-flex justify-content-center align-items-center">
+                  <DivImageCustom />
+                </div>
+                <div className="col-sm-7">
+                  <label
+                    htmlFor="textPost"
+                    className="col-sm-12 col-form-label text-start"
+                  >
+                    Descripción:
+                  </label>
+                  <div className="col-sm-12">
+                    <textarea
+                      cols="30"
+                      rows="8"
+                      class="form-control text-start"
+                      id="textPost"
+                      name="textPost"
+                      // value={""}
+                      required
+                      // onChange={handleChange}
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/*Categoria */}
+            <div class="col-sm-12">
+              <div class="mb-3 row">
+                <label
+                  class="col-sm-3 col-form-label text-start"
+                  htmlFor="category"
+                >
+                  Categorías
+                </label>
+                <div class="col-sm-9">
+                  <select
+                    className="form-select"
+                    required
+                    // value={
+                    //   commerceData && commerceData.Province
+                    //     ? commerceData.Province.descProvince
+                    //     : ""
+                    // }
+                    // onChange={handleChange}
+                    id="category"
+                    name="category"
+                  >
+                    <option value="" disabled>
+                      Selecciona una Categoría
+                    </option>
+                    {/* {allProvinces?.map((province, index) => (
+                      <option key={index} value={province.descProvince}>
+                        {province.descProvince}
+                      </option>
+                    ))} */}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <p>Recuerda guardar los cambios.</p>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-primary">
+              Guardar cambios
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              data-bs-dismiss="modal"
+              onClick={onClose}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function TipsEdit() {
   const dispatch = useDispatch();
@@ -16,6 +146,7 @@ function TipsEdit() {
     date: { text: "", order: "DESC" },
     title: { text: "", order: "DESC" },
   });
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     dispatch(getAllTipsFull());
@@ -225,6 +356,11 @@ function TipsEdit() {
     }
   };
 
+  //función para cerrar el Modal
+  const handleOnClose = () => {
+    setModal(false);
+  };
+
   return (
     <div className="container align-items-center justify-content-center">
       <h4> Personaliza tu blog</h4>
@@ -369,6 +505,7 @@ function TipsEdit() {
                       src={tip.imgPost[0]}
                       className="card-img-top"
                       alt={tip.titlePost}
+                      onClick={() => setModal(true)}
                     />
                   </div>
                   <div className="card-body">
@@ -464,6 +601,7 @@ function TipsEdit() {
             </ul>
           </nav>
         </div>
+        {modal ? <Modal onClose={handleOnClose} /> : null}
       </div>
     </div>
   );
