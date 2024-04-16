@@ -8,7 +8,7 @@ import GenericButton from '../../../GenericButton/GenericButton';
 import {showError, showSuccess,HandlError}from '../../../Auth/HandlerError';
 import showConfirmationDialog from '../../../utils/sweetAlert'
 import setAuthHeader from '../../../Auth/axiosUtils'
-import Edition from '../../AdminHelpers/Edition/Edition'
+import {Edition} from '../../Index'
 
 
 const ModalEditCar = ({ onClose, carEdit}) => {
