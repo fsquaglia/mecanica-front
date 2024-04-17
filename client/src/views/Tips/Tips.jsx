@@ -65,28 +65,31 @@ function Tips() {
             <div className={style.divMenuFilter}>
                 <h3 className={style.h3Title}>Filtros y busquedas</h3>
                 <hr></hr>
-                <span className={style.spanTitle}>Categorias</span>
-                <select value={optionFilter.category} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example" >
-                    <option key={0} >Todos</option>
-                    {
-                        allCategoryTips && allCategoryTips.map((el) => {
-                            return (<option className={style.optionText} key={el.idCategory} value={el.descCategory}> {el.descCategory}</option>)
-                        })
-                    }
+                <div className={style.categoryDiv}>
+                    <span className={style.spanTitle}>Categorias</span>
+                    <select value={optionFilter.category} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example" >
+                        <option key={0} >Todos</option>
+                        {
+                            allCategoryTips && allCategoryTips.map((el) => {
+                                return (<option className={style.optionText} key={el.idCategory} value={el.descCategory}> {el.descCategory}</option>)
+                            })
+                        }
 
-                </select>
+                    </select>
+                </div>
                 <br></br>
                 <br></br>
-                <span className={style.spanTitle}>Ordenar por:</span>
-                <select value={optionFilter.order} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example">
-                    <option value={"nameAsc"} selected>A-Z</option>
-                    <option value={"nameDesc"} selected>Z-A</option>
-                    <option value={"timeDesc"} selected>Más Recientes</option>
-                    <option value={"timeAsc"} selected>Más Antiguos </option>
+                <div className={style.orderDiv}>
+                    <span className={style.spanTitle}>Ordenar por:</span>
+                    <select value={optionFilter.order} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example">
+                        <option value={"nameAsc"} selected>A-Z</option>
+                        <option value={"nameDesc"} selected>Z-A</option>
+                        <option value={"timeDesc"} selected>Más Recientes</option>
+                        <option value={"timeAsc"} selected>Más Antiguos </option>
 
 
-                </select>
-
+                    </select>
+                </div>
             </div>
 
             <div className={style.divCard}>
