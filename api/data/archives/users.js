@@ -21,13 +21,7 @@ const users = [
 		numberId: "20123456784",
 		country: "Argentina",
     },
-    {
-      email: "miguelgarcia@gmail.com",
-		name: "Miguel Garcia",
-		typeId: "CUIT",
-		numberId: "20123456784",
-		country: "Argentina",
-    },
+   
     {
       email: "EmpresaFalsa@gmail.com",
 		name: "Empresa Falsa SA",
