@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { realtimeDB } from "../../firebase/firebaseConfig";
 import { ref, onValue } from "firebase/database";
 import neumatico from "../../assets/neumatico.gif";
+import style from './styles/Historia.module.css'
 
 const Historia = () => {
   const [historyData, setHistoryData] = useState();
@@ -32,11 +33,12 @@ const Historia = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className={style.container}>
       {historyData && Object.keys(historyData).length > 0 ? (
         Object.keys(historyData).map((historyKey, index) =>
           index % 2 === 0 ? (
             <div
+              className={style.secondBigDiv}
               key={historyKey}
               style={{
                 display: "flex",
@@ -56,8 +58,10 @@ const Historia = () => {
                       ? "drop-shadow(6px 6px 10px rgba(50, 50, 0, 0.5)) sepia(50%) saturate(150%) hue-rotate(15deg)"
                       : "drop-shadow(6px 6px 10px rgba(50, 50, 0, 0.5))",
                 }}
+                className={style.imgDiv}
               >
                 <img
+                  className={style.img}
                   src={historyData[historyKey].url}
                   alt={historyData[historyKey].title}
                   style={{
@@ -90,6 +94,7 @@ const Historia = () => {
             </div>
           ) : (
             <div
+              className={style.secondBigDiv}
               key={historyKey}
               style={{
                 display: "flex",

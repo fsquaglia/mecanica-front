@@ -1,5 +1,5 @@
 .mainDiv {
-    margin-top: 6em;
+    margin-top: 1em;
     margin-bottom: 10em;
     display: grid;
     grid-template-columns: 18% 82%;
@@ -62,4 +62,60 @@
 
 .spanTitle {
     justify-self: flex-start;
+}
+
+@media only screen and (max-width: 900px) {
+    .mainDiv {
+        margin-top: 1em;
+        margin-bottom: 10em;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 12em 10em 1fr;
+
+    }
+
+    .divMenuFilter {
+        grid-row-start: 2;
+        margin-left: 1.4em;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        height: 8em;
+        width: 90%;
+        padding-left: 0.5em;
+        margin-top: 0em;
+    }
+
+    .h3Title {
+        font-size: 1.2em;
+        grid-row-start: 1;
+        grid-column: span 3;
+    }
+
+    .divCard {
+        grid-row-start: 3;
+        grid-column-start: 1;
+    }
+
+    .categoryDiv {
+        grid-row-start: 2;
+        grid-column-start: 1;
+        display: flex;
+        flex-direction: column;
+        margin-right: 0.3em;
+    }
+
+    .orderDiv {
+        grid-row-start: 2;
+        grid-column-start: 2;
+        display: flex;
+        flex-direction: column;
+        margin-left: 0.3em;
+    }
+
+    .divHeaderImg {
+        margin-top: 0em;
+        width: 100%;
+        height: 8em;
+    }
 }
