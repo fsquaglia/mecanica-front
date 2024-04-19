@@ -1,18 +1,18 @@
 .bigDiv {
-    margin-top: 5em;
+    margin-top: 0;
 }
 
 
 .cardList {
     width: 80vw;
     margin: 5px;
-    margin-left: 10rem;
-    margin-right: 6rem;
+    margin-left: 10vw;
+    margin-right: 10vw;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 1.25rem;
-   background-image: url('../../../assets/images/background01.jpg');
+    background-color: #85929E ;
+   /* background-image: url('../../../assets/images/background01.jpg'); */
     /* display: flex; */
     flex-wrap:wrap;
     justify-content: space-evenly;

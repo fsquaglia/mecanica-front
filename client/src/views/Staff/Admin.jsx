@@ -45,7 +45,6 @@ const Admin = () => {
         <CarGrid /></>:
        <><GenericButton onClick={handleHiddeServ} buttonText={'Ver Usuario/Vehic.'}/>
         <CarryTable data={services}/></>}
-       <GenericButton  buttonText={'Programar servicio'}/>
        </div>
       
     </div>
