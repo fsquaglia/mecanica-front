@@ -32,4 +32,5 @@ overflow: auto; /* Agrega esta línea para permitir el desplazamiento (scroll) *
 .serv{
     display: grid;
     grid-template-columns: 1fr;
+    text-align: left;
 }

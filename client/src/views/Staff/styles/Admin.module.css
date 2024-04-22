@@ -11,7 +11,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1.25rem;
-    background-color: #85929E ;
+    background-color: #757575 ;
    /* background-image: url('../../../assets/images/background01.jpg'); */
     /* display: flex; */
     flex-wrap:wrap;

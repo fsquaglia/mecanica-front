@@ -140,10 +140,7 @@ const reducer = (state = initialState, { type, payload }) => {
       };
     case ALL_PROVINCES:
       return { ...state, allProvinces: payload };
-    default:
-      return {
-        ...state,
-      };
+   
     
     case ALL_CATEGORY_TIPS:
       return {
@@ -167,6 +164,10 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         optionFilter:payload,
       }
+      default:
+        return {
+          ...state,
+        };
   }
 };
 
