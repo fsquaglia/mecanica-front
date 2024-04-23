@@ -74,6 +74,13 @@ function Tips() {
     };
 
 
+    const handleCloseOutside = (event) => {
+        if (event.target.classList.contains("modal")) {
+            closeModal();
+        }
+    };
+
+
     return (
         <div className={style.mainDiv}>
             <div className={style.divHeaderImg}>
@@ -117,7 +124,7 @@ function Tips() {
 
 
             {modalOpen && (
-                <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
+                <div classList="modal" className="modal" tabindex="-1" onClick={(event) => handleCloseOutside(event)} style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
                             {/* Contenido del modal */}
