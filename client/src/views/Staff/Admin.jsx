@@ -35,9 +35,6 @@ const Admin = () => {
 
   return (
     <div className={style.bigDiv}>
-
-      <br></br>
-      {/* <h2>Panel de Administrador:</h2> */}
         <div className={style.cardList}>
       {(!service)?<>
       <GenericButton onClick={handleToggleServ} buttonText={'Ver Services'}/>
@@ -45,7 +42,6 @@ const Admin = () => {
         <CarGrid /></>:
        <><GenericButton onClick={handleHiddeServ} buttonText={'Ver Usuario/Vehic.'}/>
         <CarryTable data={services}/></>}
-       <GenericButton  buttonText={'Programar servicio'}/>
        </div>
       
     </div>
