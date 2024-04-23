@@ -6,6 +6,7 @@ import GenericSearch from './searchComp/GenericSearch'
 import CarryTable from './ServiceComp/CarryTable'
 import CreateModal from './Cars&ServiceEdit/EditCars/Create/CreateModal'
 import CreateServModal from './Cars&ServiceEdit/EditServices/Create/CreateServModal'
+import Edition from '../Auth/Edition/Edition'
 
 
 export {
@@ -17,5 +18,6 @@ export {
     CarryTable,
     CreateModal,
     CreateServModal,
+    Edition
 
 }

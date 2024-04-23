@@ -55,6 +55,32 @@ function Tips() {
     }
 
 
+    // Estado para controlar si el modal está abierto o cerrado
+    const [modalOpen, setModalOpen] = useState(false);
+    // Estado para almacenar la información de la tarjeta seleccionada
+    const [selectedCardInfo, setSelectedCardInfo] = useState(null);
+
+    // Función para abrir el modal y mostrar la información de la tarjeta seleccionada
+    const handleCardClick = (cardInfo) => {
+        console.log(cardInfo);
+        setSelectedCardInfo(cardInfo);
+        setModalOpen(true);
+    };
+
+    // Función para cerrar el modal
+    const closeModal = () => {
+        setSelectedCardInfo(null);
+        setModalOpen(false);
+    };
+
+
+    const handleCloseOutside = (event) => {
+        if (event.target.classList.contains("modal")) {
+            closeModal();
+        }
+    };
+
+
     return (
         <div className={style.mainDiv}>
             <div className={style.divHeaderImg}>
@@ -65,33 +91,60 @@ function Tips() {
             <div className={style.divMenuFilter}>
                 <h3 className={style.h3Title}>Filtros y busquedas</h3>
                 <hr></hr>
-                <span className={style.spanTitle}>Categorias</span>
-                <select value={optionFilter.category} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example" >
-                    <option key={0} >Todos</option>
-                    {
-                        allCategoryTips && allCategoryTips.map((el) => {
-                            return (<option className={style.optionText} key={el.idCategory} value={el.descCategory}> {el.descCategory}</option>)
-                        })
-                    }
+                <div className={style.categoryDiv}>
+                    <span className={style.spanTitle}>Categorias</span>
+                    <select value={optionFilter.category} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example" >
+                        <option key={0} >Todos</option>
+                        {
+                            allCategoryTips && allCategoryTips.map((el) => {
+                                return (<option className={style.optionText} key={el.idCategory} value={el.descCategory}> {el.descCategory}</option>)
+                            })
+                        }
 
-                </select>
+                    </select>
+                </div>
                 <br></br>
                 <br></br>
-                <span className={style.spanTitle}>Ordenar por:</span>
-                <select value={optionFilter.order} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example">
-                    <option value={"nameAsc"} selected>A-Z</option>
-                    <option value={"nameDesc"} selected>Z-A</option>
-                    <option value={"timeDesc"} selected>Más Recientes</option>
-                    <option value={"timeAsc"} selected>Más Antiguos </option>
+                <div className={style.orderDiv}>
+                    <span className={style.spanTitle}>Ordenar por:</span>
+                    <select value={optionFilter.order} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example">
+                        <option value={"nameAsc"} >A-Z</option>
+                        <option value={"nameDesc"} >Z-A</option>
+                        <option value={"timeDesc"} >Más Recientes</option>
+                        <option value={"timeAsc"} >Más Antiguos </option>
 
 
-                </select>
-
+                    </select>
+                </div>
             </div>
 
             <div className={style.divCard}>
-                <Cards info={allTips} />
+                <Cards info={allTips} elModal={handleCardClick} />
             </div>
+
+
+            {modalOpen && (
+                <div classList="modal" className="modal" tabindex="-1" onClick={(event) => handleCloseOutside(event)} style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            {/* Contenido del modal */}
+                            {selectedCardInfo && (
+                                <div className="modal-body">
+                                    {/* Mostrar la información de la tarjeta seleccionada */}
+                                    <h2>{selectedCardInfo.title}</h2>
+                                    <p>{selectedCardInfo.description}</p>
+                                </div>
+                            )}
+                            {/* Botón para cerrar el modal */}
+                            <button type="button" className="btn btn-primary" onClick={closeModal}>Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
+
+
 
         </div>
     )
