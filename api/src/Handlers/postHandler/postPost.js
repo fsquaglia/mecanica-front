@@ -36,7 +36,7 @@ const postPost = async (req, res) => {
     }
 
     //! Crear el post (ver las imagenes a guardar)
-    const createdPost = await createPost(titlePost, textPost, published, viewFavPost, imgPost, datePost, idCategory, other)
+    const createdPost = await createPost(titlePost, textPost, published, viewFavPost, imgPost, idCategory, other)
     // Post.create({
     //   datePost: new Date(),
     //   titlePost,
@@ -52,7 +52,7 @@ const postPost = async (req, res) => {
     res.status(201).json(createdPost);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al crear la categoría" });
+    res.status(500).json({ error: "Error al crear el tip" });
   }
 };
 
