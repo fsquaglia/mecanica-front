@@ -123,6 +123,25 @@ export const postFav = () => {
   };
 };
 
+export const postTips = (dataSend) => {
+  return async (dispatch) => {
+    try {
+      const data = await axios.post("/post", dataSend);
+      return dispatch({
+        type: "",
+        payload: "",
+      });
+    } catch (error) {
+      await Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.error,
+      });
+      throw error;
+    }
+  };
+};
+
 export const updateTips = (idPost, updateData) => {
   return async (dispatch) => {
     try {
@@ -133,7 +152,11 @@ export const updateTips = (idPost, updateData) => {
       });
     } catch (error) {
       console.error("Error al actualizar el/los post Favoritos");
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.error,
+      });
     }
   };
 };
@@ -169,7 +192,6 @@ export const updateCategoryTips = (idCategory, updateData) => {
         icon: "error",
         title: "Oops...",
         text: error.response.data.error,
-        //footer: '<a href="#">Why do I have this issue?</a>',
       });
     }
   };
