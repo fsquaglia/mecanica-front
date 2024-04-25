@@ -40,7 +40,7 @@ const Servicios = () => {
   const openModal = (serviceKey) => {
     setSelectedService(servicesData[serviceKey]);
     setIsModalOpen(true);
-    console.log("modal " + isModalOpen);
+    // console.log("modal " + isModalOpen);
   };
 
   const closeModal = () => {
@@ -118,7 +118,23 @@ const Servicios = () => {
               &times;
             </span>
             <h3>{selectedService.title}</h3>
+            <div
+              className="container d-flex justify-content-center align-items-center overflow-hidden"
+              style={{ maxWidth: "500px", maxHeight: "200px" }}
+            >
+              <img
+                src={selectedService.url}
+                alt={`img${selectedService.title}`}
+                style={{
+                  opacity: "0.4",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
             <p>{selectedService.description}</p>
+            <p style={{ fontSize: "smaller" }}>{selectedService.data}</p>
           </div>
         </div>
       )}

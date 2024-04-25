@@ -5,6 +5,7 @@ import {
   getAllCategoryTips,
   getAllTipsFull,
   postNewCategoryTips,
+  postTips,
   updateCategoryTips,
   updateTips,
 } from "../../redux/actions";
@@ -660,11 +661,13 @@ function EditCategories({ onClose, allCategories }) {
 
 //MODAL para crear un nuevo Tips
 function NewTips({ onClose, allCategories }) {
-  const [newTip, setNewTip] = useState({
+  const init = {
     imgPost: [imgDefaultLogo],
     published: false,
     viewFavPost: false,
-  });
+  };
+  const [newTip, setNewTip] = useState({ ...init });
+  const [original, setOriginal] = useState({ ...init });
   const dispatch = useDispatch();
 
   //configuramos las medidas en px y tamaño en kB min y max aceptados para las imágenes
@@ -685,26 +688,42 @@ function NewTips({ onClose, allCategories }) {
   };
 
   const handleOnClose = async () => {
-    // if (areObjectsEqual(tipOriginal, tipEdited)) {
-    //   onClose();
-    // } else {
-    //   Swal.fire({
-    //     title: "Salir?",
-    //     text: "Tienes cambios sin guardar. Salir de todos modos?",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Si, y descartar.",
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       onClose();
-    //     }
-    //   });
-    // }
-
-    onClose();
+    //no cambiar el orden en que se pasan los argumentos
+    if (areObjectsEqual(newTip, original)) {
+      onClose();
+    } else {
+      Swal.fire({
+        title: "Salir?",
+        text: "Tienes cambios sin guardar. Salir de todos modos?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, y descartar.",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onClose();
+        }
+      });
+    }
   };
+
+  //verificamos si hubo cambios o no
+  function areObjectsEqual(obj1, obj2) {
+    // Iterar sobre las claves de un objeto
+    for (let key in obj1) {
+      // Verificar si la propiedad existe en ambos objetos
+      if (!obj2.hasOwnProperty(key)) {
+        return false;
+      }
+      // Verificar si los valores de las propiedades son diferentes
+      if (obj1[key] !== obj2[key]) {
+        return false;
+      }
+    }
+    // Si todas las propiedades y sus valores son iguales, los objetos son iguales
+    return true;
+  }
 
   const handleChange = (event) => {
     const property = event.target.name;
@@ -812,28 +831,30 @@ function NewTips({ onClose, allCategories }) {
       }
     }
     const dataSend = {
-      datePost: new Date(),
+      //datePost: new Date(),
       titlePost: newTip.titlePost,
       textPost: newTip.textPost,
       imgPost: [newTip.imgPost[0]],
-      CategoryPostIdCategory: idCategory,
+      idCategory: idCategory,
       published: newTip.published,
       viewFavPost: newTip.viewFavPost,
     };
-    console.log(dataSend);
-    return;
-    //guardar los datos en la BD y salir del Modal
-    await dispatch(updateTips(tipEdited.idPost, tipEdited));
-    await dispatch(getAllTipsFull());
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Tip guardado/publicado",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    try {
+      //guardar los datos en la BD y salir del Modal
+      await dispatch(postTips(dataSend));
+      await dispatch(getAllTipsFull());
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Tip guardado/publicado",
+        showConfirmButton: false,
+        timer: 1500,
+      });
 
-    onClose();
+      onClose();
+    } catch (error) {
+      console.error("Ocurrió un error");
+    }
   };
 
   return (
@@ -869,7 +890,7 @@ function NewTips({ onClose, allCategories }) {
                 <div className="card-body d-flex flex-column">
                   {/*Título */}
                   <input
-                    className="form-control"
+                    className="form-control mb-2"
                     placeholder="Ingresa un título"
                     type="text"
                     maxLength={maxLengthTitle}
