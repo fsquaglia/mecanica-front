@@ -86,9 +86,8 @@ const Pagina = () => {
 
             {/* <img src={getRandomImage()} alt="Imagen de fondo taller Boscarol" /> */}
           </div>
-
-          <div className={style.divCarrusel}>
-            <Carousel images={images} />
+          <div className="container-fluid">
+            <CarouselNew images={images} />
           </div>
         </>
       )}

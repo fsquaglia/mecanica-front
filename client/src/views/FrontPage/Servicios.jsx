@@ -56,7 +56,7 @@ const Servicios = () => {
           Object.keys(servicesData).map((serviceKey) => (
             <div
               key={serviceKey}
-              className="col-8 col-lg-2 col-md-2 col-sm-7 align-items-center justify-content-ceter"
+              className="col-7 col-lg-2 col-md-2 col-sm-7 align-items-center justify-content-ceter "
             >
               <div style={{ height: "80px" }} className="">
                 <p>{servicesData[serviceKey].title}</p>
@@ -79,20 +79,25 @@ const Servicios = () => {
                     right: 0,
                     bottom: 0,
                     clipPath: "polygon(0% 0%, 75% 0%, 100% 100%, 25% 100%)",
+                    perspective: "100px",
                   }}
                   onClick={() => openModal(serviceKey)} // Abrir modal al hacer clic en la imagen
                 >
                   <img
                     src={servicesData[serviceKey].url}
                     alt=""
-                    className="img-fluid"
+                    className="img-fluid "
                     style={{
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
-                      filter: "drop-shadow(6px 6px 10px rgba(50, 50, 0, 0.5)",
-                      cursor: "pointer", // Cambiar el tipo de puntero
+                      cursor: "pointer",
+                      transition: "transform 0.5s",
                     }}
+                    onMouseOver={(e) =>
+                      (e.target.style.transform = "translateZ(10px)")
+                    }
+                    onMouseOut={(e) => (e.target.style.transform = "none")}
                   />
                 </div>
               </div>
