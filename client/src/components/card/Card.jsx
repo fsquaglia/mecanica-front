@@ -2,7 +2,7 @@ import React from 'react'
 import style from './Card.module.css'
 
 const Card = ({ titulo, imagen, descripcion, elModal }) => {
-  const cardInfo = { title: titulo, imagen, description: descripcion }
+  const cardInfo = { title: titulo, image: imagen, description: descripcion, }
   return (
     <div className={style.bigDiv} onClick={() => elModal(cardInfo)}>
 
