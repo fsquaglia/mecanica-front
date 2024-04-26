@@ -119,3 +119,90 @@
         height: 8em;
     }
 }
+
+
+/* ////////////ESTA PARTE ES DEL MODAL */
+
+.bigDivModal {
+    padding: none;
+
+}
+
+.secondDivModal {
+    margin-top: 5em;
+    padding: none;
+    width: 70%;
+    max-width: none;
+    max-height: none;
+
+}
+
+.divContentModal {
+    max-width: none;
+    width: 100%;
+    max-height: none;
+    height: 70vh;
+}
+
+/* ////////////ADENTRO DEL MODAL */
+.divBodyModal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 20% 50% 20% 10%;
+
+}
+
+.h2Modal {
+    grid-row-start: 1;
+    grid-column: 2;
+    font-size: 2.5rem;
+}
+
+.imgModal {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    width: 90%;
+    height: 100%;
+    margin-left: 1em;
+    border-radius: 5px;
+    margin-top: 0.25em;
+    object-fit: cover;
+}
+
+.pModal {
+    grid-row-start: 2;
+    grid-column-start: 2;
+    font-size: 2em;
+    margin-right: 1em;
+    text-align: justify;
+}
+
+.divButton {
+    grid-row-start: 4;
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonModal {
+    background-color: #DB9144;
+    border: none;
+    width: 20%;
+    cursor: pointer;
+    outline: none;
+}
+
+.buttonModal:hover {
+    background-color: #5C534A;
+}
+
+.buttonModal:active,
+.buttonModal:focus {
+    box-shadow: none;
+    /* Eliminar la sombra al hacer clic o enfocar */
+    color: #fff;
+    /* Color de texto original */
+}
