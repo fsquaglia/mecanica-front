@@ -5,6 +5,7 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { imagesDB } from "../../firebase/firebaseConfig";
 import logo from "../../assets/images/logoBoscarol.png";
 import CarouselComponent from "./CarouselComponent";
+import CarouselNew from "./CarouselNew";
 
 const Pagina = () => {
   const [images, setImages] = useState([]);

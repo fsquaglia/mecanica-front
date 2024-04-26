@@ -205,6 +205,7 @@ function ServicesEdit() {
                   <input
                     type="text"
                     name="title"
+                    placeholder="Título del servicio"
                     value={servicesData[serviceKey].title}
                     class="form-control"
                     required
@@ -213,6 +214,7 @@ function ServicesEdit() {
                   />
                   <textarea
                     name="description"
+                    placeholder="Descripción del servicio"
                     value={servicesData[serviceKey].description}
                     class="form-control"
                     required
@@ -227,6 +229,7 @@ function ServicesEdit() {
                   <input
                     type="text"
                     name="data"
+                    placeholder="Nota adicional..."
                     value={servicesData[serviceKey].data}
                     class="form-control"
                     // required
