@@ -128,6 +128,11 @@ function Tips() {
                     <div className={`modal-dialog ${style.secondDivModal}`}>
                         <div className={`modal-content ${style.divContentModal}`}>
                             {/* Contenido del modal */}
+                            <div className={style.divButton}>
+                                {/* Botón para cerrar el modal */}
+                                <button type="button" class={`btn btn-close ${style.buttonModal}`} aria-label="Close" onClick={closeModal}></button>
+                                {/* <button type="button" className={`btn btn-primary ${style.buttonModal}`} onClick={closeModal}>Cerrar</button> */}
+                            </div>
                             {selectedCardInfo && (
                                 <div className={`modal-body ${style.divBodyModal}`}>
                                     {/* Mostrar la información de la tarjeta seleccionada */}
@@ -136,10 +141,6 @@ function Tips() {
                                     <p className={style.pModal}>{selectedCardInfo.description}</p>
                                 </div>
                             )}
-                            <div className={style.divButton}>
-                                {/* Botón para cerrar el modal */}
-                                <button type="button" className={`btn btn-primary ${style.buttonModal}`} onClick={closeModal}>Cerrar</button>
-                            </div>
                         </div>
                     </div>
                 </div>
