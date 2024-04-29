@@ -20,5 +20,8 @@
     0 0 30px rgb(255, 255, 255); /* Blanco */
     
   }
-
  
+ .button{
+  background-color: transparent;
+
+ }

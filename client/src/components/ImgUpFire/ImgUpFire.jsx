@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import style from '../GenericButton/EspecialButton.module.css'
  import {app} from '../../firebase/firebaseConfig';
   import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -47,19 +48,19 @@ const ImgUpFire = ({ maxImages, uploadImgs }) => {
   return (
     <div>
       <section>
-        <input type='file' id='file' placeholder="Seleccione una imagen" accept="image/*" multiple onChange={handleFile} />
+        <input type='file' id='file' placeholder="Seleccione una imagen" accept="image/*" multiple onChange={handleFile} style={{ backgroundColor: 'transparent'}}/>
         <label htmlFor="file">Imagen</label>
       </section>
       {imagenes.map((imagen, index) => (
         <div key={index}>
           <img src={URL.createObjectURL(imagen)} alt="Imagen subida" style={{maxWidth:'150px'}}/>
-          <button onClick={() => handleDeleteImage(index)}>Eliminar</button>
+          <button onClick={() => handleDeleteImage(index)} style={{ backgroundColor: 'transparent', fontWeight: 'bold', textDecoration: 'underline' }}>Eliminar:</button>
         </div>
       ))}
       {uploadProgress > 0 && (
         <p>Progreso de la subida: {uploadProgress}% Imagen archivada</p>
       )}
-      <button onClick={handleUpload} >Subir</button>
+      <button onClick={handleUpload} style={{ backgroundColor: 'transparent', fontWeight: 'bold', textDecoration: 'underline' }}>Subir:</button>
     </div>
   );
 };

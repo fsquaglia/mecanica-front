@@ -99,8 +99,8 @@ const LoginForm = ({handleSignClick, auth}) => {
             onChange={(event) => handleChange(event)}
             className=''
           />
-          <button type= 'button' onClick={()=>{setShowPassword(!showPassword)}}>
-          <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'}></i>
+          <button type= 'button' onClick={()=>{setShowPassword(!showPassword)}} className={style.button} >
+          <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye' }></i>
           </button>
           {error.password && <p className={style.errorMessage}>{error.password}</p>}
         </div>
@@ -116,3 +116,4 @@ const LoginForm = ({handleSignClick, auth}) => {
 export default LoginForm
 
 
+//  <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye' }></i>

@@ -98,7 +98,7 @@ const EditPass = ({id, onClose, logout}) => {
                     autoComplete="off"
                     onChange={(event) => handleChangePass(event)}
                 />
-                <button type= 'button' onClick={()=>{setShowPassword(!showPassword)}}>
+                <button type= 'button' onClick={()=>{setShowPassword(!showPassword)}} style={{ backgroundColor: 'transparent'}}>
           <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'}></i>
           </button>
                 <label>Intoduzca su nueva contraseña:</label>
@@ -117,7 +117,7 @@ const EditPass = ({id, onClose, logout}) => {
                     onChange={(event) => handleChange(event)}
                     disabled={disabledInput} // Deshabilitar si la contraseña actual no está verificada
                 />
-                <button type= 'button' onClick={()=>{setShowPassword1(!showPassword1)}}>
+                <button type= 'button' onClick={()=>{setShowPassword1(!showPassword1)}} style={{ backgroundColor: 'transparent'}}>
           <i className={showPassword1 ? 'bi bi-eye-slash' : 'bi bi-eye'}></i>
           </button>
                 {error.newPassword && <p className={style.errorMessage}>{error.newPassword}</p>}
@@ -130,7 +130,7 @@ const EditPass = ({id, onClose, logout}) => {
                     autoComplete="off"
                     onChange={(event) => handleChange(event)}
                     disabled={disabledInput} // Deshabilitar si la contraseña actual no está verificada
-                /><button type= 'button' onClick={()=>{setShowPassword2(!showPassword2)}}>
+                /><button type= 'button' onClick={()=>{setShowPassword2(!showPassword2)}} style={{ backgroundColor: 'transparent'}}>
                 <i className={showPassword2 ? 'bi bi-eye-slash' : 'bi bi-eye'}></i>
                 </button>
                  {error.confirmPassword && <p className={style.errorMessage}>{error.confirmPassword}</p>}
