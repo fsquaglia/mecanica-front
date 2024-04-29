@@ -5,6 +5,7 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { imagesDB } from "../../firebase/firebaseConfig";
 import logo from "../../assets/images/logoBoscarol.png";
 import CarouselComponent from "./CarouselComponent";
+import CarouselNew from "./CarouselNew";
 
 const Pagina = () => {
   const [images, setImages] = useState([]);
@@ -85,9 +86,8 @@ const Pagina = () => {
 
             {/* <img src={getRandomImage()} alt="Imagen de fondo taller Boscarol" /> */}
           </div>
-
-          <div className={style.divCarrusel}>
-            <Carousel images={images} />
+          <div className="container-fluid">
+            <CarouselNew images={images} />
           </div>
         </>
       )}

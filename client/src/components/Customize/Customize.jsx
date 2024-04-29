@@ -5,6 +5,8 @@ import CommerceEdit from "./CommerceEdit";
 import DefaultText from "./DefaultText";
 import DivButtonCustom from "./DivButtonCustom";
 import TipsEdit from "./TipsEdit";
+import HistoryEdit from "./HistoryEdit";
+import ServicesEdit from "./ServicesEdit";
 
 function Customize() {
   const [showComponent, setShowComponent] = useState({
@@ -22,6 +24,8 @@ function Customize() {
     showComponent.carrusel && <ImageCarrusel />,
     showComponent.comercio && <CommerceEdit />,
     showComponent.tips && <TipsEdit />,
+    showComponent.historia && <HistoryEdit />,
+    showComponent.servicios && <ServicesEdit />,
     // Agregar más componentes aquí según sea necesario
   ];
 
@@ -40,8 +44,7 @@ function Customize() {
 
   return (
     <div className="container">
-      <div style={{ height: "200px" }} className="py-3"></div>
-      <h3>Personaliza tu app</h3>
+      <h3 className="my-3">Personaliza tu app</h3>
 
       <div className="row gap-3 py-3 m-2">
         <DivButtonCustom
@@ -56,10 +59,16 @@ function Customize() {
         >
           Carrusel
         </DivButtonCustom>
-        <DivButtonCustom className="bg-danger bg-gradient">
+        <DivButtonCustom
+          className="bg-danger bg-gradient"
+          onClick={() => handleClick("historia")}
+        >
           Historia
         </DivButtonCustom>
-        <DivButtonCustom className="bg-warning bg-gradient">
+        <DivButtonCustom
+          className="bg-warning bg-gradient"
+          onClick={() => handleClick("servicios")}
+        >
           Servicios
         </DivButtonCustom>
         <DivButtonCustom
@@ -88,6 +97,12 @@ function Customize() {
         {showComponent.tips ? showComponent.tips && <TipsEdit /> : null}
         {showComponent.comercio
           ? showComponent.comercio && <CommerceEdit />
+          : null}
+        {showComponent.historia
+          ? showComponent.historia && <HistoryEdit />
+          : null}
+        {showComponent.servicios
+          ? showComponent.servicios && <ServicesEdit />
           : null}
         {/* Mostrar el componente DefaultText si ninguno de los componentes anteriores está visible */}
         {shouldShowDefaultText && <DefaultText />}

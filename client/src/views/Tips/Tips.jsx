@@ -124,19 +124,23 @@ function Tips() {
 
 
             {modalOpen && (
-                <div classList="modal" className="modal" tabindex="-1" onClick={(event) => handleCloseOutside(event)} style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
-                    <div className="modal-dialog">
-                        <div className="modal-content">
+                <div className={`modal ${style.bigDivModal}`} tabindex="-1" onClick={(event) => handleCloseOutside(event)} style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
+                    <div className={`modal-dialog ${style.secondDivModal}`}>
+                        <div className={`modal-content ${style.divContentModal}`}>
                             {/* Contenido del modal */}
+                            <div className={style.divButton}>
+                                {/* Botón para cerrar el modal */}
+                                <button type="button" class={`btn btn-close ${style.buttonModal}`} aria-label="Close" onClick={closeModal}></button>
+                                {/* <button type="button" className={`btn btn-primary ${style.buttonModal}`} onClick={closeModal}>Cerrar</button> */}
+                            </div>
                             {selectedCardInfo && (
-                                <div className="modal-body">
+                                <div className={`modal-body ${style.divBodyModal}`}>
                                     {/* Mostrar la información de la tarjeta seleccionada */}
-                                    <h2>{selectedCardInfo.title}</h2>
-                                    <p>{selectedCardInfo.description}</p>
+                                    <h2 className={style.h2Modal}>{selectedCardInfo.title}</h2>
+                                    <img className={style.imgModal} src={selectedCardInfo.image} alt="" />
+                                    <p className={style.pModal}>{selectedCardInfo.description}</p>
                                 </div>
                             )}
-                            {/* Botón para cerrar el modal */}
-                            <button type="button" className="btn btn-primary" onClick={closeModal}>Cerrar</button>
                         </div>
                     </div>
                 </div>

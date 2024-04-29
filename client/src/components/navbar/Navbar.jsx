@@ -2,7 +2,7 @@ import style from './Navbar.module.css'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { Link, animateScroll as scroll, } from 'react-scroll';
 import { useAuth } from '../Auth/AuthContext/AuthContext'
-import {AdminLink, LoginLinks, PanelAdmin} from './Links/Index'
+import { AdminLink, LoginLinks, PanelAdmin } from './Links/Index'
 import ShowUser from './ShowUser/ShowUser'
 import logo from '../../assets/images/BoscarolHnos.png'
 import userLogo from '../../assets/images/user.png'
@@ -10,11 +10,11 @@ import userLogo from '../../assets/images/user.png'
 
 const Navbar = () => {
   const { authenticated, user, logout } = useAuth()
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
 
-  
-  const admin = (user?.role === 0)? true : false;
-  const noRoutes = (pathname.startsWith('/login') || pathname.startsWith('/error') || pathname.startsWith('/home') || pathname.startsWith('tips'))? false : true;
+
+  const admin = (user?.role === 0) ? true : false;
+  const noRoutes = (pathname.startsWith('/login') || pathname.startsWith('/error') || pathname.startsWith('/home') || pathname.startsWith('tips')) ? false : true;
 
 
   const handleClick = () => {
@@ -30,20 +30,45 @@ const Navbar = () => {
       </div>
 
       <div className={style.login}>
-        {authenticated && location.pathname!=='/' ?
-        <>
-        <NavLink to='/' ><h3 className={style.linksH3}>Home</h3> </NavLink>
-        {admin && noRoutes? <>
-        <PanelAdmin/>
-        </>: null}
-        </> :
-        <> <Link to="pagina" activeClass="active"  smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </Link>
-        <Link to="historia" activeClass="active"  smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}> <h3 className={style.linksH3}>Historia</h3> </Link>
-        <Link to="servicios" activeClass="active"  smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Servicios</h3> </Link>
-        <Link to="consejos" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Tips</h3> </Link>
-        <Link to="contacto" activeClass="active"  smooth={true} duration={600} offset={-70} >  <h3 className={style.linksH3}>Contacto</h3> </Link> 
-         </>}
-       
+
+        {authenticated && location.pathname !== '/' ? (
+          <>
+            <NavLink to='/'><h3 className={style.linksH3}>Home</h3></NavLink>
+            {admin && noRoutes ? <PanelAdmin /> : null}
+          </>
+        ) : (
+          <>
+            {location.pathname === '/' && (
+              <Link to="/pagina" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3></Link>
+            )}
+            {location.pathname !== '/tips' && (
+              <>
+                <Link to="/historia" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Historia</h3></Link>
+                <Link to="/servicios" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Servicios</h3></Link>
+                <Link to="/consejos" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Tips</h3></Link>
+                <Link to="/contacto" activeClass="active" smooth={true} duration={600} offset={-70}><h3 className={style.linksH3}>Contacto</h3></Link>
+              </>
+            )}
+          </>
+        )}
+
+
+
+        {/* {authenticated && location.pathname !== "/" ?
+          <>
+            <NavLink to='/' ><h3 className={style.linksH3}>Home</h3> </NavLink>
+            {admin && noRoutes ? <>
+              <PanelAdmin />
+            </> : null}
+          </> :
+
+          <> <Link to="pagina" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}><h3 className={style.linksH3}>Home</h3> </Link>
+            <Link to="historia" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}> <h3 className={style.linksH3}>Historia</h3> </Link>
+            <Link to="servicios" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Servicios</h3> </Link>
+            <Link to="consejos" activeClass="active" smooth={true} duration={600} offset={-70} activeStyle={{ color: 'red' }}>   <h3 className={style.linksH3}>Tips</h3> </Link>
+            <Link to="contacto" activeClass="active" smooth={true} duration={600} offset={-70} >  <h3 className={style.linksH3}>Contacto</h3> </Link>
+          </>} */}
+
       </div>
 
 
@@ -65,9 +90,9 @@ const Navbar = () => {
             <LoginLinks />
             <AdminLink />
             <li>
-              {authenticated?
-              <a className={style.out} href='/' onClick={handleClick}>Salir</a>
-              :null}
+              {authenticated ?
+                <a className={style.out} href='/' onClick={handleClick}>Salir</a>
+                : null}
 
             </li>
           </ul>
@@ -122,9 +147,9 @@ const Navbar = () => {
             <br></br>
             <li class="nav-item" data-bs-dismiss="offcanvas">
               {
-                authenticated?
-                <a className={style.out} href='/' onClick={handleClick}>Salir</a>
-              :null}
+                authenticated ?
+                  <a className={style.out} href='/' onClick={handleClick}>Salir</a>
+                  : null}
             </li>
           </ul>
         </div>
