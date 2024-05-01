@@ -9,6 +9,8 @@ import HistoryEdit from "./HistoryEdit";
 import ServicesEdit from "./ServicesEdit";
 
 function Customize() {
+  const [borderColor, setBorderColor] = useState("border-black");
+
   const [showComponent, setShowComponent] = useState({
     principal: false,
     carrusel: false,
@@ -40,6 +42,36 @@ function Customize() {
       }
       return updatedShowComponent;
     });
+    setBorderColor(returnColorBorder(nameComponent));
+  };
+
+  const returnColorBorder = (nameComponent) => {
+    let colorBorder;
+    switch (nameComponent) {
+      case "principal":
+        colorBorder = "border-success";
+        break;
+      case "carrusel":
+        colorBorder = "border-primary-subtle";
+        break;
+      case "comercio":
+        colorBorder = "border-info";
+        break;
+      case "tips":
+        colorBorder = "border-dark-subtle";
+        break;
+      case "historia":
+        colorBorder = "border-danger";
+        break;
+      case "servicios":
+        colorBorder = "border-warning";
+        break;
+      default:
+        colorBorder = "border-black";
+        break;
+    }
+
+    return colorBorder;
   };
 
   return (
@@ -85,8 +117,7 @@ function Customize() {
         </DivButtonCustom>
       </div>
       <div
-        className="container border border-2 p-3 my-3 rounded"
-        style={{ minHeight: "200px" }}
+        className={`container border border-2 p-3 my-3 rounded ${borderColor}`}
       >
         {showComponent.principal
           ? showComponent.principal && <ImageLanding />
