@@ -1,20 +1,16 @@
 import style from "./styles/CarouselNew.module.css";
 import React from "react";
-// import img1 from "../../assets/images/logo_ford.png";
-// import img2 from "../../assets/images/logo_peugeot.png";
-// import img3 from "../../assets/images/logo_renault.png";
-// import img4 from "../../assets/images/logo chevrolet.png";
-// import img5 from "../../assets/images/logo toyota.png";
-// import img6 from "../../assets/images/logo vw.png";
 
+//este subComponente se muestra mientras se cargan las imágenes
 function LoadingCarousel() {
   return (
     <div>
-      <span>Loading Carousel</span>
+      <span>Haciendo la magia...</span>
     </div>
   );
 }
 
+//este subComponente es el que se mapea con las imágenes
 function DivImg({ img, index }) {
   return (
     <div key={index} className={style.slide}>
@@ -36,9 +32,8 @@ function CarouselNew({ images }) {
             style={{ width: `${widthSlideTrack}px` }}
           >
             {newImages ? (
-              newImages &&
               newImages.map((image, index) => (
-                <DivImg img={image} index={index} />
+                <DivImg key={index} img={image} index={index} />
               ))
             ) : (
               <LoadingCarousel />
