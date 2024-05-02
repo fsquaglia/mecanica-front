@@ -1,18 +1,25 @@
-import style from './styles/LoginForm.module.css'
+import style from "./styles/LoginForm.module.css";
 import { useState, useEffect } from "react";
-import GenericButton from '../GenericButton/GenericButton';
+import GenericButton from "../GenericButton/GenericButton";
 import { useNavigate } from "react-router-dom";
-import {ValidLogin} from './internalUtils/Validate';
-import {loginUser}from './Auth'
+import { ValidLogin } from "./internalUtils/Validate";
+import { loginUser } from "./Auth";
 
-
-const LoginForm = ({handleSignClick, auth}) => {
-  
-  const {login, authenticated, user}=auth;
+const LoginForm = ({ handleSignClick, auth }) => {
+  const { login, authenticated, user } = auth;
   const navigate = useNavigate();
   //----------------------------------------
   const [showForm, setShowForm] = useState(false);
-  const [showPassword, setShowPassword]= useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
     if (!authenticated) {
@@ -24,18 +31,9 @@ const LoginForm = ({handleSignClick, auth}) => {
 
   //-------------------------------------------------
 
-  const onClose= ()=>{
-    navigate("/")
-  }
-  const [input, setInput] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [error, setError] = useState({
-    email: "",
-    password: "",
-  });
+  const onClose = () => {
+    navigate("/");
+  };
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -48,24 +46,28 @@ const LoginForm = ({handleSignClick, auth}) => {
       [name]: ValidLogin({ ...input, [name]: value })[name],
     });
   }
-  
-  const handleSubmit = async(event)=>{
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    const user = await loginUser(input,login);
+
+    const user = await loginUser(input, login);
     setInput({
       email: "",
       password: "",
     });
-    if(user){
+    if (user) {
       navigate("/home");
-      
     }
     //}
-  }
-  const permit= (!input.email.trim() ||!input.password.trim() ||error.email|| error.password)? true :null;
- 
-  
+  };
+  const permit =
+    !input.email.trim() ||
+    !input.password.trim() ||
+    error.email ||
+    error.password
+      ? true
+      : null;
+
   return (
     <div className={style.form}>
         <div>

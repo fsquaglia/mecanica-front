@@ -1,18 +1,14 @@
 import style from "./styles/Pagina.module.css";
-import Carousel from "../../components/CarouselNew/CarouselNew";
 import { useEffect, useState } from "react";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { imagesDB } from "../../firebase/firebaseConfig";
 import logo from "../../assets/images/logoBoscarol.png";
-import CarouselComponent from "./CarouselComponent";
 import CarouselNew from "./CarouselNew";
 
 const Pagina = () => {
   const [images, setImages] = useState([]);
   const [imageMain, setImageMain] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  //console.log(baseBackGround[0].url)
 
   useEffect(() => {
     //buscamos las imágenes del carrusel
