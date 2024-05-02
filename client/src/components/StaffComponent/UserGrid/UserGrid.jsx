@@ -1,5 +1,5 @@
 import User from './User'
-import style from './styles/UserGrid.module.css'
+import style from '../generalStyles/CarUserGrids/Grid.module.css'
 import {userBynumId, getAllUsers} from '../../../redux/actions'
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
@@ -15,7 +15,7 @@ const UserGrid = ({data}) => {
   const type = queryParams.get('type'); //Obtener el type "user" o "car"
   const id = location.pathname.split('/').pop(); // Obtener el ID de la URL
   
- const user = useSelector((state)=>state.userBynumId)
+ const user = useSelector((state)=>state.userByDni)
  const allUsers = useSelector((state)=>state.allUsers)
  
  const name = type === 'user' ? id : null;

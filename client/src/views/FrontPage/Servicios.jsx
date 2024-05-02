@@ -1,29 +1,145 @@
-import React from 'react'
-
+import React, { useEffect, useState } from "react";
+import { realtimeDB } from "../../firebase/firebaseConfig";
+import { ref, onValue } from "firebase/database";
+import neumatico from "../../assets/neumatico.gif";
+//import "../styles/Modal.css"; // Estilos del modal
+import "./styles/Modal.css";
 const Servicios = () => {
+  const [servicesData, setServicesData] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Referencia al nodo 'services' en la base de datos
+    const servicesRef = ref(realtimeDB, "services");
+
+    // Suscribe un observador para escuchar cambios en 'services'
+    const unsubscribe = onValue(servicesRef, (snapshot) => {
+      const data = snapshot.val();
+
+      const serviceVisible = {}; // Objeto para almacenar los elementos visibles
+
+      // Iterar sobre las claves del objeto
+      Object.keys(data).forEach((key) => {
+        const elemento = data[key];
+        if (elemento.visible) {
+          // Agregar elemento al objeto historyVisible
+          serviceVisible[key] = elemento;
+        }
+      });
+
+      setServicesData(serviceVisible);
+    });
+
+    // Función de limpieza al desmontar el componente
+    return () => {
+      unsubscribe(); // Desconecta el observador cuando el componente se desmonta
+    };
+  }, []); // Ejecuta el efecto solo una vez al montar el componente
+
+  const openModal = (serviceKey) => {
+    setSelectedService(servicesData[serviceKey]);
+    setIsModalOpen(true);
+    // console.log("modal " + isModalOpen);
+  };
+
+  const closeModal = () => {
+    setSelectedService(null);
+    setIsModalOpen(false);
+  };
+
   return (
-    <div>
-        <h2>Servicios</h2>
-        <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat venenatis enim, in sollicitudin augue vehicula eget. Nam blandit pretium tortor vel maximus. Fusce quis pharetra ex, non pellentesque elit. In vitae imperdiet urna, ut hendrerit odio. Vivamus nec tristique nulla. Integer consequat vulputate nibh, et mollis erat feugiat feugiat. Sed scelerisque ex tincidunt mi blandit, eu iaculis risus interdum. Fusce eget neque sit amet mi ornare venenatis. Donec tincidunt rutrum eros, nec vestibulum urna volutpat volutpat. In vel commodo arcu. Sed non euismod mi. Cras tortor lectus, interdum et est non, varius dapibus sem.
+    <div className="container align-items-center justify-content-center my-5">
+      <h2 className="my-3">Nuestros servicios</h2>
+      <div className=" row align-items-center justify-content-center my-3">
+        {servicesData ? (
+          Object.keys(servicesData).map((serviceKey) => (
+            <div
+              key={serviceKey}
+              className="col-7 col-lg-2 col-md-2 col-sm-7 align-items-center justify-content-ceter "
+            >
+              <div style={{ height: "80px" }} className="">
+                <p>{servicesData[serviceKey].title}</p>
+              </div>
+              <div
+                className="mb-2"
+                style={{
+                  width: "120%",
+                  paddingTop: "200%",
+                  position: "relative",
+                  overflow: "hidden",
+                  // left: "-10%",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    clipPath: "polygon(0% 0%, 75% 0%, 100% 100%, 25% 100%)",
+                    perspective: "100px",
+                  }}
+                  onClick={() => openModal(serviceKey)} // Abrir modal al hacer clic en la imagen
+                >
+                  <img
+                    src={servicesData[serviceKey].url}
+                    alt=""
+                    className="img-fluid "
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                      transition: "transform 0.5s",
+                    }}
+                    onMouseOver={(e) =>
+                      (e.target.style.transform = "translateZ(10px)")
+                    }
+                    onMouseOut={(e) => (e.target.style.transform = "none")}
+                  />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="container">
+            <img src={neumatico} alt="Cargando datos ..." />
+          </div>
+        )}
+      </div>
 
-Donec commodo mauris vitae est pharetra porttitor. Aliquam ac massa a ipsum gravida feugiat. Nullam quis nisi dui. Nunc sed elementum nisi, quis vehicula massa. Praesent eget semper quam. Etiam viverra aliquet dolor quis vulputate. Aenean condimentum pellentesque dolor vitae blandit.
-
-Nullam finibus neque in sem dignissim, at vehicula tellus efficitur. Fusce aliquet pretium dolor eget volutpat. Morbi scelerisque laoreet diam, at rutrum massa sodales ac. Duis laoreet risus et est pellentesque, in pulvinar leo auctor. Sed in quam laoreet, malesuada orci sed, pharetra nulla. In mollis hendrerit faucibus. Quisque viverra egestas mauris sit amet tincidunt. Aliquam nec mi et sem semper egestas ac eu ipsum. Integer et lectus vitae lorem rutrum viverra ut id erat. Mauris elementum massa at pulvinar molestie. Sed ullamcorper mi a lobortis bibendum.
-
-Aliquam orci mauris, placerat sit amet mauris finibus, tempor efficitur lectus. Integer dictum facilisis sagittis. Nulla tristique nunc enim, tincidunt interdum mi vehicula id. Nunc dui erat, fermentum non massa in, tincidunt dapibus lectus. Integer interdum eget odio sit amet commodo. Cras eleifend orci et erat facilisis, quis molestie sapien sodales. Suspendisse venenatis viverra lorem, eget dapibus tellus ullamcorper in. In bibendum eu nisi et iaculis. Curabitur rhoncus purus at ultrices sollicitudin. Integer eu commodo nulla. Curabitur faucibus vulputate mauris et consectetur. Nam id orci velit. Cras id nibh nisl. Proin dapibus justo vel ipsum scelerisque dapibus. Morbi dignissim hendrerit lacus, accumsan porta arcu vestibulum vitae. Quisque vel magna efficitur, sodales tellus id, gravida massa.
-
-Quisque ut molestie nisl, in interdum justo. Donec et viverra nisi, id tempor nisl. Pellentesque laoreet fringilla eros, et tempor ante. Nam ullamcorper metus eget mattis ultrices. Aenean vitae leo vitae ipsum aliquet porttitor eget quis urna. Morbi ac quam velit. Morbi nec orci mauris. Proin in ullamcorper justo.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat venenatis enim, in sollicitudin augue vehicula eget. Nam blandit pretium tortor vel maximus. Fusce quis pharetra ex, non pellentesque elit. In vitae imperdiet urna, ut hendrerit odio. Vivamus nec tristique nulla. Integer consequat vulputate nibh, et mollis erat feugiat feugiat. Sed scelerisque ex tincidunt mi blandit, eu iaculis risus interdum. Fusce eget neque sit amet mi ornare venenatis. Donec tincidunt rutrum eros, nec vestibulum urna volutpat volutpat. In vel commodo arcu. Sed non euismod mi. Cras tortor lectus, interdum et est non, varius dapibus sem.
-
-Donec commodo mauris vitae est pharetra porttitor. Aliquam ac massa a ipsum gravida feugiat. Nullam quis nisi dui. Nunc sed elementum nisi, quis vehicula massa. Praesent eget semper quam. Etiam viverra aliquet dolor quis vulputate. Aenean condimentum pellentesque dolor vitae blandit.
-
-Nullam finibus neque in sem dignissim, at vehicula tellus efficitur. Fusce aliquet pretium dolor eget volutpat. Morbi scelerisque laoreet diam, at rutrum massa sodales ac. Duis laoreet risus et est pellentesque, in pulvinar leo auctor. Sed in quam laoreet, malesuada orci sed, pharetra nulla. In mollis hendrerit faucibus. Quisque viverra egestas mauris sit amet tincidunt. Aliquam nec mi et sem semper egestas ac eu ipsum. Integer et lectus vitae lorem rutrum viverra ut id erat. Mauris elementum massa at pulvinar molestie. Sed ullamcorper mi a lobortis bibendum.
-
-</p>
-<hr></hr>
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <h3>{selectedService.title}</h3>
+            <div
+              className="container d-flex justify-content-center align-items-center overflow-hidden"
+              style={{ maxWidth: "500px", maxHeight: "200px" }}
+            >
+              <img
+                src={selectedService.url}
+                alt={`img${selectedService.title}`}
+                style={{
+                  opacity: "0.4",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+            <p>{selectedService.description}</p>
+            <p style={{ fontSize: "smaller" }}>{selectedService.data}</p>
+          </div>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Servicios
+export default Servicios;

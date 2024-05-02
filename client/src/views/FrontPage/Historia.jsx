@@ -1,32 +1,168 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { realtimeDB } from "../../firebase/firebaseConfig";
+import { ref, onValue } from "firebase/database";
+import neumatico from "../../assets/neumatico.gif";
+import style from './styles/Historia.module.css'
+
+//este subcomponente renderiza las imágenes
+const DivImg = ({ index, url, title }) => {
+  return (
+    <div
+      className="container m-3 col-sm-6"
+      style={{
+        width: "40%", // Ancho deseado del contenedor padre
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          paddingBottom: "100%",
+          overflow: "hidden",
+          position: "relative",
+          borderRadius: "50%",
+          filter:
+            index === 0 // Aplicar filtro solo a la primera imagen
+              ? "drop-shadow(6px 6px 10px rgba(50, 50, 0, 0.5)) sepia(50%) saturate(150%) hue-rotate(15deg)"
+              : "drop-shadow(6px 6px 10px rgba(50, 50, 0, 0.5))",
+        }}
+      >
+        <img
+          src={url}
+          alt={title}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+//este subcomponente renderiza los títulos y descripción
+const DivTitle = ({ title, description }) => {
+  return (
+    <div className="m-3 col-sm-6">
+      <h2>{title}</h2>
+      <p> {description} </p>
+    </div>
+  );
+};
 
 const Historia = () => {
+  const [historyData, setHistoryData] = useState();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  //useEffect controla el tamaño del screen para la renderización de imagen + título/descripción
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    //referencia al nodo history en la BD
+    const historyRef = ref(realtimeDB, "history");
+
+    //suscribir un observador para escuchar cambios en el nodo
+    const unsubscribe = onValue(historyRef, (snapshot) => {
+      const data = snapshot.val();
+      const historyVisible = {}; // Objeto para almacenar los elementos visibles
+
+      // Iterar sobre las claves del objeto
+      Object.keys(data).forEach((key) => {
+        const elemento = data[key];
+        if (elemento.visible) {
+          // Agregar elemento al objeto historyVisible
+          historyVisible[key] = elemento;
+        }
+      });
+      setHistoryData(historyVisible);
+    });
+
+    return () => {
+      unsubscribe(); //desconectar el observador cuando se desmonta el componente
+    };
+  }, []);
+
   return (
-    <div>
-      <h2>Historia</h2>
-    
-      <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat venenatis enim, in sollicitudin augue vehicula eget. Nam blandit pretium tortor vel maximus. Fusce quis pharetra ex, non pellentesque elit. In vitae imperdiet urna, ut hendrerit odio. Vivamus nec tristique nulla. Integer consequat vulputate nibh, et mollis erat feugiat feugiat. Sed scelerisque ex tincidunt mi blandit, eu iaculis risus interdum. Fusce eget neque sit amet mi ornare venenatis. Donec tincidunt rutrum eros, nec vestibulum urna volutpat volutpat. In vel commodo arcu. Sed non euismod mi. Cras tortor lectus, interdum et est non, varius dapibus sem.
 
-Donec commodo mauris vitae est pharetra porttitor. Aliquam ac massa a ipsum gravida feugiat. Nullam quis nisi dui. Nunc sed elementum nisi, quis vehicula massa. Praesent eget semper quam. Etiam viverra aliquet dolor quis vulputate. Aenean condimentum pellentesque dolor vitae blandit.
+    <div className="container my-3 col-sm-12">
 
-Nullam finibus neque in sem dignissim, at vehicula tellus efficitur. Fusce aliquet pretium dolor eget volutpat. Morbi scelerisque laoreet diam, at rutrum massa sodales ac. Duis laoreet risus et est pellentesque, in pulvinar leo auctor. Sed in quam laoreet, malesuada orci sed, pharetra nulla. In mollis hendrerit faucibus. Quisque viverra egestas mauris sit amet tincidunt. Aliquam nec mi et sem semper egestas ac eu ipsum. Integer et lectus vitae lorem rutrum viverra ut id erat. Mauris elementum massa at pulvinar molestie. Sed ullamcorper mi a lobortis bibendum.
-
-Aliquam orci mauris, placerat sit amet mauris finibus, tempor efficitur lectus. Integer dictum facilisis sagittis. Nulla tristique nunc enim, tincidunt interdum mi vehicula id. Nunc dui erat, fermentum non massa in, tincidunt dapibus lectus. Integer interdum eget odio sit amet commodo. Cras eleifend orci et erat facilisis, quis molestie sapien sodales. Suspendisse venenatis viverra lorem, eget dapibus tellus ullamcorper in. In bibendum eu nisi et iaculis. Curabitur rhoncus purus at ultrices sollicitudin. Integer eu commodo nulla. Curabitur faucibus vulputate mauris et consectetur. Nam id orci velit. Cras id nibh nisl. Proin dapibus justo vel ipsum scelerisque dapibus. Morbi dignissim hendrerit lacus, accumsan porta arcu vestibulum vitae. Quisque vel magna efficitur, sodales tellus id, gravida massa.
-
-Quisque ut molestie nisl, in interdum justo. Donec et viverra nisi, id tempor nisl. Pellentesque laoreet fringilla eros, et tempor ante. Nam ullamcorper metus eget mattis ultrices. Aenean vitae leo vitae ipsum aliquet porttitor eget quis urna. Morbi ac quam velit. Morbi nec orci mauris. Proin in ullamcorper justo.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat venenatis enim, in sollicitudin augue vehicula eget. Nam blandit pretium tortor vel maximus. Fusce quis pharetra ex, non pellentesque elit. In vitae imperdiet urna, ut hendrerit odio. Vivamus nec tristique nulla. Integer consequat vulputate nibh, et mollis erat feugiat feugiat. Sed scelerisque ex tincidunt mi blandit, eu iaculis risus interdum. Fusce eget neque sit amet mi ornare venenatis. Donec tincidunt rutrum eros, nec vestibulum urna volutpat volutpat. In vel commodo arcu. Sed non euismod mi. Cras tortor lectus, interdum et est non, varius dapibus sem.
-
-Donec commodo mauris vitae est pharetra porttitor. Aliquam ac massa a ipsum gravida feugiat. Nullam quis nisi dui. Nunc sed elementum nisi, quis vehicula massa. Praesent eget semper quam. Etiam viverra aliquet dolor quis vulputate. Aenean condimentum pellentesque dolor vitae blandit.
-
-Nullam finibus neque in sem dignissim, at vehicula tellus efficitur. Fusce aliquet pretium dolor eget volutpat. Morbi scelerisque laoreet diam, at rutrum massa sodales ac. Duis laoreet risus et est pellentesque, in pulvinar leo auctor. Sed in quam laoreet, malesuada orci sed, pharetra nulla. In mollis hendrerit faucibus. Quisque viverra egestas mauris sit amet tincidunt. Aliquam nec mi et sem semper egestas ac eu ipsum. Integer et lectus vitae lorem rutrum viverra ut id erat. Mauris elementum massa at pulvinar molestie. Sed ullamcorper mi a lobortis bibendum.
-
-Aliquam orci mauris, placerat sit amet mauris finibus, tempor efficitur lectus. Integer dictum facilisis sagittis. Nulla tristique nunc enim, tincidunt interdum mi vehicula id. Nunc dui erat, fermentum non massa in, tincidunt dapibus lectus. Integer interdum eget odio sit amet commodo. Cras eleifend orci et erat facilisis, quis molestie sapien sodales. Suspendisse venenatis viverra lorem, eget dapibus tellus ullamcorper in. In bibendum eu nisi et iaculis. Curabitur rhoncus purus at ultrices sollicitudin. Integer eu commodo nulla. Curabitur faucibus vulputate mauris et consectetur. Nam id orci velit. Cras id nibh nisl. Proin dapibus justo vel ipsum scelerisque dapibus. Morbi dignissim hendrerit lacus, accumsan porta arcu vestibulum vitae. Quisque vel magna efficitur, sodales tellus id, gravida massa.
-
-Quisque ut molestie nisl, in interdum justo. Donec et viverra nisi, id tempor nisl. Pellentesque laoreet fringilla eros, et tempor ante. Nam ullamcorper metus eget mattis ultrices. Aenean vitae leo vitae ipsum aliquet porttitor eget quis urna. Morbi ac quam velit. Morbi nec orci mauris. Proin in ullamcorper justo.</p>
-<hr></hr>
+      {historyData && Object.keys(historyData).length > 0 ? (
+        Object.keys(historyData).map((historyKey, index) =>
+          index % 2 === 0 ? (
+            <div
+              className="d-flex flex-wrap align-items-center justify-content-center"
+              key={historyKey}
+            >
+              {/*div de la imagen */}
+              <DivImg
+                index={index}
+                url={historyData[historyKey].url}
+                title={historyData[historyKey].title}
+              />
+              {/*div del título y descripción */}
+              <DivTitle
+                title={historyData[historyKey].title}
+                description={historyData[historyKey].description}
+              />
+            </div>
+          ) : screenWidth > 768 ? (
+            <div
+              className="d-flex flex-wrap align-items-center justify-content-center"
+              key={historyKey}
+            >
+              {/*div del título y descripción */}
+              <DivTitle
+                title={historyData[historyKey].title}
+                description={historyData[historyKey].description}
+              />
+              {/*div de la imagen */}
+              <DivImg
+                index={index}
+                url={historyData[historyKey].url}
+                title={historyData[historyKey].title}
+              />
+            </div>
+          ) : (
+            <div
+              className="d-flex flex-wrap align-items-center justify-content-center border-top border-bottom"
+              key={historyKey}
+            >
+              {/*div de la imagen */}
+              <DivImg
+                index={index}
+                url={historyData[historyKey].url}
+                title={historyData[historyKey].title}
+              />
+              {/*div del título y descripción */}
+              <DivTitle
+                title={historyData[historyKey].title}
+                description={historyData[historyKey].description}
+              />
+            </div>
+          )
+        )
+      ) : (
+        <div className="container">
+          <img src={neumatico} alt="Cargando datos ..." />
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Historia
+export default Historia;

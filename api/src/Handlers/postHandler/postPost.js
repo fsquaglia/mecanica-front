@@ -1,9 +1,11 @@
-import Category from "../../Models/Category.js";
 import { Post, CategoryPost } from "../../db.js";
+import createPost from "../../Controllers/commerceControllers/createPostController.js";
 
 const postPost = async (req, res) => {
+  console.log(req.body);
   //datePost usamos la fecha actual
   const {
+    datePost,
     titlePost,
     textPost,
     imgPost,
@@ -35,22 +37,34 @@ const postPost = async (req, res) => {
     }
 
     //! Crear el post (ver las imagenes a guardar)
-    const createdPost = await Post.create({
-      datePost: new Date(),
+
+    const createdPost = await createPost(
       titlePost,
       textPost,
-      imgPost: imgPost ?? [],
-      published: published ?? false,
-      viewFavPost: viewFavPost ?? false,
-      other: other ?? "",
+      published,
+      viewFavPost,
+      imgPost,
       idCategory,
-    });
+      other
+    );
+
+    // Post.create({
+    //   datePost: new Date(),
+    //   titlePost,
+    //   textPost,
+    //   imgPost: imgPost ?? [],
+    //   published: published ?? false,
+    //   viewFavPost: viewFavPost ?? false,
+    //   other: other ?? "",
+    //   idCategory,
+    // });
     //devolvemos SOLO el Post creado, para reordenarlos usar método GET correspondiente
-    //const data = await Post.findAll();
+    // const data = await Post.findAll();
     res.status(201).json(createdPost);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al crear la categoría" });
+
+    res.status(500).json({ error: "Error al crear el Tip" });
   }
 };
 

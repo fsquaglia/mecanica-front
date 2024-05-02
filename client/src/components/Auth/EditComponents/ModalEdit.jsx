@@ -25,7 +25,7 @@ const EditWindow = ({ onClose, userEdit}) => {
     enable,
   });
 
-
+//console.log(editedUser)
 
   const handleInputChange = (name, value) => {
     const processedValue = name === 'enable' ? value === 'true' : value;
@@ -34,7 +34,17 @@ const EditWindow = ({ onClose, userEdit}) => {
       [name]: processedValue,
     }));
   };
-
+  const resetUser = ()=>{
+    if(user.id === id){
+      showSuccess(`Usuario actualizado con éxito. \n Inicia sesion nuevamente`)
+      setTimeout(()=>{
+        logout();
+       },4000)
+    }else{
+      showSuccess(`Usuario actualizado con éxito`)
+      null;
+    }
+  }
   const handleSaveChanges = async () => {
   
     //Lógica para guardar los cambios
@@ -43,8 +53,10 @@ const EditWindow = ({ onClose, userEdit}) => {
       const response = await axios.put(`/user/${id}`,editedUser, setAuthHeader());
       
       if (response.status === 200) {
-        showSuccess('Usuario actualizado con éxito')
+        //showSuccess(`Usuario actualizado con éxito. \n Inicia sesion nuevamente`)
        onClose(); // Cierra el modal después de guardar los cambios
+       resetUser();
+       
       } else {
         showError('Error al actualizar el usuario')
       }
@@ -60,11 +72,34 @@ const EditWindow = ({ onClose, userEdit}) => {
       onResetPass()
     }
   };
-  
+
+  const deleteUser = async () => {
+    const confirmed = await showConfirmationDialog(`¿Está seguro de borrar este usuario? \n Esta accion no podrá deshacerse`);
+    if (confirmed) {
+      onDeleteUser()
+    }
+  };
+  const onDeleteUser = async()=>{
+    try {
+      const response = await axios.delete(`/user/${id}`, setAuthHeader());
+      if (response.status === 200) {
+        showSuccess('Usuario eliminado con exito')
+       onClose(); // Cierra el modal después de guardar los cambios
+      } else if (response.status ===400){
+        showError('Error al eliminar el usuario')
+      }
+    } catch (error) {
+      if (error.response) {// Si hay una respuesta del servidor, muestra el mensaje de error correspondiente
+        HandlError(error);
+      } else {// Si no hay respuesta del servidor, muestra un mensaje de error genérico
+        showError('Error al eliminar el usuario');
+      }
+    }
+   }
 
  const onResetPass = async()=>{
   try {
-    const response = await axios.patch(`/user/${id}`, setAuthHeader());
+    const response = await axios.patch(`/user/${id}`, null, setAuthHeader());
     if (response.status === 200) {
       showSuccess('Contraseña actualizada con exito')
      onClose(); // Cierra el modal después de guardar los cambios
@@ -83,11 +118,14 @@ const EditWindow = ({ onClose, userEdit}) => {
  
   return (
     <div className={style.modal}>
-      <h2>Editar Usuario</h2>
-      <FormEdit id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} onClose={onClose} logout={logout}/>
-      <GenericButton onClick= {onClose} buttonText='Cancelar'/>
+      <div className={style.divButtons}>
+      <GenericButton  onClick= {onClose} buttonText='Cancelar'/>
       {authenticated && user.role===0? (
-      <GenericButton onClick= {resetPassword} buttonText='Reset Password'/>) : null}
+        <><GenericButton  onClick= {resetPassword} buttonText='Reset Password'/>
+        <GenericButton  onClick = {deleteUser} buttonText={'Borrar Usuario'}/></>) : null}
+        </div>
+        {/* <h2 >Editar Usuario</h2> */}
+        <FormEdit id = {id} editedUser={editedUser} onInputChange={handleInputChange} onSaveChanges={handleSaveChanges} onClose={onClose} logout={logout}/>
     </div>
   );
 };

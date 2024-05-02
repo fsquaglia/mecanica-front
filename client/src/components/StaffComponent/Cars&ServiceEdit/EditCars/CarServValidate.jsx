@@ -45,12 +45,13 @@ const ValidCar = (input) => {
       // Validaciones para el campo de observaciones
     else if (!input.observations.trim()) {
         errors.observations = "Este campo no puede estar vacio";
-      }  else if (input.observations.length < 40) {
-        errors.observations = "Este campo debe tener al menos 40 caracteres";
+      }  else if (input.observations.length < 10) {
+        errors.observations = "Este campo debe tener al menos 10 caracteres";
       }else if (input.observations.length > 500){
       errors.observations = "Este campo no debe tener mas de 500 caracters";
       }
   return errors;
 };
+
 
 export default ValidCar;

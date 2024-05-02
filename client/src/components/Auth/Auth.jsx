@@ -70,7 +70,7 @@ const loginUser = async(userData,login)=>{
               const id = userData.id;
               const password = userData.password;
               try {
-                  const response = await axios.post(`/user/set`,{
+                  const response = await axios.post(`/user`,{
                       id,
                       password,
                   }, setAuthHeader());
