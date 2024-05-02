@@ -69,89 +69,55 @@ const LoginForm = ({ handleSignClick, auth }) => {
       : null;
 
   return (
-    <div
-      className={`container my-5 col-sm-8 col-8 ${style.form}`}
-      style={{ maxWidth: "600px" }}
-    >
-      <div className="fs-3 m-3">Inicia sesión</div>
-      {showForm && (
-        <form
-          className="row g-3 needs-validation my-3"
-          novalidate
-          onSubmit={(event) => handleSubmit(event)}
-        >
-          <div className="mb-3">
-            <div className="input-group">
-              <label htmlFor="email" className="input-group-text">
-                Email
-              </label>
-
-              <input
-                type="text"
-                placeholder="email"
-                value={input.email}
-                name="email"
-                id="email"
-                autoComplete="off"
-                onChange={(event) => handleChange(event)}
-                className="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
-                required
-              />
-            </div>
-            <div className="text-danger">{error.email}</div>
-          </div>
-          <div className="mb-3">
-            <div className="input-group">
-              <label htmlFor="password" className="input-group-text">
-                Contraseña
-              </label>
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="password"
-                value={input.password}
-                name="password"
-                id="password"
-                autoComplete="off"
-                onChange={(event) => handleChange(event)}
-                className="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
-                required
-              />
-
-              <button
-                type="button"
-                onClick={() => {
-                  setShowPassword(!showPassword);
-                }}
-                className="btn btn-outline-secondary"
-              >
-                <i
-                  className={showPassword ? "bi bi-eye-slash" : "bi bi-eye"}
-                ></i>
-              </button>
-            </div>
-            <div className="text-danger">{error.password}</div>
-          </div>
-          <div className=" d-flex flex-wrap justify-content-center my-3">
-            <div className="m-3">
-              <GenericButton
-                type="submit"
-                buttonText={"Iniciar sesión"}
-                disabled={permit}
-              />
-              {/*en lugar de null va permit*/}
-            </div>
-            <div className="m-3">
-              <GenericButton onClick={onClose} buttonText={"Cancelar"} />
-            </div>
-          </div>
-        </form>
-      )}
+    <div className={style.cont}>
+    <div className={style.form}>
+        <div>
+        <GenericButton onClick={onClose} buttonText={'Cancelar'}/>
+        </div>
+        {showForm && (
+      <form onSubmit={(event) => handleSubmit(event)}>
+        <br/>
+        <div >
+          <label > Email: </label>
+          <input
+            type="text"
+            placeholder="email"
+            value={input.email}
+            name="email"
+            autoComplete="off"
+            onChange={(event) => handleChange(event)}
+            className=''
+            />
+          {error.email && <p className={style.errorMessage}>{error.email}</p>}
+        </div>
+        <br/>
+        <div>
+          <label > Password: </label>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="password"
+            value={input.password}
+            name="password"
+            autoComplete="off"
+            onChange={(event) => handleChange(event)}
+            className=''
+          />
+          <button type= 'button' onClick={()=>{setShowPassword(!showPassword)}} className={style.button} >
+          <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye' }></i>
+          </button>
+          {error.password && <p className={style.errorMessage}>{error.password}</p>}
+        </div>
+        <br/>
+        <GenericButton type='submit' buttonText={'Iniciar Sesion'} disabled={permit}/> {/*en lugar de null va permit*/}
+      </form>
+        )}
+     
+    </div>
     </div>
   );
 };
 
-export default LoginForm;
+export default LoginForm
+
+
+//  <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye' }></i>

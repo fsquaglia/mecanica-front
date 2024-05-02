@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { app } from "../../firebase/firebaseConfig";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+import React, { useState, useEffect } from 'react';
+import style from '../GenericButton/EspecialButton.module.css'
+ import {app} from '../../firebase/firebaseConfig';
+  import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const ImgUpFire = ({ maxImages, uploadImgs }) => {
   const [imagenes, setImagenes] = useState([]);
@@ -46,6 +48,7 @@ const ImgUpFire = ({ maxImages, uploadImgs }) => {
   };
 
   return (
+
     <div className="container">
       <div className="row my-2">
         <label className="col-3" htmlFor="file">
