@@ -69,6 +69,7 @@ const LoginForm = ({ handleSignClick, auth }) => {
       : null;
 
   return (
+    <div className={style.cont}>
     <div className={style.form}>
         <div>
         <GenericButton onClick={onClose} buttonText={'Cancelar'}/>
@@ -111,6 +112,7 @@ const LoginForm = ({ handleSignClick, auth }) => {
       </form>
         )}
      
+    </div>
     </div>
   );
 };
