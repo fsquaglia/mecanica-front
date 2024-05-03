@@ -24,6 +24,7 @@ export const ALL_CATEGORY_TIPS = "ALL_CATEGORY_TIPS";
 export const GET_ORDER_TIPS = "GET_ORDER_TIPS";
 export const STATE_FILTER_TIPS = "STATE_FILTER_TIPS";
 export const OPTION_FILTER = "OPTION_FILTER";
+export const SEARCH_TIPS = "SEARCH_TIPS";
 
 //?%%%%%%%%%%% commerce %%%%%%%%%%%%%%%%%%%%%%%%%%
 export const isMyCommerce = () => {
@@ -439,3 +440,20 @@ export const optionFiltered = (category, order) => {
     } catch (error) {}
   };
 };
+
+//%%%%%%%%%%%% SEARCH TIPS///
+
+export const searchTips = (value) => {
+  return async (dispatch) => {
+    try {
+      return dispatch(
+        {
+          type: SEARCH_TIPS,
+          payload: value,
+        }
+      )
+    } catch (error) {
+      
+    }
+  }
+}
