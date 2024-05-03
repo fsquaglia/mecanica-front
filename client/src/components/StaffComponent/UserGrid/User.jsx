@@ -12,12 +12,16 @@ const User = ({data}) => {
       return 'Bloqueado'
     }
   }
+  const MaxLength = 12
+  const truncatedEmail = email.length >MaxLength? email.substring(0, MaxLength) + '...' : email;
  const vehiculos = infoSelect(Cars)
   return (
     <div className={style.cardContainer}>
     <p>Nombre: {name}</p>
     <Link to= {`/admin/dett/${id}?type=user`}>Ver Usuario:</Link>
-    <p>Email: {email}</p>
+    <p>Email: <span title={email}>{truncatedEmail}</span></p>
+    
+    {/* <p>Email: {email}</p> */}
     <p>Estado: {usuario(enable)}</p>
     <div>
       <p>Vehiculos:</p>

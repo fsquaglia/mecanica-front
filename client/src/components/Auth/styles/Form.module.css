@@ -21,6 +21,10 @@
 
   overflow: auto;
 }
+.button{
+  background-color: transparent;
+
+ }
 
 /* stylesComp/FormEdit.module.css
 

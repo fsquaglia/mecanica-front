@@ -90,6 +90,7 @@ const EditPass = ({ id, onClose, logout }) => {
 
   return (
     <div>
+
       <form className="row g-3 my-3">
         <div>
           <p className="fs-5">Modificar contraseña</p>
@@ -114,6 +115,7 @@ const EditPass = ({ id, onClose, logout }) => {
             }}
           >
             <i className={showPassword ? "bi bi-eye-slash" : "bi bi-eye"}></i>
+
           </button>
         </div>
         <div>
@@ -128,7 +130,6 @@ const EditPass = ({ id, onClose, logout }) => {
           ) : null}
         </div>
         {/* Campos para el nuevo password */}
-
         <div className="input-group">
           <label className="input-group-text" style={{ width: "120px" }}>
             Nueva
@@ -190,6 +191,7 @@ const EditPass = ({ id, onClose, logout }) => {
           />
         </div>
       </form>
+
     </div>
   );
 };
