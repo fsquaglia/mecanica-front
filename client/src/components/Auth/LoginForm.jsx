@@ -70,7 +70,7 @@ const LoginForm = ({ handleSignClick, auth }) => {
 
   return (
     <div
-      className={`container my-5 col-sm-8 col-8 ${style.form}`}
+      className={`container my-5 col-sm-8 col-8 shadow p-3 ${style.form}`}
       style={{ maxWidth: "600px" }}
     >
       <div className="fs-3 m-3">Inicia sesión</div>
@@ -82,7 +82,11 @@ const LoginForm = ({ handleSignClick, auth }) => {
         >
           <div className="mb-3">
             <div className="input-group">
-              <label htmlFor="email" className="input-group-text">
+              <label
+                htmlFor="email"
+                className="input-group-text"
+                style={{ width: "120px" }}
+              >
                 Email
               </label>
 
@@ -104,7 +108,11 @@ const LoginForm = ({ handleSignClick, auth }) => {
           </div>
           <div className="mb-3">
             <div className="input-group">
-              <label htmlFor="password" className="input-group-text">
+              <label
+                htmlFor="password"
+                className="input-group-text"
+                style={{ width: "120px" }}
+              >
                 Contraseña
               </label>
               <input
