@@ -12,6 +12,7 @@ function Tips() {
     const allCategoryTips = useSelector((state) => state.allCategoryTips)
     const variableFilter = useSelector((state) => state.variableFilter)
     const optionFilter = useSelector((state) => state.optionFilter)
+    const [activeSearch, setActiveSearch] = useState(false)
     console.log(variableFilter.cat);
     useEffect(() => {
         if (allTips.length === 0) {
@@ -79,6 +80,16 @@ function Tips() {
             closeModal();
         }
     };
+    console.log(activeSearch);
+
+    const handlerSearch = (event) => {
+        if (event.target.value.length === 0) {
+            setActiveSearch(false)
+        }
+        if (event.target.value.length > 0) {
+            setActiveSearch(true)
+        }
+    }
 
 
     return (
@@ -115,6 +126,13 @@ function Tips() {
 
 
                     </select>
+                    <br></br>
+                    <br></br>
+
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">Buscar</span>
+                        <input type="text" class="form-control" placeholder="tips" aria-label="Username" aria-describedby="addon-wrapping" onChange={(el) => handlerSearch(el)}></input>
+                    </div>
                 </div>
             </div>
 
