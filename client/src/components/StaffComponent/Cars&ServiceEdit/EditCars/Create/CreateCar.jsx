@@ -6,10 +6,10 @@ import postCar from "../SendPosts";
 import GenericButton from "../../../../GenericButton/GenericButton";
 import ImgUpFire from "../../../../ImgUpFire/ImgUpFire";
 import showConfirmationDialog from "../../../../utils/sweetAlert";
+import DivInput from "../../../../GenericButton/DivInput";
 
 const CreateCar = () => {
   const idUser = sessionStorage.getItem("idUser");
-  const labelWidth = 100; //!ancho para el label del formulario a renderizaar, para que todos queden iguales y parejos
   const [input, setInput] = useState({
     patent: "",
     mark: "",
@@ -103,10 +103,9 @@ const CreateCar = () => {
     error.observations;
 
   return (
-    <div className={style.formContainer}>
+    <div className={`shadow ${style.formContainer}`}>
       <div className="fs-4 mb-3">Registrar vehículo</div>
       <div>
-        {/* <label> Imagen: </label> */}
         <ImgUpFire maxImages={1} uploadImgs={handleUploadImg} />
       </div>
       <form onSubmit={handleSubmit}>
@@ -164,7 +163,7 @@ const CreateCar = () => {
 
         <GenericButton
           type="submit"
-          buttonText={"Crear Vehiculo"}
+          buttonText={"Crear Vehículo"}
           disabled={permit}
         />
       </form>
@@ -174,6 +173,7 @@ const CreateCar = () => {
 
 export default CreateCar;
 
+/*
 function DivInput({
   labelText,
   name,
@@ -181,11 +181,11 @@ function DivInput({
   error,
   handleChange,
   type = "text",
+  labelWidth = 100
 }) {
-  const labelWidth = 100; //ancho para el label del formulario a renderizaar, para que todos queden iguales y parejos
 
   if (type === "area") {
-    //renderizo un textarea
+
     return (
       <div className="my-2">
         <div className="input-group">
@@ -207,7 +207,6 @@ function DivInput({
       </div>
     );
   } else {
-    //renderizo un input type text o number
     return (
       <div className="my-2">
         <div className="input-group">
@@ -231,3 +230,4 @@ function DivInput({
     );
   }
 }
+*/
