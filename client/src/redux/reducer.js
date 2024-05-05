@@ -173,7 +173,15 @@ const reducer = (state = initialState, { type, payload }) => {
     
     //%%%%%%%%%%%%SEARCH TIPS///
     case SEARCH_TIPS:
-      
+  const keyword = payload; // Palabra clave para buscar
+
+  // Filtrar los tips que contienen la palabra clave en su nombre
+  const filteredTips = state.allTips.filter(tip => tip.titlePost.toLowerCase().includes(keyword.toLowerCase()));
+
+  return {
+    ...state,
+    tipsSearch: filteredTips
+  };
   }
 };
 

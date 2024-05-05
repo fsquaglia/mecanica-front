@@ -3,7 +3,7 @@ import style from './Tips.module.css'
 import datosPrueba from './DatosPrueba'
 import Cards from '../../components/cards/Cards';
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllCategoryTips, getAllTips, getOrderTips, optionFiltered, stateOrderTips } from '../../redux/actions';
+import { getAllCategoryTips, getAllTips, getOrderTips, optionFiltered, searchTips, stateOrderTips } from '../../redux/actions';
 import { useState } from 'react';
 
 function Tips() {
@@ -13,7 +13,7 @@ function Tips() {
     const variableFilter = useSelector((state) => state.variableFilter)
     const optionFilter = useSelector((state) => state.optionFilter)
     const [activeSearch, setActiveSearch] = useState(false)
-    console.log(variableFilter.cat);
+    const tipsSearch = useSelector((state) => state.tipsSearch)
     useEffect(() => {
         if (allTips.length === 0) {
             dispatch(getAllTips())
@@ -81,13 +81,13 @@ function Tips() {
         }
     };
     console.log(activeSearch);
-
     const handlerSearch = (event) => {
         if (event.target.value.length === 0) {
             setActiveSearch(false)
         }
         if (event.target.value.length > 0) {
             setActiveSearch(true)
+            dispatch(searchTips(event.target.value))
         }
     }
 
@@ -103,6 +103,12 @@ function Tips() {
                 <h3 className={style.h3Title}>Filtros y busquedas</h3>
                 <hr></hr>
                 <div className={style.categoryDiv}>
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">Buscar</span>
+                        <input type="text" class="form-control" placeholder="tips" aria-label="Username" aria-describedby="addon-wrapping" onChange={(el) => handlerSearch(el)}></input>
+                    </div>
+                    <br></br>
+                    <br></br>
                     <span className={style.spanTitle}>Categorias</span>
                     <select value={optionFilter.category} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example" >
                         <option key={0} >Todos</option>
@@ -118,7 +124,7 @@ function Tips() {
                 <br></br>
                 <div className={style.orderDiv}>
                     <span className={style.spanTitle}>Ordenar por:</span>
-                    <select value={optionFilter.order} onChange={(el) => handlerSelect(el)} class="form-select" aria-label="Default select example">
+                    <select value={optionFilter.order} onChange={(el) => handlerSelect(el)} className={`form-select ${style.selectOrder}`} aria-label="Default select example">
                         <option value={"nameAsc"} >A-Z</option>
                         <option value={"nameDesc"} >Z-A</option>
                         <option value={"timeDesc"} >Más Recientes</option>
@@ -126,18 +132,13 @@ function Tips() {
 
 
                     </select>
-                    <br></br>
-                    <br></br>
 
-                    <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping">Buscar</span>
-                        <input type="text" class="form-control" placeholder="tips" aria-label="Username" aria-describedby="addon-wrapping" onChange={(el) => handlerSearch(el)}></input>
-                    </div>
+
                 </div>
             </div>
 
             <div className={style.divCard}>
-                <Cards info={allTips} elModal={handleCardClick} />
+                <Cards info={activeSearch ? tipsSearch : allTips} elModal={handleCardClick} />
             </div>
 
 

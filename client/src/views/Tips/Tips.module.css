@@ -22,6 +22,10 @@
     padding-top: 1em;
     padding-left: 1.5em;
     padding-right: 1.5em;
+
+    background-color: rgb(217, 206, 179);
+    border: 2px solid #b18454;
+    border-radius: 1rem;
 }
 
 .divCard {
@@ -62,6 +66,15 @@
 
 .spanTitle {
     justify-self: flex-start;
+}
+
+.orderDiv {
+    width: 100%;
+}
+
+.h3Title {
+
+    align-self: center;
 }
 
 @media only screen and (max-width: 900px) {
