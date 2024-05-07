@@ -109,58 +109,98 @@ const InnerDetail = ({ type, data }) => {
 
       {type === "car" && (
         <>
-          <div>
-            <Edition
-              allowedRoles={[0, 2]}
-              onClick={handEditCar}
-              text={"Edit. Veh."}
-            />
-            {serv ? (
+          <div className="container border border-warning-subtle rounded justify-content-center align-items-center">
+            {/*div de la Card */}
+            <div
+              className="my-4 col-xl-8 col-lg-10 mx-auto row border rounded shadow"
+              style={{ backgroundColor: "rgb(217, 206, 179)" }}
+            >
+              {/*contenedor de la imagen */}
+              <div
+                className="container rounded my-3 col-md-4 d-flex justify-content-center align-items-center"
+                // style={{ maxHeight: "300px", maxWidth: "300px" }}
+              >
+                <img
+                  src={data.picture}
+                  style={{ width: "100%", height: "auto" }}
+                  className="rounded"
+                />
+              </div>
+              {/*contenedor de la lista  */}
+              <div className="col-md-8">
+                <ul className={style.list} style={{ listStyle: "none" }}>
+                  <li>Patente: {data.patent}</li>
+                  <li>Marca: {data.mark}</li>
+                  <li>Modelo: {data.model}</li>
+                  <li>Año: {data.year}</li>
+                  <li>N° motor: {data.motorNum}</li>
+                  <li>N° chasis: {data.chassisNum}</li>
+                  <li>Estado: {enable}</li>
+                  <li>
+                    Creado: {new Date(data.createdAt).toLocaleDateString()}
+                  </li>
+                  <li>
+                    Actualizado: {new Date(data.updatedAt).toLocaleDateString()}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {user.role && user.role === 1 ? null : (
               <>
-                <GenericButton onClick={servClose} buttonText={"Cerrar Serv"} />
+                <div className="border rounded my-2 col-md-6 mx-auto py-2">
+                  <span>Propietario:</span> <br />
+                  {propietarios?.map((propietario, index) => (
+                    <span key={index}>
+                      <Link to={`/admin/dett/${propietario.id}?type=user`}>
+                        Nombre: {propietario.name}
+                      </Link>
+                      {index !== propietarios.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
+            <div className="border rounded my-2 col-md-6 mx-auto py-2">
+              <label>Observaciones: {data.observations}</label>
+            </div>
+            {/*mostramos los botones para Editar veh. o Servicios... */}
+            <div className="d-flex flex-wrap justify-content-center">
+              <div className="m-2">
                 <Edition
                   allowedRoles={[0, 2]}
-                  onClick={createServ}
-                  text={"Crear Serv"}
+                  onClick={handEditCar}
+                  text={"Editar Veh."}
                 />
-                <CarryTable data={services} />
-              </>
-            ) : (
-              <GenericButton
-                onClick={handleServ}
-                buttonText={"Ver Servicios"}
-              />
-            )}
-          </div>
-          <ul className={style.list}>
-            <li>Patente: {data.patent}</li>
-            <li>Marca: {data.mark}</li>
-            <li>Modelo: {data.model}</li>
-            <li>Año: {data.year}</li>
-            <li>Numero de motor: {data.motorNum}</li>
-            <li>Numero de chasis: {data.chassisNum}</li>
-            <li>Estado: {enable}</li>
-            <li>Creado: {data.createdAt}</li>
-            <li>Actualizado: {data.updatedAt}</li>
-          </ul>
-          {user.role && user.role === 1 ? null : (
-            <>
-              <div>
-                <p>Propietario:</p>
-                {propietarios?.map((propietario, index) => (
-                  <span key={index}>
-                    <Link to={`/admin/dett/${propietario.id}?type=user`}>
-                      Nombre: {propietario.name}
-                    </Link>
-                    {index !== propietarios.length - 1 ? ", " : ""}
-                  </span>
-                ))}
               </div>
-            </>
-          )}
-
-          <img src={data.picture} style={{ maxWidth: "150px" }} />
-          <label>Observaciones: {data.observations}</label>
+              {serv ? (
+                <>
+                  <div className="m-2">
+                    <GenericButton
+                      onClick={servClose}
+                      buttonText={"Cerrar Serv"}
+                    />
+                  </div>
+                  <div className="m-2">
+                    <Edition
+                      allowedRoles={[0, 2]}
+                      onClick={createServ}
+                      text={"Crear Serv"}
+                    />
+                  </div>
+                  <div className="m-2 col-8">
+                    <CarryTable data={services} />
+                  </div>
+                </>
+              ) : (
+                <div className="m-2">
+                  <GenericButton
+                    onClick={handleServ}
+                    buttonText={"Ver Servicios"}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </>
       )}
       {type === "user" && (

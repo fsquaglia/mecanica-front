@@ -69,7 +69,6 @@ const LoginForm = ({ handleSignClick, auth }) => {
       : null;
 
   return (
-
     <div
       className={`container my-5 col-sm-8 col-8 shadow p-3 ${style.form}`}
       style={{ maxWidth: "600px" }}
@@ -93,7 +92,7 @@ const LoginForm = ({ handleSignClick, auth }) => {
 
               <input
                 type="text"
-                placeholder="email"
+                // placeholder="email"
                 value={input.email}
                 name="email"
                 id="email"
@@ -118,7 +117,7 @@ const LoginForm = ({ handleSignClick, auth }) => {
               </label>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="password"
+                // placeholder="password"
                 value={input.password}
                 name="password"
                 id="password"
@@ -159,12 +158,10 @@ const LoginForm = ({ handleSignClick, auth }) => {
           </div>
         </form>
       )}
-
     </div>
   );
 };
 
-export default LoginForm
-
+export default LoginForm;
 
 //  <i className={showPassword ? 'bi bi-eye-slash' : 'bi bi-eye' }></i>
