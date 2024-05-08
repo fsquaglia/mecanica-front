@@ -56,7 +56,7 @@ const Navbar = () => {
         ) : (
           <>
             {" "}
-            <NavLink
+            <Link
               to="/"
               activeClass="active"
               smooth="true"
@@ -65,8 +65,8 @@ const Navbar = () => {
               activeStyle={{ color: "red" }}
             >
               <h3 className={style.linksH3}>Home</h3>{" "}
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="historia"
               activeClass="active"
               smooth="true"
@@ -76,7 +76,7 @@ const Navbar = () => {
             >
               {" "}
               <h3 className={style.linksH3}>Historia</h3>{" "}
-            </NavLink>
+            </Link>
             <Link
               to="servicios"
               activeClass="active"
