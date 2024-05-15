@@ -1,21 +1,23 @@
 import { Router } from "express";
-import catProv from '../Handlers/providerHandler/index.js'
+import catProv from '../Handlers/providerHandler/index.js';
 
 const providerRoutes = Router();
 
-//todas las rutas GET, POST... para Proveedores y sus categorías
+//todas las rutas GET, POST... para Proveedores y sus categorías:
 
-//!Rutas para las Categorías de Provider
+//!Rutas para las Categorías de Provider:
 providerRoutes.post("/catprovider", catProv.postCategoryProvider); //crea una categoría para Proveedores, devuelve todas las categorías ordenadas según query http://localhost:3001/postcategoryprovider?order=DESC
 providerRoutes.get("/catprovider", catProv.getCategoryProvider); //todas las categorías de proveedores, puede recibir query para ordenar por descCategory. http://localhost:3001/categoryprovider?order=DESC
 providerRoutes.get("/catprovider/:id", catProv.getCategoryProviderById); //categoría de proveedores según id
 providerRoutes.patch("/catprovider/:id", catProv.updateCategoryProvider); //actualiza nombre de categoría. Recibe el id por params, order por query (devuelve todas las categorias) y nameCategoryProvider por body. http://localhost:3001/updatecategoryprovider/4?order=DESC
 providerRoutes.delete("/catprovider/:id", catProv.deleteCategoryProvider); //ídem PATCH pero sin body
 
-//!Rutas para los Provider (Proveedores)
+
+//!Rutas para los Provider (Proveedores):
 providerRoutes.get("/providers", catProv.getProvider); //pueden usarse queries, ver en el handler
 providerRoutes.get("/providers/:id", catProv.getProviderById); //proveedor por id  http://localhost:3001/providerbyid/2
 providerRoutes.post("/providers", catProv.postProvider); //crea un proveedor y lo devuelve
 providerRoutes.delete("/providers/:id", catProv.deleteProvider); //elimina un proveedor y devuelve todos los restantes
-providerRoutes.patch("/providers/:id", catProv.updateProvider); //actualiza un proveedor y lo devuelve
+providerRoutes.put("/providers/:id", catProv.updateProvider); //actualiza un proveedor y lo devuelve
+
 export default providerRoutes;
