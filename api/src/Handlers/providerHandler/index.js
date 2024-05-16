@@ -19,5 +19,5 @@ export default {
     postCategoryProvider,
     postProvider,
     updateCategoryProvider,
-    updateProvider
+    updateProvider,
 }

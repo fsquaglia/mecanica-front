@@ -1,12 +1,11 @@
-import {userLogin, userCreate}from '../../Controllers/userControllers/userLogin.js'
-import compare from '../../Controllers/userControllers/compare.js'
+import us from '../../Controllers/userControllers/index.js'
 
 
 export default {
  userLogHand : async (req, res)=>{
     const {email, password}=req.body;
     try {
-       const response = await userLogin(email, password)
+       const response = await us.userLogin(email, password)
        res.status(200).json(response) 
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -16,7 +15,7 @@ export default {
  userCreateHand : async (req, res)=>{
     const {email, name, typeId, numberId, country}=req.body;
     try {
-       const response = await userCreate(email, name, typeId, numberId, country)
+       const response = await us.userCreate(email, name, typeId, numberId, country)
        res.status(201).json(response) 
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -26,7 +25,7 @@ export default {
  userPassHand : async (req, res)=>{
     const {id, password}= req.body;
     try {
-        const response = await compare(id, password);
+        const response = await us.compare(id, password);
         res.status(200).json(response);
     } catch (error) {
         res.status(404).json({error:error.message})

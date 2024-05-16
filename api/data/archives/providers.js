@@ -6,8 +6,10 @@ const providers = [
     ciudad: "Rosario",
     telefono: "5434100000",
     email: "idrogeno@idgn.com",
+    otro: "",
+    img: "",
     idProvince: 21,
-    idCategory: 1,
+    categories: [1],
   },
   {
     razonsocial: "Batuk algo SA",
@@ -17,8 +19,10 @@ const providers = [
     ciudad: "CABA",
     telefono: "5411000000",
     email: "batuk@batuk.com",
+    otro: "",
+    img: "",
     idProvince: 2,
-    idCategory: 2,
+    categories: [2],
   },
   {
     razonsocial: "Razón social 3",
@@ -28,8 +32,10 @@ const providers = [
     ciudad: "CABA",
     telefono: "5411000000",
     email: "batuk@batuk.com",
+    otro: "",
+    img: "",
     idProvince: 2,
-    idCategory: 2,
+    categories: [2],
   },
 ];
 export default providers;
