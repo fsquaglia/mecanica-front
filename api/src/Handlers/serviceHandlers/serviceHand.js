@@ -1,6 +1,8 @@
 import {createService, getService, getServiceByQuery, serviceById, updateService, deleteService} from '../../Controllers/serviceControllers/index.js'
 
-const createServiceHand = async (req, res)=>{
+export default {
+
+ createServiceHand : async (req, res)=>{
     const {type, detail, date_in, date_out, observations, picture, carId}= req.body;
     try {
        const response = await createService(type, detail, date_in, date_out, observations, picture, carId)
@@ -8,10 +10,10 @@ const createServiceHand = async (req, res)=>{
     } catch (error) {
         res.status(400).json({error: error.message})
     }
-}
+},
 //=====================================================
 
-const getServiceHand = async (req, res)=>{
+ getServiceHand : async (req, res)=>{
     const {search}=req.query;
     try {
         if(search){
@@ -24,12 +26,12 @@ const getServiceHand = async (req, res)=>{
     } catch (error) {
         res.status(400).json({error: error.message})
     }
-}
+},
 
 //================================================================
 
 
-const getServiceIdHand = async (req, res)=>{
+ getServiceIdHand : async (req, res)=>{
     const {id} = req.params;
     try {
        const response = await serviceById(id)
@@ -37,11 +39,11 @@ const getServiceIdHand = async (req, res)=>{
     } catch (error) {
         res.status(400).json({error: error.message})
     }
-}
+},
 
 //=====================================================================
 
-const updateServiceHand = async (req, res)=>{
+ updateServiceHand : async (req, res)=>{
     const {id} = req.params;
     const newData = req.body;
     try {
@@ -50,11 +52,12 @@ const updateServiceHand = async (req, res)=>{
     } catch (error) {
         res.status(400).json({error: error.message})
     }
-}
+},
+
 
 //==============================================================
 
-const delServiceHand = async (req, res)=>{
+ delServiceHand : async (req, res)=>{
     const {id} = req.params;
     try {
        const response = await deleteService(id)
@@ -62,14 +65,5 @@ const delServiceHand = async (req, res)=>{
     } catch (error) {
         res.status(400).json({error: error.message})
     }
-}
-
-
-export { 
-    createServiceHand, 
-    getServiceHand, 
-    getServiceIdHand, 
-    updateServiceHand, 
-    delServiceHand, 
-  
+},
 };
