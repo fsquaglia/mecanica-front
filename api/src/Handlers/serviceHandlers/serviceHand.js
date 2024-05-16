@@ -1,11 +1,11 @@
-import {createService, getService, getServiceByQuery, serviceById, updateService, deleteService} from '../../Controllers/serviceControllers/index.js'
+import serv from '../../Controllers/serviceControllers/index.js'
 
 export default {
 
  createServiceHand : async (req, res)=>{
     const {type, detail, date_in, date_out, observations, picture, carId}= req.body;
     try {
-       const response = await createService(type, detail, date_in, date_out, observations, picture, carId)
+       const response = await serv.createService(type, detail, date_in, date_out, observations, picture, carId)
        res.status(201).json(response) 
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -17,10 +17,10 @@ export default {
     const {search}=req.query;
     try {
         if(search){
-            const response = await getServiceByQuery(search)
+            const response = await serv.getServiceByQuery(search)
             res.status(200).json(response) 
         }else{
-       const response = await getService()
+       const response = await serv.getService()
        res.status(200).json(response) 
        }
     } catch (error) {
@@ -34,7 +34,7 @@ export default {
  getServiceIdHand : async (req, res)=>{
     const {id} = req.params;
     try {
-       const response = await serviceById(id)
+       const response = await serv.serviceById(id)
        res.status(200).json(response) 
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -47,7 +47,7 @@ export default {
     const {id} = req.params;
     const newData = req.body;
     try {
-       const response = await updateService(id, newData)
+       const response = await serv.updateService(id, newData)
        res.status(200).json(response) 
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -60,7 +60,7 @@ export default {
  delServiceHand : async (req, res)=>{
     const {id} = req.params;
     try {
-       const response = await deleteService(id)
+       const response = await serv.deleteService(id)
        res.status(200).json(response) 
     } catch (error) {
         res.status(400).json({error: error.message})

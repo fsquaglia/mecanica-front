@@ -1,5 +1,6 @@
 import { Provider, CategoryProvider, Province } from "../../db.js";
 import { Op } from "sequelize";
+import parseProvider from "./helpers/parseProviders.js";
 
 const getProviderById = async (req, res) => {
   const { id } = req.params;
@@ -16,7 +17,8 @@ const getProviderById = async (req, res) => {
       ],
     });
 
-    res.status(200).json(data);
+    const cleanData = parseProvider(data, false)
+    res.status(200).json(cleanData);
   } catch (error) {
     res.status(400).json({ error: "Error al obtener los Proveedores" });
   }
