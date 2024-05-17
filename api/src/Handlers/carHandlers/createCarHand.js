@@ -6,7 +6,7 @@ const createCarHand = async (req, res)=>{
        const response = await car.createCar(idUser, patent, mark, model, year, motorNum, chassisNum, observations, picture)
        res.status(201).json(response) 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 }
 

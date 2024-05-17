@@ -1,6 +1,7 @@
 import car from '../../Controllers/carControllers/index.js'
 
 
+
 const getCarHand = async (req, res)=>{
     const {patent}= req.query;
     try {
@@ -13,7 +14,7 @@ const getCarHand = async (req, res)=>{
         }
        
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 }
 const getCarByIdHand = async (req, res)=>{
@@ -22,7 +23,7 @@ const getCarByIdHand = async (req, res)=>{
        const response = await car.carById(id)
        res.status(200).json(response) 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 }
 

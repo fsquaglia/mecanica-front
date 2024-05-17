@@ -8,7 +8,7 @@ export default {
        const response = await serv.createService(type, detail, date_in, date_out, observations, picture, carId)
        res.status(201).json(response) 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 },
 //=====================================================
@@ -24,7 +24,7 @@ export default {
        res.status(200).json(response) 
        }
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 },
 
@@ -37,7 +37,7 @@ export default {
        const response = await serv.serviceById(id)
        res.status(200).json(response) 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 },
 
@@ -50,7 +50,7 @@ export default {
        const response = await serv.updateService(id, newData)
        res.status(200).json(response) 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 },
 
@@ -63,7 +63,7 @@ export default {
        const response = await serv.deleteService(id)
        res.status(200).json(response) 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 },
 };
