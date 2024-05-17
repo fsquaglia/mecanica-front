@@ -8,7 +8,7 @@ export default {
        const response = await us.userLogin(email, password)
        res.status(200).json(response) 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 },
 
@@ -18,7 +18,7 @@ export default {
        const response = await us.userCreate(email, name, typeId, numberId, country)
        res.status(201).json(response) 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
     }
 },
 

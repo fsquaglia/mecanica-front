@@ -34,7 +34,7 @@ const getByQuery = async(patent)=>{
                  }]
         });
         const data = response;
-        if(!data){throw new Error('Car not found')};
+        if(!data){const error = new Error('Car not found'); error.status= 500; throw error;};
         return data;
     } catch (error) {
         throw error;
@@ -56,7 +56,7 @@ const carById = async (id)=>{
                  }]
         });
         const data = response;
-        if(!data){throw new Error('Car not found!')}
+        if(!data){const error = new Error('Car not found!'); error.status = 500; throw error;}
         return data;
     } catch (error) {
         throw error;

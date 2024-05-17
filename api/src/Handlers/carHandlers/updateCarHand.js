@@ -1,5 +1,6 @@
 import car from '../../Controllers/carControllers/index.js'
 
+
 const updateCarHand = async (req, res)=>{
     const {id} = req.params;
     const newData = req.body;
@@ -18,7 +19,7 @@ const updDomCarHand = async (req, res) => {
         const response = await car.updateDomCar(id, body)
         res.status(200).json(response) 
      } catch (error) {
-         res.status(400).json({error: error.message})
+        res.status(error.status).json({error:error.message})
      }
 }
 
