@@ -26,6 +26,7 @@ export const STATE_FILTER_TIPS = "STATE_FILTER_TIPS";
 export const OPTION_FILTER = "OPTION_FILTER";
 export const SEARCH_TIPS = "SEARCH_TIPS";
 export const ALL_PROVIDERS = "ALL_PROVIDERS";
+export const ALL_CatProvider = "ALL_CatProvider";
 
 //%%%%%%%%%%% Providers %%%%%%%%%%%%%%%%%%%%%%%%%%
 export const getAllProviders = () => {
@@ -42,6 +43,46 @@ export const getAllProviders = () => {
         icon: "error",
         title: "Oops...",
         text: "No pudimos mostrar los Proveedores",
+        //footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
+  };
+};
+
+export const getCategoryProviders = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios("/catprovider?order=ASC");
+      return dispatch({
+        type: ALL_CatProvider,
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener las categorías");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "No pudimos mostrar las categorías",
+        //footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
+  };
+};
+//! estoy aqui
+export const deleteCategoryProviders = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete("/catprovider/" + id);
+      return dispatch({
+        type: ALL_CatProvider,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.error,
         //footer: '<a href="#">Why do I have this issue?</a>',
       });
     }

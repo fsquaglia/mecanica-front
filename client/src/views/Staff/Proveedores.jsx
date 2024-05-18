@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProviders } from "../../redux/actions";
+import {
+  deleteCategoryProviders,
+  getAllProviders,
+  getCategoryProviders,
+} from "../../redux/actions";
 import DivInput from "../../components/GenericButton/DivInput";
 
 const DivProvider = ({ provider, handleModalDetailShow }) => {
@@ -229,9 +233,21 @@ const ModalDetail = ({ handleModalDetailHide, providerDetail }) => {
                 height="small"
                 disabled={divInputDisabled}
               />
+              <DivInput
+                labelText={"Categoría"}
+                name={"CategoryProviders"}
+                value={
+                  providerDetail.CategoryProviders
+                    ? providerDetail.CategoryProviders.map(
+                        (category) => category.descCategory
+                      ).join(", ")
+                    : ""
+                }
+                height="small"
+                disabled={divInputDisabled}
+              />
             </div>
           </div>
-
           {/*Botones inferiores del modal */}
           <div>
             {editMode === "edit" ? (
@@ -269,6 +285,8 @@ const ModalDetail = ({ handleModalDetailHide, providerDetail }) => {
 
 const Proveedores = () => {
   const allProviders = useSelector((state) => state.allProviders);
+  const allCatProviders = useSelector((state) => state.allCatProviders);
+
   const dispatch = useDispatch();
   const [orderRazon, setOrderRazon] = useState(true);
   const [orderFantasia, setOrderFantasia] = useState(true);
@@ -277,6 +295,7 @@ const Proveedores = () => {
   const [modalDetailShow, SetModalDetailShow] = useState(false);
   //almacenamos el Proveedor a mostrar en el Modal
   const [providerDetail, setProviderDetail] = useState();
+  const [modalCategories, setModalCategories] = useState(false);
 
   //estado para los términos de búsqueda, filtrado reactivo
   const [searchTerm, setSearchTerm] = useState("");
@@ -284,6 +303,7 @@ const Proveedores = () => {
   useEffect(() => {
     const loadData = async () => {
       await dispatch(getAllProviders());
+      await dispatch(getCategoryProviders());
     };
 
     loadData();
@@ -348,6 +368,14 @@ const Proveedores = () => {
     setProviders(filteredArray);
   };
 
+  //handle para cerrar el Modal
+  const handleOnClose = () => {
+    setModalCategories(false);
+  };
+  //handle para mostrar el Modal de Edit Categorías
+  const handleClicModalCategories = () => {
+    setModalCategories(true);
+  };
   return (
     <>
       <div
@@ -363,7 +391,7 @@ const Proveedores = () => {
             <div className="input-group my-3">
               <input
                 type="text"
-                className="form-control"
+                className="form-control border-end-0"
                 placeholder="Buscar..."
                 value={searchTerm}
                 onChange={(event) => {
@@ -371,12 +399,17 @@ const Proveedores = () => {
                 }}
               />
               <button
-                className="btn btn-outline-secondary "
+                className="btn btn-outline-secondary border border-start-0"
                 type="button"
                 id="clearButton"
+                onClick={() => {
+                  setSearchTerm("");
+                  handleSearch("");
+                }}
               >
                 &times;
               </button>
+
               <div className="input-group-prepend">
                 <span
                   className="input-group-text"
@@ -396,37 +429,37 @@ const Proveedores = () => {
                     <i
                       className="bi bi-pencil fs-6"
                       style={{ cursor: "pointer" }}
-                      // onClick={handleClicModalCategories}
+                      onClick={handleClicModalCategories}
                     ></i>
                   </b>
                 </p>
               </div>
               {/*Categorias map*/}
-              {/* {catUniques?.map((cat, index) => (
-              <div key={index} className="d-flex ">
-                <div className="form-check ">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id={cat}
-                    checked={categorySelected.some(
-                      (element) => element === cat
-                    )}
-                    onChange={(event) =>
-                      setCategorySelected((prevSelected) =>
-                        event.target.checked
-                          ? [...prevSelected, cat]
-                          : prevSelected.filter((category) => category !== cat)
-                      )
-                    }
-                  ></input>
-                  <label className="form-check-label" htmlFor={cat}>
-                    {cat}
-                  </label>
+              {allCatProviders?.map((cat, index) => (
+                <div key={index} className="d-flex ">
+                  <div className="form-check ">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id={cat.descCategory}
+                      // checked={categorySelected.some(
+                      //   (element) => element === cat
+                      // )}
+                      // onChange={(event) =>
+                      //   setCategorySelected((prevSelected) =>
+                      //     event.target.checked
+                      //       ? [...prevSelected, cat]
+                      //       : prevSelected.filter((category) => category !== cat)
+                      //   )
+                      // }
+                    ></input>
+                    <label className="form-check-label" htmlFor={cat}>
+                      {cat.descCategory}
+                    </label>
+                  </div>
                 </div>
-              </div>
-            ))} */}
+              ))}
             </div>
           </div>
           {/*Div derecho para datos */}
@@ -485,8 +518,246 @@ const Proveedores = () => {
           />
         )}
       </div>
+      <div>
+        {modalCategories ? (
+          <EditCategories
+            onClose={handleOnClose}
+            allCategories={allCatProviders}
+          />
+        ) : null}
+      </div>
     </>
   );
 };
 
 export default Proveedores;
+
+//! EDIT CATEGORIES
+function EditCategories({ onClose, allCategories }) {
+  const [editingCategories, setEditingCategories] = useState([]);
+  const [nameCat, setNameCat] = useState({});
+  const [newCateg, setNewCateg] = useState("");
+  const dispatch = useDispatch();
+  //const [errors, setErrors] = useState({});
+
+  //handle Salir del Modal
+  const handleOnClose = async () => {
+    onClose();
+  };
+
+  const handleChange = (id, name, value) => {
+    setNameCat((prevNameCat) => ({ ...prevNameCat, [name]: value }));
+
+    if (name === "newCategory") {
+      setNewCateg(value);
+      //setErrors(validationsCategories({ ...nameCat, [name]: value }));
+    } else {
+      //setErrors(validationsCategories({ ...nameCat, [name]: value }));
+    }
+  };
+  const handleEdit = (id, name) => {
+    // Agrega el ID a la lista de categorías en modo de edición
+    setEditingCategories((prevEditingCategories) => [
+      ...prevEditingCategories,
+      id,
+    ]);
+  };
+
+  const handleCancelEdit = (id) => {
+    // Remueve el ID de la lista de categorías en modo de edición
+    setEditingCategories((prevEditingCategories) =>
+      prevEditingCategories.filter((categoryId) => categoryId !== id)
+    );
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteCategoryProviders(id));
+  };
+
+  const handleGuardar = async (id, newCateg) => {
+    if (newCateg) {
+      await dispatch(postNewCategoryTips(newCateg));
+
+      // Limpiar el input y reiniciar el estado de errores
+      setNewCateg("");
+      //setErrors({});
+    } else {
+      alert("Debes ingresar un nombre para la categoría.");
+    }
+  };
+
+  const handleSaveEdit = async (id, name) => {
+    // Aquí puedes implementar la lógica para guardar la edición
+    // Por ejemplo, puedes llamar a tu acción de Redux updateType
+    // y luego remover la categoría de la lista de edición
+    await dispatch(updateCategoryTips(id, { nameCategoryPost: name }));
+    await dispatch(getAllCategoryTips());
+    await dispatch(getAllTipsFull());
+    // Remueve el ID de la lista de categorías en modo de edición
+    setEditingCategories((prevEditingCategories) =>
+      prevEditingCategories.filter((categoryId) => categoryId !== id)
+    );
+  };
+  return (
+    <div className="modal" tabindex="-1">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Categorías</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={handleOnClose}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Detalle</th>
+                  <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allCategories.map((type) => (
+                  <tr key={type.idCategory}>
+                    <td>{type.idCategory}</td>
+                    <td>
+                      {editingCategories.includes(type.idCategory) ? (
+                        <input
+                          type="text"
+                          name={type.descCategory}
+                          id={type.idCategory}
+                          value={
+                            nameCat[type.descCategory] !== undefined
+                              ? nameCat[type.descCategory]
+                              : type.descCategory
+                          }
+                          onChange={(e) =>
+                            handleChange(
+                              type.idCategory,
+                              type.descCategory,
+                              e.target.value
+                            )
+                          }
+                          maxLength={20}
+                        />
+                      ) : (
+                        <div className="d-flex justify-content-start">
+                          <span>{type.descCategory}</span>
+                        </div>
+                      )}
+                    </td>
+
+                    <td>
+                      {editingCategories.includes(type.idCategory) ? (
+                        <>
+                          <i //disabled={!!errors[type.descCategory]}
+                            style={{ cursor: "pointer", margin: "10px" }}
+                            onClick={
+                              nameCat[type.descCategory] === "" ||
+                              allCategories.some(
+                                (cat) =>
+                                  cat.descCategory ===
+                                  nameCat[type.descCategory]
+                              )
+                                ? null
+                                : () =>
+                                    handleSaveEdit(
+                                      type.idCategory,
+                                      nameCat[type.descCategory]
+                                    )
+                            }
+                            className="bi bi-floppy fs-5"
+                          ></i>
+                          <i
+                            className="bi bi-x-square fs-5"
+                            onClick={() => handleCancelEdit(type.idCategory)}
+                            style={{ cursor: "pointer" }}
+                          ></i>
+                        </>
+                      ) : (
+                        <i
+                          className="bi bi-pencil"
+                          style={{ cursor: "pointer" }}
+                          onClick={() =>
+                            handleEdit(type.idCategory, type.descCategory)
+                          }
+                        ></i>
+                      )}
+                    </td>
+                    <td>
+                      <i
+                        className="bi bi-trash3 fs-5 mx-2 text-danger"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleDelete(type.idCategory)}
+                      ></i>
+                    </td>
+                    <td>{/* <span> {errors[type.name]}</span> */}</td>
+                  </tr>
+                ))}
+                <tr></tr>
+                <tr>
+                  <td>
+                    <i className="bi bi-plus-circle fs-5"></i>
+                  </td>
+                  <td>
+                    <input
+                      style={{
+                        color: allCategories.some(
+                          (cat) => cat.descCategory === newCateg
+                        )
+                          ? "red"
+                          : "initial",
+                      }}
+                      type="text"
+                      id="newCategory"
+                      name="newCategory"
+                      value={newCateg}
+                      onChange={(e) =>
+                        handleChange(e.target.id, e.target.name, e.target.value)
+                      }
+                      placeholder="Nueva categoría"
+                      maxLength={20}
+                    />
+                  </td>
+                  <td>
+                    <i
+                      className="bi bi-floppy fs-5"
+                      onClick={() => handleGuardar(null, newCateg)}
+                      style={{ cursor: "pointer" }}
+                      hidden={
+                        newCateg.length < 3 ||
+                        allCategories.some(
+                          (cat) => cat.descCategory === newCateg
+                        )
+                      }
+                      // disabled={!!errors.newCategory || newCateg.trim() === ""}
+                    ></i>
+                  </td>
+                  {/* <td> {errors.newCategory}</td> */}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="modal-footer">
+            {/* <button type="button" className="btn btn-primary">
+              Save changes
+            </button> */}
+            <button
+              type="button"
+              className="btn btn-secondary"
+              data-bs-dismiss="modal"
+              onClick={handleOnClose}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

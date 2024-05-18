@@ -22,6 +22,7 @@ import {
   OPTION_FILTER,
   SEARCH_TIPS,
   ALL_PROVIDERS,
+  ALL_CatProvider,
 } from "./actions";
 
 const initialState = {
@@ -51,6 +52,7 @@ const initialState = {
   optionFilter: { category: "Todos", order: "nameAsc" },
   tipsSearch: [],
   allProviders: [],
+  allCatProviders: [],
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -60,6 +62,11 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allProviders: payload,
+      };
+    case ALL_CatProvider:
+      return {
+        ...state,
+        allCatProviders: payload,
       };
     //&&&&&&& End Providers - Proveedores &&&&&&
     case LOGIN_USER:
