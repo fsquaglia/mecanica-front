@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 2em;
-    margin-left: 2em;
+    margin-left: 5em;
     border: 1px solid #332F2A;
     border-radius: 5px;
 
@@ -51,7 +51,7 @@
 }
 
 .headerImg {
-    width: 80%;
+    width: 93%;
     height: auto;
     object-fit: cover;
     object-position: center;
@@ -114,8 +114,9 @@
         width: 90%;
         padding-left: 0.5em;
         margin-top: 0em;
-        padding-bottom: 1em;
+        padding-bottom: 2em;
         padding-left: 1.5em;
+
     }
 
     .h3Title {
@@ -169,9 +170,10 @@
 .secondDivModal {
     margin-top: 5em;
     padding: none;
-    width: 70%;
+    width: 55%;
     max-width: none;
     max-height: none;
+
 
 }
 
@@ -179,21 +181,22 @@
     max-width: none;
     width: 100%;
     max-height: none;
-    height: 70vh;
+    height: 63vh;
 }
 
 /* ////////////ADENTRO DEL MODAL */
 .divBodyModal {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 5% 20% 70% 5%;
+    grid-template-rows: 5% 10% 80% 5%;
+
 
 }
 
 .h2Modal {
     grid-row-start: 2;
     grid-column: 2;
-    font-size: 2.5rem;
+    font-size: 1.7rem;
 }
 
 .imgModal {
@@ -209,11 +212,14 @@
 }
 
 .pModal {
-    grid-row-start: 3;
+    grid-row: 3 / span 2;
     grid-column-start: 2;
-    font-size: 2em;
+
+    font-size: 1.5em;
     margin-right: 1em;
     text-align: justify;
+    overflow-y: auto;
+    padding-right: 1em;
 }
 
 .divButton {
@@ -267,9 +273,30 @@
         display: flex;
         flex-direction: column;
         padding: none;
+        overflow-y: auto;
     }
 
     .divContentModal {
         padding: none;
+    }
+
+    .imgModal {
+        width: 80%;
+        height: auto;
+        display: none;
+    }
+
+    .divButton {
+        width: 99%;
+    }
+
+    .pModal {
+        font-size: 1.3em;
+
+    }
+
+    .h2Modal {
+        font-size: 1.7em;
+        margin-bottom: 1em;
     }
 }
